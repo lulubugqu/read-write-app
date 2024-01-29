@@ -11,7 +11,7 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 ### Students
 
 * Rebecca Chu, chu00106@umn.edu
-* ...
+* Asanti Bekele, bekel040@umn.edu
 
 
 ## Key Features
