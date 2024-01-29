@@ -4,13 +4,13 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 
 ## App Info:
 
-* Team Name: TODO
-* App Name: TODO
+* Team Name: The Turtles
+* App Name: Turtle Tales
 * App Link: <https://TODO.com/>
 
 ### Students
 
-* First Last, x500@umn.edu
+* Rebecca Chu, chu00106@umn.edu
 * ...
 
 
