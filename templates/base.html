@@ -1,0 +1,22 @@
+{# templates/base.html #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link id="style" rel="stylesheet" href="static/css/style.css">
+    {% block page_script %}{% endblock %}
+</head>
+<body>
+    <div id="header">
+        {% block header %} {% endblock %}
+    </div>
+    <div id="page_content">
+        {% block page_content %}{% endblock %}
+    </div>
+    <div id="footers">
+        {% block footer %} {% endblock %}
+    </div>
+</body>
+</html>
