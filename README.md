@@ -11,8 +11,12 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 ### Students
 
 * Rebecca Chu, chu00106@umn.edu
+<<<<<<< HEAD
 * Asanti Bekele, bekel040@umn.edu
 * Shriya Chilecampalli, chile019@umn.edu
+=======
+* Shivali Mukherji, mukhe105@umn.edu
+>>>>>>> 7593731 (adding my name - shivali)
 
 
 ## Key Features
