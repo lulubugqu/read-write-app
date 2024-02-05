@@ -14,6 +14,7 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 * Asanti Bekele, bekel040@umn.edu
 * Shriya Chilecampalli, chile019@umn.edu
 * Shivali Mukherji, mukhe105@umn.edu
+* Megan Price, price853@umn.edu
 
 
 ## Key Features
@@ -36,6 +37,7 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 along with a very brief caption:**
 
 ![](https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif)
+![Alt text](/lowfidelitymocks/Reading Page.png?raw=true "Optional Title")
 
 
 ## Mock-up 
@@ -47,6 +49,7 @@ In this space please either provide images (around 4) showing your prototypes, O
 **[Add images/photos that show your paper prototype (around 4)](https://stackoverflow.com/questions/10189356/how-to-add-screenshot-to-readmes-in-github-repository) along with a very brief caption:**
 
 ![](https://media.giphy.com/media/26ufnwz3wDUli7GU0/giphy.gif)
+![Alt text](/lowfidelitymocks/Home.png?raw=true "Home Page")
 
 
 ## External Dependencies
