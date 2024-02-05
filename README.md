@@ -33,10 +33,6 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 
 ## Screenshots of Site
 
-**[Add a screenshot of each key page (around 4)](https://stackoverflow.com/questions/10189356/how-to-add-screenshot-to-readmes-in-github-repository)
-along with a very brief caption:**
-
-![](https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif)
 <img src="/lowfidelitymocks/Home.png" alt="Home Page" width="200">
 <img src="/lowfidelitymocks/Reading.png" alt="Home Page" width="200">
 <img src="/lowfidelitymocks/Search.png" alt="Home Page" width="200">
