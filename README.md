@@ -46,7 +46,6 @@ along with a very brief caption:**
     <img src="/lowfidelitymocks/Search.png" alt="Search Page" width="300">
     <img src="/lowfidelitymocks/UserProfile.png" alt="User Profile Page" width="300">
     <img src="/lowfidelitymocks/LogIn.png" alt="Log In Page" width="300">
-    <img src="/lowfidelitymocks/CreateChapter.png" alt="Create Chapter Page" width="300">
 </div>
 Here are some of the core pages of the website. To view all 12 pages, you can go to the lowfidelitymocks folder. 
 
