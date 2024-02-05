@@ -33,12 +33,14 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 
 ## Screenshots of Site
 
-<img src="/lowfidelitymocks/Home.png" alt="Home Page" width="200">
-<img src="/lowfidelitymocks/Reading.png" alt="Home Page" width="200">
-<img src="/lowfidelitymocks/Search.png" alt="Home Page" width="200">
-<img src="/lowfidelitymocks/UserProfile.png" alt="Home Page" width="200">
-<img src="/lowfidelitymocks/LogIn.png" alt="Home Page" width="200">
-<img src="/lowfidelitymocks/CreateChapter.png" alt="Home Page" width="200">
+<div style="display:flex; flex-wrap:wrap;">
+    <img src="/lowfidelitymocks/Home.png" alt="Home Page" width="300">
+    <img src="/lowfidelitymocks/Reading.png" alt="Reading Page" width="300">
+    <img src="/lowfidelitymocks/Search.png" alt="Search Page" width="300">
+    <img src="/lowfidelitymocks/UserProfile.png" alt="User Profile Page" width="300">
+    <img src="/lowfidelitymocks/LogIn.png" alt="Log In Page" width="300">
+    <img src="/lowfidelitymocks/CreateChapter.png" alt="Create Chapter Page" width="300">
+</div>
 Here are some of the core pages of the website. To view all 12 pages, you can go to the lowfidelitymocks folder. 
 
 
