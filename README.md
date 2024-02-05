@@ -30,8 +30,15 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 
 * ...
 
-
 ## Screenshots of Site
+
+**[Add a screenshot of each key page (around 4)](https://stackoverflow.com/questions/10189356/how-to-add-screenshot-to-readmes-in-github-repository)
+along with a very brief caption:**
+
+![](https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif)
+
+
+## Mock-up 
 
 <div style="display:flex; flex-wrap:wrap;">
     <img src="/lowfidelitymocks/Home.png" alt="Home Page" width="300">
@@ -42,17 +49,6 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
     <img src="/lowfidelitymocks/CreateChapter.png" alt="Create Chapter Page" width="300">
 </div>
 Here are some of the core pages of the website. To view all 12 pages, you can go to the lowfidelitymocks folder. 
-
-
-## Mock-up 
-
-There are a few tools for mock-ups. Paper prototypes (low-tech, but effective and cheap), Digital picture edition software (gimp / photoshop / etc.), or dedicated tools like moqups.com (I'm calling out moqups here in particular since it seems to strike the best balance between "easy-to-use" and "wants your money" -- the free teir isn't perfect, but it should be sufficient for our needs with a little "creative layout" to get around the page-limit)
-
-In this space please either provide images (around 4) showing your prototypes, OR, a link to an online hosted mock-up tool like moqups.com
-
-**[Add images/photos that show your paper prototype (around 4)](https://stackoverflow.com/questions/10189356/how-to-add-screenshot-to-readmes-in-github-repository) along with a very brief caption:**
-
-![](https://media.giphy.com/media/26ufnwz3wDUli7GU0/giphy.gif)
 
 
 ## External Dependencies
