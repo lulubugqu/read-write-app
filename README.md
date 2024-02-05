@@ -37,7 +37,13 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 along with a very brief caption:**
 
 ![](https://media.giphy.com/media/o0vwzuFwCGAFO/giphy.gif)
-![Alt text](/lowfidelitymocks/Reading Page.png?raw=true "Optional Title")
+<img src="/lowfidelitymocks/Home.png" alt="Home Page" width="200">
+<img src="/lowfidelitymocks/Reading.png" alt="Home Page" width="200">
+<img src="/lowfidelitymocks/Search.png" alt="Home Page" width="200">
+<img src="/lowfidelitymocks/UserProfile.png" alt="Home Page" width="200">
+<img src="/lowfidelitymocks/LogIn.png" alt="Home Page" width="200">
+<img src="/lowfidelitymocks/CreateChapter.png" alt="Home Page" width="200">
+Here are some of the core pages of the website. To view all 12 pages, you can go to the lowfidelitymocks folder. 
 
 
 ## Mock-up 
@@ -49,7 +55,6 @@ In this space please either provide images (around 4) showing your prototypes, O
 **[Add images/photos that show your paper prototype (around 4)](https://stackoverflow.com/questions/10189356/how-to-add-screenshot-to-readmes-in-github-repository) along with a very brief caption:**
 
 ![](https://media.giphy.com/media/26ufnwz3wDUli7GU0/giphy.gif)
-![Alt text](/lowfidelitymocks/Home.png?raw=true "Home Page")
 
 
 ## External Dependencies
