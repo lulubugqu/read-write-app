@@ -10,15 +10,23 @@
 {% endblock %}
 {% block page_content %}
 <div class="buttonDiv">
-    <a href="/login">
-      <button class="button-login">Login</button>
-    </a>
-    <a href="/signup">
-        <button class="button-signup">Sign Up</button>
-    </a>
-    <a href="/home">
-        <button class="button-guest">Continue as Guest</button>
-    </a>
+    <div id=launch_button>
+        <a href="/login">
+        <button class="button-login">Login</button>
+        </a>
+    </div>
+
+    <div id=launch_button>
+        <a href="/signup">
+            <button class="button-signup">Sign Up</button>
+        </a>
+    </div>
+
+    <div id=launch_button>
+        <a href="/home">
+            <button class="button-guest">Continue as Guest</button>
+        </a>
+    </div>
 </div>
 {% endblock %}
 {% block footer %}{% endblock %}
