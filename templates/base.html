@@ -6,9 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{% endblock %}</title>
     <link id="style" rel="stylesheet" href="static/css/style.css">
-    {% block page_script %}{% endblock %}
 </head>
-<body>
+{% block body %}{% endblock %}
     <div id="header">
         {% block header %} {% endblock %}
     </div>
@@ -18,5 +17,6 @@
     <div id="footers">
         {% block footer %} {% endblock %}
     </div>
+    {% block page_script %}{% endblock %}
 </body>
 </html>

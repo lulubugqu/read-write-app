@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
+
+/* for all pages */
+.launch {
+    font-family: 'Titan One', sans-serif;
+}
+
+.launch h1 {
+    color: #484E23;
+    font-size: 5em;
+    text-align: center;
+    margin-bottom: 1%;
+}
+
+.launch img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 3%;
+    width: 50%;
+}
+
+.buttonDiv {
+    margin-top: 5%;
+    text-align: center;
+    display: flex;
+    justify-content: space-around;
+}
+.buttonDiv div {
+    width: 25%;
+}
+/* Button CSS */
+.button-login, .button-signup, .button-guest {
+  appearance: button;
+  background-color: #88ad6d;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: din-round,sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  line-height: 20px;
+  margin: 0;
+  outline: none;
+  overflow: visible;
+  padding: 13px 16px;
+  text-align: center;
+  text-transform: uppercase;
+  touch-action: manipulation;
+  transform: translateZ(0);
+  transition: filter .2s;
+  user-select: none;
+  -webkit-user-select: none;
+  vertical-align: middle;
+  white-space: nowrap;
+  width: 100%;
+}
+
+.button-login:after, .button-signup:after, .button-guest:after {
+  background-clip: padding-box;
+  background-color: #9DC183;
+  border: solid transparent;
+  border-radius: 16px;
+  border-width: 0 0 4px;
+  bottom: -4px;
+  content: "";
+  left: 0;
+  position: absolute;
+  right: 0;
+  top: 0;
+  z-index: -1;
+}
+
+.button-login:main,.button-login:focus, .button-signup:main,.button-signup:focus, .button-guest:main .button-guest:focus {
+  user-select: auto;
+}
+
+.button-login:hover:not(:disabled), .button-signup:hover:not(:disabled), .button-guest:hover:not(:disabled) {
+  filter: brightness(1.1);
+  -webkit-filter: brightness(1.1);
+}
+
+.button-login:disabled, .button-signup:disabled, .button-login:disabled {
+  cursor: auto;
+}
+
+.button-login:active, .button-signup:active, .button-guest:active{
+  border-width: 4px 0 0;
+  background: none;
+}
