@@ -1,0 +1,56 @@
+{# templates/navbase.html #}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}navbase{% endblock %}</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <script src="{{url_for('static', filename='js/navbase.js')}}" defer></script>
+</head>
+{% block body %}
+    <body class="navbase">
+{% endblock %}
+<nav class="nav_wrap">
+    <div class="logo_wrap"> 
+        <img src="{{url_for('static', filename='/images/turtle.png')}}" alt="Turtle Tales Logo" width="75"/>
+    </div>
+
+    <div class="search_wrap">
+        <div class="search">
+            <input type="text" id="searchTerm" class="searchTerm" placeholder="Search..." spellcheck="false">
+            <button type="submit" class="searchButton">
+                <i class="fa fa-search"></i>
+            </button>
+        </div>
+    </div>
+
+    <div class="login_out_wrap">
+        <div id=out_button>
+            <a href="/launch">
+                <button id="button-nav">Logout</button>
+            </a>
+        </div>
+    </div>
+
+    <div class="profile_wrap">
+        <div id=profile_button>
+            <a href="/user">
+                <button id="button-nav">Profile</button>
+            </a>
+        </div>
+    </div>
+</nav>
+    <div id="header">
+        {% block header %} {% endblock %}
+    </div>
+    <div id="page_content">
+        {% block page_content %}{% endblock %}
+    </div>
+    <div id="footer">
+        {% block footer %} {% endblock %}
+    </div>
+    {% block page_script %}{% endblock %}
+</body>
+</html>

@@ -1,36 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
 
-/* for all pages */
-.launch {
-    font-family: 'Titan One', sans-serif;
+/* FOR ALL PAGES */
+.base, .navbase, .launch, .profile {
+  font-family: 'Titan One', sans-serif;
 }
 
 .launch h1 {
-    color: #484E23;
-    font-size: 5em;
-    text-align: center;
-    margin-bottom: 0;
+  color: #484E23;
+  font-size: 5em;
+  text-align: center;
+  margin-bottom: 0;
 }
 
 .launch img {
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    margin-bottom: 3%;
-    width: 50%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 3%;
+  width: 50%;
 }
 
 .buttonDiv {
-    margin-top: 5%;
-    text-align: center;
-    display: flex;
-    justify-content: space-around;
+  margin-top: 5%;
+  text-align: center;
+  display: flex;
+  justify-content: space-around;
 }
 .buttonDiv div {
-    width: 25%;
+  width: 25%;
 }
+
 /* Button CSS */
-.button-login, .button-signup, .button-guest {
+.button-login, .button-signup, .button-guest, #button-nav {
   appearance: button;
   background-color: #88ad6d;
   border: solid transparent;
@@ -61,7 +62,7 @@
   width: 100%;
 }
 
-.button-login:after, .button-signup:after, .button-guest:after {
+.button-login:after, .button-signup:after, .button-guest:after, #button-nav:after {
   background-clip: padding-box;
   background-color: #9DC183;
   border: solid transparent;
@@ -76,20 +77,94 @@
   z-index: -1;
 }
 
-.button-login:main,.button-login:focus, .button-signup:main,.button-signup:focus, .button-guest:main .button-guest:focus {
+.button-login:main,.button-login:focus, .button-signup:main,.button-signup:focus, .button-guest:main .button-guest:focus, #button-nav:focus {
   user-select: auto;
 }
 
-.button-login:hover:not(:disabled), .button-signup:hover:not(:disabled), .button-guest:hover:not(:disabled) {
+.button-login:hover:not(:disabled), .button-signup:hover:not(:disabled), .button-guest:hover:not(:disabled), #button-nav.button-guest:hover:not(:disabled) {
   filter: brightness(1.1);
   -webkit-filter: brightness(1.1);
 }
 
-.button-login:disabled, .button-signup:disabled, .button-login:disabled {
+.button-login:disabled, .button-signup:disabled, .button-login:disabled, #button-nav:disabled {
   cursor: auto;
 }
 
-.button-login:active, .button-signup:active, .button-guest:active{
+.button-login:active, .button-signup:active, .button-guest:active, #button-nav:active{
   border-width: 4px 0 0;
   background: none;
 }
+
+/* NAVBAR IN NAVBASE */
+.nav_wrap {
+  display: flex;
+}
+
+/*Resize the wrap to see the search bar change!*/
+.search_wrap{
+  flex: 75%;
+  width: auto;
+  height: auto;
+  margin-top: 1.5%;
+  /* top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+}
+.logo_wrap {
+  flex: 8%;
+  margin-left: 0.25%;
+  width: auto;
+}
+.profile_wrap {
+  flex: 10%;
+  width: 60%;
+}
+
+.login_out_wrap {
+  flex: 10%;
+  width: 60%; 
+  margin-left: 1.5%;
+  margin-right: 1%;
+}
+
+#profile_button, #out_button {
+  margin-top: 10%;
+}
+
+
+/* search bar */
+.search {
+  width: 100%;
+  position: relative;
+  display: flex;
+}
+
+.searchTerm {
+  font-family: 'Titan One', sans-serif;
+  width: 100%;
+  border: 3px solid #9dc183;
+  border-right: none;
+  padding: 5px;
+  height: 20px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #507337;
+}
+
+.searchTerm:focus{
+  color: #545452;
+}
+
+.searchButton {
+  width: 40px;
+  height: 36px;
+  border: 1px solid #9DC183;
+  background: #9DC183;
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+
