@@ -16,6 +16,7 @@ def db_connection():
         print ("Error while connecting to PostgreSQL", error)
 
 @app.route("/")
+@app.route("/launch")
 def launch():
     return render_template("launch.html")
 
@@ -44,10 +45,16 @@ def getStory(storyId):
     print("getting story")
     # return render_template("story.html")
 
-@app.route("/user/<string:username>")
-def getUser(username):
+@app.route("/user")
+def getUser():
     print("getting user profile")
-    # return render_template("profile.html")
+    return render_template("profile.html")
+
+# FOR ONCE ACCOUNTS ARE ESTABLISHED
+# @app.route("/user/<string:username>")
+# def getUser(username):
+#     print("getting user profile")
+#     return render_template("profile.html")
 
 @app.route("/myworks/new", methods=["POST"])
 def newStory():

@@ -6,7 +6,7 @@
 {% endblock %}
 {% block header %} 
     <h1>Welcome to</h1>
-    <img src="/static/images/logo.png" alt="Turtle Tales Logo" width="700"/>
+    <img src="{{url_for('static', filename='/images/logo.png')}}" alt="Turtle Tales Logo" width="700"/>
 {% endblock %}
 {% block page_content %}
 <div class="buttonDiv">
