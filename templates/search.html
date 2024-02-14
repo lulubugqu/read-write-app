@@ -1,12 +1,12 @@
+{# templates/search1.html #}
 {% extends "navbase.html" %}
-
-{% block title %}Search Page{% endblock %}
-{% block head %}
-    {{ super() }}
-
-    
+{% block title %}Search1{% endblock %}
+{% block body %}
+    <body class="search_page">
 {% endblock %}
-{% block content %}
+
+{% block header %}{% endblock %}
+{% block page_content %}
     <h1>Search Page</h1>
     <div class="search-container"> 
         <div class="left-side"> 
@@ -87,3 +87,5 @@
         </div>
     </div>
 {% endblock %}
+{% block footer %}{% endblock %}
+{% block page_script %}{% endblock %}
