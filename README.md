@@ -14,7 +14,10 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 * Asanti Bekele, bekel040@umn.edu
 * Shriya Chilecampalli, chile019@umn.edu
 * Shivali Mukherji, mukhe105@umn.edu
+<<<<<<< Updated upstream
 * Megan Price, price853@umn.edu
+=======
+>>>>>>> Stashed changes
 
 
 ## Key Features
