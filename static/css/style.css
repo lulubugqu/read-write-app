@@ -7,6 +7,12 @@
   margin: 0px;
 }
 
+.launch {
+  width: 75%;
+  margin: 0 auto;
+}
+
+
 .launch h1 {
   color: #484E23;
   font-size: 5em;
@@ -33,7 +39,17 @@
 }
 
 /* Button CSS */
-.button-login, .button-signup, .button-guest, #button-nav {
+#button-extra {
+  background-color: #88ad6d;
+  border-radius: 10px;
+  border: 0;
+  font-size: 130%;
+  color: white;
+}
+
+
+/* OLD BUTTON CSS - saving because theres a lot going on and I don't want to accientally break something*/
+/* .button-login, .button-signup, .button-guest, #button-nav {
   appearance: button;
   background-color: #88ad6d;
   border: solid transparent;
@@ -95,7 +111,7 @@
 .button-login:active, .button-signup:active, .button-guest:active, #button-nav:active{
   border-width: 4px 0 0;
   background: none;
-}
+} */
 
 /* NAVBAR IN NAVBASE */
 .nav_wrap {
