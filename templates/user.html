@@ -1,0 +1,108 @@
+{# templates/user.html #}
+{% extends "navbase.html" %}
+{% block title %}User{% endblock %}
+{% block body %}
+    <body class="user">
+{% endblock %}
+{% block header %}
+    <div class="info_bar">
+        <div id="bar_user_stats">
+            <div id="stories_count">
+                <h3>5</h3>
+                <h4>Stories</h4>
+            </div>
+        </div>
+        <div id="bar_username">
+            <h2>Firstname Lastname</h2>
+            <h3>@username</h3>
+        </div>
+        <div id="bar_interaction">
+            {% if logged_in == True %}
+                <a href="/editUser">
+                    <button class="button-editUser pure-button" id="button-extra">Edit Profile</button>
+                </a>
+            {% else %}
+                <a href="/followAccount">
+                    <button class="button-followUser pure-button" id="button-extra">Follow</button>
+                </a>
+            {% endif %}
+        </div>     
+    </div>
+{% endblock %}
+
+{% block page_content %}
+    <div class="user_page_top">
+        <div id="profile_left">
+            {% if logged_in == True %}
+                <a id="new_story" href="/myworks/new">
+                    <div id="new_story_div"> 
+                        <div id="plus_box">
+                            <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
+                        </div>
+                        <div id="plus_box_words">         
+                                <h2>Create a new Story</h2>
+                        </div>
+                    </div>
+                </a>
+                <div id="user_bio">
+                    <textarea readonly id="user_bio_text">Add a bio here...</textarea>
+                </div>
+            {% else %}
+                <div id="user_bio">
+                    <textarea readonly id="user_bio_text">Add a bio here...</textarea>
+                </div>
+            {% endif %}
+        </div>
+    
+        <div id="profile_right">
+            <div id="user_stories">
+                <h2>Stories by Firstname Lastname</h2>
+                <p>loop though stories here
+                <div id="story_div">
+                    <div id="story">
+                        <h3>story name</h3>
+                    </div>
+                    <div id="story">
+                        <h3>story name</h3>
+                    </div>
+                    <div id="story">
+                        <h3>story name</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="user_page_bottom">
+        <div id="user_library"> 
+            <h2> Username's Library</h2>
+            <div class="books">
+                <!-- Book name, title, color should be dynamically edited when we get there -->
+                <div class="book" style="background-color: #b96c67;">
+                    <div class="book-number">#1</div>
+                    <a href="/story/1" class="book-link"><h3>Book Title 1</h3></a>
+                </div>
+                <div class="book" style="background-color: #614f6b;">
+                    <div class="book-number" >#2</div>
+                    <h3>Book Title 2</h3>
+                </div>
+                <div class="book" style="background-color: #799498;">
+                    <div class="book-number" >#3</div>
+                    <h3>Book Title 3</h3>
+                </div>
+                <div class="book" style="background-color: #4b4b5c;">
+                    <div class="book-number">#4</div>
+                    <h3>Book Title 4</h3>
+                </div>
+                <div class="book" style="background-color: #614a5b;">
+                    <div class="book-number">#5</div>
+                    <h3>Book Title 5</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}
+{% block page_script %}{% endblock %}

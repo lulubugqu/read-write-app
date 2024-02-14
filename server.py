@@ -76,6 +76,7 @@ def logout():
 @app.route("/")
 @app.route("/launch")
 def launch():
+    
     return render_template("launch.html")
 
 # @app.route("/login")
@@ -104,8 +105,10 @@ def getStory(storyId):
 
 @app.route("/user")
 def getUser():
+    # if logged in user is the same as the user request, then set true
+    logged_in = True
     print("getting user profile")
-    return render_template("profile.html")
+    return render_template("user.html", logged_in=logged_in)
 
 # FOR ONCE ACCOUNTS ARE ESTABLISHED
 # @app.route("/user/<string:username>")
