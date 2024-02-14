@@ -9,7 +9,7 @@
 <div class="navbarStory">
     <a href="/home" class="nav-link">Home</a>
     <div class="dropdownStory">
-      <button class="dropbtnStory">Book 1
+      <button class="dropbtnStory">Book {{storyId}}
         <i class="fa fa-caret-down"></i>
       </button>
       <div class="dropdown-contentStory">
@@ -21,7 +21,7 @@
   </div>
 
 <div style="padding:20px;" class = "storyContent">
-  <h1>Chapter 1</h1>
+  <h1>Chapter {{chapterNum}}</h1>
   <a href="/authorProfile" class="author-link">by Author's Name </a>
   <div class="story-content" style="text-align: left;">
     <p>
@@ -87,8 +87,14 @@
         proin nibh. Vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum. Habitant 
         morbi tristique senectus et netus et.
       </p>
-      <button onclick="/chapter1" class="chapter-button">Previous Chapter</button>
-      <button onclick="/chapter2" class="chapter-button">Next Chapter</button>
+      <div>
+        {% if chapterId == 1 %}
+        <a href="/story/{{storyId}}/{{chapterId-1}}"><button class="chapter-button"> Previous Chapter</button></a>
+        {% else %}
+        <button class="chapter-button" disabled>Previous Chapter</button>
+        {% endif %}
+        <a href="/story/{{storyId}}/{{chapterId+1}}"><button class="chapter-button"> Next Chapter</button></a>
+      </div>
       
   </div>
 </div>
