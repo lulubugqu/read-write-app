@@ -49,8 +49,6 @@ body {
   color: white;
 }
 
-
-
 /* OLD BUTTON CSS - saving because theres a lot going on and I don't want to accientally break something*/
 /* .button-login, .button-signup, .button-guest, #button-nav {
   appearance: button;
@@ -301,7 +299,8 @@ body {
 }
 
 #plus_box_words {
-  
+  padding-left: 2%;
+  text-align: center;
 }
 
 #new_story {
