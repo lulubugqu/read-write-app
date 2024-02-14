@@ -1,8 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
 @import url('https://fonts.googleapis.com/css?family=DM+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 /* FOR ALL PAGES */
-.base, .navbase, .launch, .profile, .home, .seach-page {
+.base, .navbase, .launch, .profile, .home, .search_page {
   font-family: 'Titan One', sans-serif;
   margin: 0px;
 }
@@ -202,7 +203,7 @@
 
 .right-side {
     /* Styles for column 2 */
-    width: 80%;
+    width: 70%;
     /* padding: 0; */
     /* background-color: lightpink; */
 }
@@ -218,18 +219,22 @@
 
 
 }
-.search-image img{
-  border-color: 1px solid #507337;
+.search-image {
+  /* border-color: 1px solid #507337; */
   border-radius: 1em;
    padding: 0.5em;
+   font-family: "Times New Roman", Times, serif;
+  font-style: bold;
+  width: 30%;
+  margin-right: 1em;
 
 }
 .search-results{
   /* background-color: #e2e0e0; */
   width: 80%;
   /* border: 15px solid green; */
- padding: 3em;
-  margin: 2em;
+ /* padding: 3em; */
+  /* margin: 2em; */
   border-radius: 1em;
   /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; */
 
@@ -264,17 +269,73 @@
   border-color: 1px solid #507337;
   padding: 1em;
 
+
 }
 .story-name{
   align-items: flex-start;
-  margin: 0;
+  font-family: "Times New Roman", Times, serif;
+  /* font-style: bold;    
+    font-weight: 800; */
+        margin-bottom: 40px;
+
+
+  /* margin-bottom: 2em; */
 }
-.search-descriptio{
+.search-description{
   align-items: flex-end;
     margin: 0;
+font-family: "Space Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
 
 
 }
+.custom-restricted-width {
+        /* To limit the menu width to the content of the menu: */
+        display: inline-block;
+        /* Or set the width explicitly: */
+        width: 70%;
+        margin-left: 6em;
+          box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+          border-radius: 15px;
+
+
+    }
+.pure-menu-item{
+    font-family: "Space Mono", monospace;
+  font-weight: 400;
+  font-style: normal;    
+  color: black;
+  margin-bottom: 3em;
+
+}
+.menu-item{
+  padding-top: 0.5em;
+    padding-left: 1em;
+        padding-right: 0.5em;
+
+
+
+}
+.pure-menu-links{
+  padding-left: 3em;
+  /* padding-left: 1em; */
+        /* padding-right: 4em; */
+}
+<<<<<<< HEAD
+
+.pure-menu-heading{
+    font-family: 'DM Sans', sans-serif;
+  /* font-style: bold;     */
+    font-weight: 800;
+
+}
+.main-text{
+  border-bottom: 1px solid #f2f2f2;
+  margin-bottom: 1em;
+}
+=======
+>>>>>>> main
 /* Asanti */
 
 
