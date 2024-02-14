@@ -25,22 +25,30 @@
             </button>
         </div>
     </div>
-
-    <div class="login_out_wrap">
-        <div id=out_button>
-            <a href="/launch">
-                <button id="button-nav">Logout</button>
-            </a>
+    {% if logged_in == True %}
+        <div class="log_wrap">
+            <div id=out_button>
+                <a href="/launch">
+                    <button id="button-nav">Logout</button>
+                </a>
+            </div>
         </div>
-    </div>
-
-    <div class="profile_wrap">
-        <div id=profile_button>
-            <a href="/user">
-                <button id="button-nav">Profile</button>
-            </a>
+        <div class="profile_wrap">
+            <div id=profile_button>
+                <a href="/user">
+                    <button id="button-nav">Profile</button>
+                </a>
+            </div>
         </div>
-    </div>
+    {% else %}
+        <div class="log_wrap">
+            <div id=out_button>
+                <a href="/login">
+                    <button id="button-nav">Login</button>
+                </a>
+            </div>
+        </div>
+    {% endif %}
 </nav>
     <div id="header">
         {% block header %} {% endblock %}

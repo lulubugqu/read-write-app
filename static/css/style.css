@@ -1,5 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
-
+body {
+  margin: 0;
+}
 /* FOR ALL PAGES */
 .base, .navbase, .launch, .profile {
   font-family: 'Titan One', sans-serif;
@@ -167,4 +169,165 @@
   font-size: 20px;
 }
 
+/* User Page */
+.user {
+  font-family: din-round,sans-serif;
+}
+#bar_user_stats h3 {
+  margin-bottom: 0;
+}
+#bar_user_stats h4 {
+  margin-top: 1%;
+}
+#bar_username h2 {
+  margin-bottom: 0;
+}
+#bar_username h3 {
+  margin-top: 0;
+}
+/* User Bar */
+.info_bar {
+  display: flex;
+  height: auto;
+  width: 100%;
+  overflow: auto;
+  background-color: rgb(168, 198, 146);
+  text-align: center;
+}
+
+#bar_user_stats {
+  flex: 20%;
+  display: flex;
+  margin-left: 2%;
+  text-align: center;
+}
+#stories_count {
+  flex: 30%;
+}
+#followers_count {
+  flex: 30%;
+}
+#following_count {
+  flex: 30%;
+}
+#bar_username {
+  flex: 60%;
+}
+#bar_interaction {
+  flex: 20%;
+  margin-right: 2%;
+}
+.button-editUser, .button-followUser {
+  margin-top: 11%;
+}
+
+/* user body content */
+.user_page_top {
+  margin: 2%;
+  display: flex;
+  height: auto;
+  /* width: 100%; */
+  /* overflow: auto; */
+}
+
+#profile_right {
+  flex: 70%;
+  border-radius: 15px;
+  border: 1px solid #a9a9a9;
+  padding-left: 1%;
+}
+
+#story_div {
+  display: flex;
+  flex-direction: column;
+}
+#story {
+  border-radius: 15px;
+  border: 1px solid #a9a9a9;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-bottom: 4%;
+  margin-right: 1.5%;
+  width: auto;
+}
+
+#profile_left {
+  flex: 30%;
+}
+
+#new_story_div {
+  height: 15em;
+  width: 95%;
+  border: 1px solid #a9a9a9;
+  border-radius: 15px;
+  margin-bottom: 2%;
+  display: flex;
+  
+}
+
+#plus_box {
+  height: 80%;
+  width: 35%;
+  border-radius: 15px;
+  border: 1px solid #a9a9a9;
+  display: table;
+  margin-left: 3%;
+  margin-top: 5%;
+  margin-bottom: 1%;
+}
+
+#plus_box_words {
+  
+}
+
+#new_story {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.fa-plus {
+  color: #9dc183;
+}
+
+#user_bio_text {
+  min-height: 10em;
+  width: 95%;
+  border: 1px solid #a9a9a9;
+  border-radius: 15px;
+  margin-bottom: 2%;
+  /* height: 20%;
+  width: 95%; 
+  border-radius: 15px;
+  border: 1px solid #a9a9a9;
+  outline: none;
+  padding: 2%; */
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+
+  resize: none; /*remove the resize handle on the bottom right*/
+}
+.user_page_bottom {
+
+}
+#user_library {
+  display: flex;
+  border-radius: 15px;
+  border: 1px solid #a9a9a9;
+  padding-left: 1%;
+  width: 95%; 
+  margin-left: 2%;
+
+}
+
+#story_alt {
+  /* flex: 25%; */
+  /* border-radius: 15px;
+  border: 1px solid #0a0a0a;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-bottom: 4%; */
+  /* margin-right: 1.5%; */
+}
 
