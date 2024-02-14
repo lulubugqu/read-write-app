@@ -7,6 +7,7 @@
     <title>{% block title %}navbase{% endblock %}</title>
     <link rel="stylesheet" href="{{url_for('static', filename='css/style.css')}}">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
     <script src="{{url_for('static', filename='js/navbase.js')}}" defer></script>
 </head>
 {% block body %}
@@ -26,21 +27,21 @@
         </div>
     </div>
     {% if logged_in == True %}
-        <div class="log_wrap">
+        <div class="login_out_wrap">
             <div id=out_button>
                 <a href="/launch">
-                    <button id="button-nav">Logout</button>
+                    <button class="pure-button" id="button-extra">Logout</button>
                 </a>
             </div>
         </div>
         <div class="profile_wrap">
             <div id=profile_button>
                 <a href="/user">
-                    <button id="button-nav">Profile</button>
+                    <button class="pure-button" id="button-extra">Profile</button>
                 </a>
             </div>
         </div>
-    {% else %}
+        {% else %}
         <div class="log_wrap">
             <div id=out_button>
                 <a href="/login">
