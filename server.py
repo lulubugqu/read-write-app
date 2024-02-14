@@ -64,6 +64,7 @@ def newStory():
 @app.route("/myworks/<int:storyId>/write", methods=["PUT"])
 def editStory():
     print("edits story, modifies DB entry")
+    return render_template("write.html")
     # return render_template("editStory.html")
 
 @app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
