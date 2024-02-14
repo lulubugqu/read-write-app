@@ -11,14 +11,6 @@
                 <h3>5</h3>
                 <h4>Stories</h4>
             </div>
-            <div id="followers_count">
-                <h3>25</h3>
-                <h4>Followers</h4>
-            </div>
-            <div id="following_count">
-                <h3>15</h3>
-                <h4>Following</h4>
-            </div>
         </div>
         <div id="bar_username">
             <h2>Firstname Lastname</h2>
@@ -39,23 +31,19 @@
 {% endblock %}
 
 {% block page_content %}
-
     <div class="user_page_top">
         <div id="profile_left">
             {% if logged_in == True %}
-                <div id="new_story_div"> 
-                    <div id="plus_box">
-                        <a id="new_story" href="/myworks/new">
+                <a id="new_story" href="/myworks/new">
+                    <div id="new_story_div"> 
+                        <div id="plus_box">
                             <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
-                        </a>
+                        </div>
+                        <div id="plus_box_words">         
+                                <h2>Create a new Story</h2>
+                        </div>
                     </div>
-                    <div id="plus_box_words">   
-                        <a id="new_story" href="/myworks/new">
-                            <h2>Create a new Story</h2>
-                        </a>
-                    </div>
-                </div>
-
+                </a>
                 <div id="user_bio">
                     <textarea readonly id="user_bio_text">Add a bio here...</textarea>
                 </div>
@@ -88,15 +76,27 @@
     <div class="user_page_bottom">
         <div id="user_library"> 
             <h2> Username's Library</h2>
-            <div id="story_div_alt">
-                <div id="story_alt">
-                    <h3>story name</h3>
+            <div class="books">
+                <!-- Book name, title, color should be dynamically edited when we get there -->
+                <div class="book" style="background-color: #b96c67;">
+                    <div class="book-number">#1</div>
+                    <a href="/story/1" class="book-link"><h3>Book Title 1</h3></a>
                 </div>
-                <div id="story_alt">
-                    <h3>story name</h3>
+                <div class="book" style="background-color: #614f6b;">
+                    <div class="book-number" >#2</div>
+                    <h3>Book Title 2</h3>
                 </div>
-                <div id="story_alt">
-                    <h3>story name</h3>
+                <div class="book" style="background-color: #799498;">
+                    <div class="book-number" >#3</div>
+                    <h3>Book Title 3</h3>
+                </div>
+                <div class="book" style="background-color: #4b4b5c;">
+                    <div class="book-number">#4</div>
+                    <h3>Book Title 4</h3>
+                </div>
+                <div class="book" style="background-color: #614a5b;">
+                    <div class="book-number">#5</div>
+                    <h3>Book Title 5</h3>
                 </div>
             </div>
         </div>
