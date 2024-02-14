@@ -64,8 +64,17 @@ def newStory():
 @app.route("/myworks/<int:storyId>/write", methods=["PUT"])
 def editStory():
     print("edits story, modifies DB entry")
-    return render_template("write.html")
     # return render_template("editStory.html")
+
+@app.route("/myworks/<int:storyId>/edit", methods=["PUT"])
+def editChapter():
+    print("edits chapter, modifies DB entry")
+    return render_template("editChapter.html")
+
+@app.route("/myworks/<int:storyId>/create", methods=["POST"])
+def createChapter():
+    print("writing a new chapter, creates an entry in the DB")
+    return render_template("createChapter.html")
 
 @app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
 def deleteStory():

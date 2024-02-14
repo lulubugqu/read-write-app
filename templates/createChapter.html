@@ -1,0 +1,25 @@
+{# templates/newchapter.html #}
+{% extends "navbase.html" %}
+{% block title %}New Chapter{% endblock %}
+{% block body %}
+    <body class="new-chapter">
+{% endblock %}
+
+{% block page_content %}
+<div class="navbarStory">
+    <a href="/home" class="nav-link">Home</a>
+        <button onclick="home" class="publish-button">Publish</button>
+        <button onclick="home" class="save-button">Save</button>
+  </div>
+
+
+  <div style="padding:20px;" class = "storyContent">
+    <h1>Untitled</h1>
+    <a href="/authorProfile" class="author-link">by Author's Name </a>
+    <div class="story-content" style="text-align: left;">
+        <input type="text" id="story-content" name="story-content"><br><br>
+    </div>
+  </div>
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block page_script %}{% endblock %}
