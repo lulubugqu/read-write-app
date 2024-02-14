@@ -1,9 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=DM+Sans&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 
 /* FOR ALL PAGES */
-.base, .navbase, .launch, .profile {
+.base, .navbase, .launch, .profile, .home, .search_page {
   font-family: 'Titan One', sans-serif;
+  margin: 0px;
 }
+
+.launch {
+  width: 75%;
+  margin: 0 auto;
+}
+
 
 .launch h1 {
   color: #484E23;
@@ -31,7 +40,16 @@
 }
 
 /* Button CSS */
-.button-login, .button-signup, .button-guest, #button-nav {
+#button-extra {
+  background-color: #88ad6d;
+  border-radius: 10px;
+  border: 0;
+  font-size: 130%;
+  color: white;
+}
+
+/* OLD BUTTON CSS - saving because theres a lot going on and I don't want to accientally break something*/
+/* .button-login, .button-signup, .button-guest, #button-nav {
   appearance: button;
   background-color: #88ad6d;
   border: solid transparent;
@@ -93,11 +111,15 @@
 .button-login:active, .button-signup:active, .button-guest:active, #button-nav:active{
   border-width: 4px 0 0;
   background: none;
-}
+} */
 
 /* NAVBAR IN NAVBASE */
 .nav_wrap {
   display: flex;
+  display: flex;
+  padding: 0% 2%;
+  background-color: white;
+  align-items: center;
 }
 
 /*Resize the wrap to see the search bar change!*/
@@ -105,14 +127,12 @@
   flex: 75%;
   width: auto;
   height: auto;
-  margin-top: 1.5%;
   /* top: 20%;
   left: 50%;
   transform: translate(-50%, -50%); */
 }
 .logo_wrap {
   flex: 8%;
-  margin-left: 0.25%;
   width: auto;
 }
 .profile_wrap {
@@ -130,7 +150,6 @@
 #profile_button, #out_button {
   margin-top: 10%;
 }
-
 
 /* search bar */
 .search {
@@ -167,4 +186,538 @@
   font-size: 20px;
 }
 
+/* Asanti  */
 
+.search-container {
+    display: flex;
+    /* max-width: 90%; */
+    flex-direction: row; /* Arrange items horizontally */
+    
+}
+
+.left-side {
+    /* Styles for column 1 */
+    width: 30%;
+    /* background-color: lightblue; */
+}
+
+.right-side {
+    /* Styles for column 2 */
+    width: 70%;
+    /* padding: 0; */
+    /* background-color: lightpink; */
+}
+.search-filter{
+  /* background-color: #e2e0e0; */
+  width: 50%;
+  /* border: 15px solid green; */
+  padding: 3em;
+  margin: 2em;
+    border-radius: 1em;
+
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+
+}
+.search-image {
+  /* border-color: 1px solid #507337; */
+  border-radius: 1em;
+   padding: 0.5em;
+   font-family: "Times New Roman", Times, serif;
+  font-style: bold;
+  width: 30%;
+  margin-right: 1em;
+
+}
+.search-results{
+  /* background-color: #e2e0e0; */
+  width: 80%;
+  /* border: 15px solid green; */
+ /* padding: 3em; */
+  /* margin: 2em; */
+  border-radius: 1em;
+  /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; */
+
+}
+.search_lst{
+  /* background-color: #f7f6f6; */
+  display: flex;
+    /* max-width: 90%; */
+    flex-direction: row; /* Arrange items horizontally */
+  list-style: none;
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+    border-radius: 1em;
+    padding: 1em;
+    margin-bottom: 1em;
+    
+
+}
+.filters{
+  display: flex;
+    /* max-width: 90%; */
+    flex-direction: column; /* Arrange items horizontally */
+  list-style: none;
+    /* padding: 1em; */
+    margin-bottom: 1em;
+}
+
+.search-info{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  border-color: 1px solid #507337;
+  padding: 1em;
+
+
+}
+.story-name{
+  align-items: flex-start;
+  font-family: "Times New Roman", Times, serif;
+  /* font-style: bold;    
+    font-weight: 800; */
+        margin-bottom: 40px;
+
+
+  /* margin-bottom: 2em; */
+}
+.search-description{
+  align-items: flex-end;
+    margin: 0;
+font-family: "Space Mono", monospace;
+  font-weight: 400;
+  font-style: normal;
+
+
+}
+.custom-restricted-width {
+        /* To limit the menu width to the content of the menu: */
+        display: inline-block;
+        /* Or set the width explicitly: */
+        width: 70%;
+        margin-left: 6em;
+          box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+          border-radius: 15px;
+
+
+    }
+.pure-menu-item{
+    font-family: "Space Mono", monospace;
+  font-weight: 400;
+  font-style: normal;    
+  color: black;
+  margin-bottom: 3em;
+
+}
+.menu-item{
+  padding-top: 0.5em;
+    padding-left: 1em;
+        padding-right: 0.5em;
+
+
+
+}
+.pure-menu-links{
+  padding-left: 3em;
+  /* padding-left: 1em; */
+        /* padding-right: 4em; */
+}
+<<<<<<< HEAD
+
+.pure-menu-heading{
+    font-family: 'DM Sans', sans-serif;
+  /* font-style: bold;     */
+    font-weight: 800;
+
+}
+.main-text{
+  border-bottom: 1px solid #f2f2f2;
+  margin-bottom: 1em;
+}
+=======
+>>>>>>> main
+/* Asanti */
+
+
+/* User Page */
+.user {
+  font-family: din-round,sans-serif;
+}
+#bar_user_stats h3 {
+  margin-bottom: 0;
+}
+#bar_user_stats h4 {
+  margin-top: 1%;
+}
+#bar_user_stats h4 {
+  margin-top: 1%;
+}
+#bar_username h2 {
+  margin-bottom: 0;
+}
+#bar_username h3 {
+  margin-top: 0;
+}
+/* User Bar */
+.info_bar {
+  display: flex;
+  height: auto;
+  width: 100%;
+  overflow: auto;
+  background-color: rgb(197, 220, 180);
+  text-align: center;
+}
+
+#bar_user_stats {
+  flex: 20%;
+  display: flex;
+  margin-left: 2%;
+  text-align: center;
+}
+#stories_count {
+  flex: 30%;
+}
+#followers_count {
+  flex: 30%;
+}
+#following_count {
+  flex: 30%;
+}
+#bar_username {
+  flex: 60%;
+}
+#bar_interaction {
+  flex: 20%;
+  margin-right: 2%;
+}
+.button-editUser, .button-followUser {
+  margin-top: 8%;
+}
+
+/* user body content */
+.user_page_top {
+  margin: 2%;
+  display: flex;
+  height: auto;
+  /* width: 100%; */
+  /* overflow: auto; */
+}
+
+#profile_right {
+  flex: 70%;
+  height: 60%;
+  border-radius: 15px;
+  padding-left: 1%;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
+}
+
+#story_div {
+  display: flex;
+  flex-direction: column;
+}
+#story {
+  border-radius: 15px;
+  border: 1px solid #a9a9a9;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-bottom: 4%;
+  margin-right: 1.5%;
+  width: auto;
+}
+
+#profile_left {
+  flex: 30%;
+  margin-right: 2%;
+  height: 40%;
+}
+
+#new_story_div {
+  height: 15em;
+  width: auto;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
+  border-radius: 15px;
+  margin-bottom: 2%;
+  display: flex;
+  
+}
+
+#plus_box {
+  background-color: #e7e6e6;
+  height: 85%;
+  width: 40%;
+  border-radius: 15px;
+  border: 1px solid #d9d8d8;
+  display: table;
+  margin-left: 3%;
+  margin-top: 5%;
+  margin-bottom: 1%;
+}
+
+#plus_box i {
+  text-align: center;
+  margin-top: 45%;
+}
+.user a{
+  text-decoration: none;
+}
+
+#plus_box_words, #plus_box {
+  padding-left: 2%;
+  text-align: center;
+  color: #9DC183;
+}
+
+.fa-plus {
+  color: #9dc183;
+}
+
+#user_bio_text {
+  width: 96%;
+  padding-left: 3%;
+  padding-top: 3%;
+  min-height: 10em;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
+  border-radius: 15px;
+  margin-bottom: 2%;
+  resize: none; 
+}
+
+#user_library {
+  border-radius: 15px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
+  padding-left: 1%;
+  width: 95%; 
+  margin-left: 2%;
+}
+
+/* Home Page */
+.home {
+  background-color: #9dc183;
+}
+
+.home h1 {
+  font-size: 2em;
+  text-align: center;
+  margin: 1%;
+}
+
+.home h3 {
+  font-size: 2em;
+  text-align: center;
+  margin: 5%;
+  font-weight: bold;
+}
+
+.book-section {
+  display: flex;
+  flex-direction: column;
+  background-color:#e4f7d6;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: bolder;
+  font-size: larger;
+  margin-top: 0px;
+  height: max;
+  padding: 5px;
+}
+
+/* Type 1 Books */
+.books {
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  margin-top: 20px;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.book {
+  font-family: 'DM Sans', sans-serif;
+  width: 20%;
+  height: 250px;
+  margin: 10px;
+}
+
+.book-number {
+  text-align: left;
+  background-color: rgb(171, 207, 119);
+  color:white;
+  font-weight: bolder;
+  font-size: 2em;
+  width: 30%;
+}
+
+.book-tag-container {
+  background-color: rgba(58, 55, 55, 0.8);
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  padding: 5%;
+}
+
+.book-tag {
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding: 1% 1.5%;
+  border-radius: 5px;
+  font-size: x-small;
+}
+
+.book-tag p {
+  margin: 0;
+}
+
+/* Book Type 2 */
+.bookdetails {
+  background-color: #cce3bb;
+  border: 0px;
+  border-radius: 15px;
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  margin-top: 20px;
+  width: 30%; /* change as needed */
+  height: 250px;
+  margin-left: 10px;
+}
+
+
+.bookdetails .book {
+  background-color: #7a9d60;
+  font-family: 'DM Sans', sans-serif;
+  width: 50%;
+  height: 215px;
+  margin: 15px;
+  border-radius: 10px;
+}
+
+.bookdetails .book h3 {
+  margin-top: 20px;
+}
+
+.details {
+  font-family: 'DM Sans', sans-serif;
+  margin: 10px;
+  color: black;
+}
+
+.details p {
+  margin-right: 5px;
+}
+
+.details h3 {
+  text-align: left;
+  margin-left: 0px;
+}
+
+.details .book-tag p {
+  margin: 3px;
+}
+
+.details .book-tag-container {
+  background-color: transparent;
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 5px;
+  padding: 0%;
+}
+
+
+
+/* Story CSS*/
+
+.navbarStory {
+  background-color: #9dc183;
+  overflow: hidden;
+}
+.navbarStory a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px;
+  text-decoration: none;
+}
+.navbarStory a:hover {
+  background-color: #ddd;
+  color: black;
+}
+.dropdownStory {
+  float: left;
+  overflow: hidden;
+}
+.dropdownStory .dropbtnStory {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 20px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+.navbarStory a, .dropdownStory .dropbtnStory {
+  display: inline-block;
+}
+.dropdown-contentStory {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+.dropdown-contentStory a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+.dropdown-contentStory a:hover {
+  background-color: #ddd;
+}
+.dropdownStory:hover .dropdown-contentStory {
+  display: block;
+}
+
+.storyContent {
+  font-family: 'Din Next Rounded LT', sans-serif;
+  text-align: center;
+  background-color: #dde9d5;
+}
+
+
+.chapter-button {
+  border-radius: 20px;
+  background-color: #9dc183;
+  color: white;
+  padding: 15px 30px; 
+  font-size: 17px;
+  width: 200px; 
+  height: 50px;
+}
+
+.author-link {
+  color: black;
+  text-decoration: none; 
+}
+
+.author-link:hover {
+  color: darkgrey; 
+}
+
+.book-section a{
+  color: white;
+  text-decoration: none; 
+}

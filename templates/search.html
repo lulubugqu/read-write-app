@@ -1,0 +1,158 @@
+{# templates/search1.html #}
+{% extends "navbase.html" %}
+{% block title %}Search{% endblock %}
+{% block body %}
+    <body class="search_page">
+{% endblock %}
+
+{% block header %}{% endblock %}
+{% block page_content %}
+    <div class="main-text">
+        <h3> search results for {{ search }} </h3>
+
+    </div>
+    <div class="search-container"> 
+        <div class="left-side"> 
+            <!-- <h3> left side </h3> -->
+            <!-- <div class="search-filter">
+                <p> search filter </p>
+                <ul >
+                    <li class="filters">
+                        <p> Length</p>
+                        <a class="pure-button" href="#">Item 1</a>
+                        <button class="pure-button">Item 1</button>
+                        <button> item1 </button>
+                        <button> item2 </button>
+                        <button> item3 </button>
+                    </li>
+                    <li class="filters">
+                        <p> Votes </p>
+                        <button> item1 </button>
+                        <button> item2 </button>
+                        <button> item3 </button>
+                    </li>
+                    <li class="filters">
+                        <p> Genre </p>
+                        <button> item1 </button>
+                        <button> item2 </button>
+                        <button> item3 </button>
+                    </li>
+
+                </ul>
+                
+            </div> -->
+            <div class="pure-menu custom-restricted-width">
+                <span class="pure-menu-heading">Length</span>
+                <ul class="pure-menu-list">
+                    <div class="menu-item">
+                        <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link">Item1</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link">Item2</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link">Item3</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link">Item4</a>
+                        </li>
+                    </div>
+                    <!-- <li class="pure-menu-heading">More Sites</li> -->
+                    <span class="pure-menu-heading">Votes</span>
+                    <div class="menu-item">
+
+                        <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link">Item1</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link">Item2</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link">Item3</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link">Item4</a>
+                        </li>
+                    </div>
+
+                    <span class="pure-menu-heading">Genre</span>
+                    <div class="menu-item">
+                        <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link">Item1</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link">Item2</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link">Item3</a>
+                        </li>
+                        <li class="pure-menu-item">
+                            <a href="#" class="pure-menu-link">Item4</a>
+                        </li>
+                    </div>
+
+                </ul>
+            </div>
+        </div>
+        <div class="right-side"> 
+            <!-- <h3> right side</h3> -->
+            <div class="search-results">
+                <ul>
+                    <li class="search_lst">
+
+                            <div class="search-image" style="background-color: #b48fc9;">
+                                <!-- <div class="book-number" >#2</div> -->
+                                <h3> Book Title 1</h3>
+                            </div>
+
+                        <div class="search-info">
+                            <div class="story-name">
+                                <h3> search results about {{ search }} </h3>
+                            </div>
+                            <div class="search-description"> 
+                                <p> search-description  search-description search-description search-description</p>
+                            </div>
+
+                        </div>
+
+                    </li> 
+                    <li class="search_lst">
+                        <div class="search-image" style="background-color: #ad8dbf;">
+                                <!-- <div class="book-number" >#2</div> -->
+                                <h3> Book Title 2</h3>
+                            </div>
+                        <div class="search-info">
+                            <div class="story-name">
+                                <h3> search results about {{ search }} </h3>
+                            </div>
+                            <div class="search-description"> 
+                                <p> search-description  search-description search-description search-description</p>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="search_lst">
+                        <div class="search-image" style="background-color: #b6a2c1;">
+                                <!-- <div class="book-number" >#2</div> -->
+                                <h3> Book Title 3</h3>
+                            </div>
+                        <div class="search-info">
+                            <div class="story-name">
+                                <h3> search results about {{ search }} </h3>
+                            </div>
+                            <div class="search-description"> 
+                                <p> search-description  search-description search-description search-description</p>
+                            </div>
+
+                        </div>
+                    </li>
+                </ul>
+                
+            </div>
+            
+        </div>
+    </div>
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block page_script %}{% endblock %}

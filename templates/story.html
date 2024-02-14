@@ -1,0 +1,96 @@
+{# templates/story.html #}
+{% extends "navbase.html" %}
+{% block title %}Story{% endblock %}
+{% block body %}
+    <body class="story">
+{% endblock %}
+<body>
+{% block page_content %}
+<div class="navbarStory">
+    <a href="/home" class="nav-link">Home</a>
+    <div class="dropdownStory">
+      <button class="dropbtnStory">Book 1 <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-contentStory">
+        <a href="/chapter1" class="nav-link">Chapter 1</a> 
+        <a href="/chapter2" class="nav-link">Chapter 2</a>
+        <a href="/chapter3" class="nav-link">Chapter 3</a>
+      </div>
+    </div>
+  </div>
+
+<div style="padding:20px;" class = "storyContent">
+  <h1>Chapter 1</h1>
+  <a href="/authorProfile" class="author-link">by Author's Name </a>
+  <div class="story-content" style="text-align: left;">
+    <p>
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus eget enim convallis
+        consequat. Phasellus vel elit id nulla posuere tempus. Duis nec diam felis. In sit amet dui
+        eu arcu lobortis malesuada. Suspendisse finibus posuere libero id consectetur. Nam auctor
+        vehicula felis, nec rutrum leo aliquam sed. Curabitur bibendum nisi ut enim luctus, ut
+        aliquam orci convallis. Integer auctor interdum arcu, vel vestibulum libero consectetur nec.
+        Nullam ac sodales eros. Vestibulum vel nulla euismod, volutpat leo id, suscipit odio.
+        Donec eget ex eget arcu euismod commodo nec eget turpis. Fusce ut magna a metus accumsan
+        suscipit. Integer varius feugiat ex, vel vestibulum nisl congue at. In hac habitasse platea
+        dictumst. Aliquam eget ex libero. Curabitur suscipit urna vitae justo accumsan, nec rutrum
+        sem eleifend. Vivamus in elit eu nibh auctor aliquet. Donec et varius orci.
+    </p>
+    <p>
+        Sit amet nulla facilisi morbi tempus iaculis urna id volutpat. Faucibus purus in massa tempor
+        nec feugiat. Non consectetur a erat nam. 
+    </p>
+    <p>
+        Laoreet sit amet cursus sit amet dictum sit amet justo. 
+        Urna neque viverra justo nec ultrices dui sapien eget mi. Vel orci porta non pulvinar neque laoreet
+        suspendisse interdum consectetur. Pharetra et ultrices neque ornare. Id nibh tortor id aliquet lectus 
+        proin nibh. Vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum. Habitant 
+        morbi tristique senectus et netus et.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut lectus 
+        eget enim convallis
+        consequat. Phasellus vel elit id nulla posuere tempus. Duis nec diam felis. In sit amet dui
+        eu arcu lobortis malesuada. Suspendisse finibus posuere libero id consectetur. Nam auctor
+        vehicula felis, nec rutrum leo aliquam sed. Curabitur bibendum nisi ut enim luctus, ut
+        aliquam orci convallis. Integer auctor interdum arcu, vel vestibulum libero consectetur nec.
+        Nullam ac sodales eros. Vestibulum vel nulla euismod, volutpat leo id, suscipit odio.
+      </p>
+      <p>
+        Donec eget ex eget arcu euismod commodo nec eget turpis. Fusce ut magna a metus accumsan
+        suscipit. Integer varius feugiat ex, vel vestibulum nisl congue at. In hac habitasse platea
+        dictumst. Aliquam eget ex libero. Curabitur suscipit urna vitae justo accumsan, nec rutrum
+        sem eleifend. Vivamus in elit eu nibh auctor aliquet. Donec et varius orci.
+      </p>
+      <p>
+        Sit amet nulla facilisi morbi tempus iaculis urna id volutpat. Faucibus purus in massa tempor
+        nec feugiat. Non consectetur a erat nam. Laoreet sit amet cursus sit amet dictum sit amet justo. 
+        Urna neque viverra justo nec ultrices dui sapien eget mi. Vel orci porta non pulvinar neque laoreet
+        suspendisse interdum consectetur. Pharetra et ultrices neque ornare. Id nibh tortor id aliquet lectus 
+        proin nibh. Vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum. Habitant 
+        morbi tristique senectus et netus et. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut
+         lectus eget enim convallis
+        consequat. Phasellus vel elit id nulla posuere tempus. Duis nec diam felis. In sit amet dui
+        eu arcu lobortis malesuada. Suspendisse finibus posuere libero id consectetur. Nam auctor
+        vehicula felis, nec rutrum leo aliquam sed. Curabitur bibendum nisi ut enim luctus, ut
+        aliquam orci convallis. Integer auctor interdum arcu, vel vestibulum libero consectetur nec.
+        Nullam ac sodales eros. Vestibulum vel nulla euismod, volutpat leo id, suscipit odio.
+      </p>
+      <p>
+        Donec eget ex eget arcu euismod commodo nec eget turpis. Fusce ut magna a metus accumsan
+        suscipit. Integer varius feugiat ex, vel vestibulum nisl congue at. In hac habitasse platea
+        dictumst. Aliquam eget ex libero. Curabitur suscipit urna vitae justo accumsan, nec rutrum
+        sem eleifend. Vivamus in elit eu nibh auctor aliquet. Donec et varius orci.
+      </p>
+      <p>
+        Sit amet nulla facilisi morbi tempus iaculis urna id volutpat. Faucibus purus in massa tempor
+        nec feugiat. Non consectetur a erat nam. Laoreet sit amet cursus sit amet dictum sit amet justo. 
+        Urna neque viverra justo nec ultrices dui sapien eget mi. Vel orci porta non pulvinar neque laoreet
+        suspendisse interdum consectetur. Pharetra et ultrices neque ornare. Id nibh tortor id aliquet lectus 
+        proin nibh. Vulputate sapien nec sagittis aliquam malesuada bibendum arcu vitae elementum. Habitant 
+        morbi tristique senectus et netus et.
+      </p>
+      <button onclick="/chapter1" class="chapter-button">Previous Chapter</button>
+      <button onclick="/chapter2" class="chapter-button">Next Chapter</button>
+      
+  </div>
+</div>
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block page_script %}{% endblock %}
