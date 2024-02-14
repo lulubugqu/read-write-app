@@ -721,3 +721,8 @@ font-family: "Space Mono", monospace;
   color: white;
   text-decoration: none; 
 }
+
+/* Story launch */
+.storylaunch {
+  width: 75%;
+}
