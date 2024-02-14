@@ -47,8 +47,6 @@
   color: white;
 }
 
-
-
 /* OLD BUTTON CSS - saving because theres a lot going on and I don't want to accientally break something*/
 /* .button-login, .button-signup, .button-guest, #button-nav {
   appearance: button;
@@ -151,7 +149,6 @@
 #profile_button, #out_button {
   margin-top: 10%;
 }
-
 
 /* search bar */
 .search {
@@ -257,7 +254,6 @@
   list-style: none;
     /* padding: 1em; */
     margin-bottom: 1em;
-
 }
 
 .search-info{
@@ -279,8 +275,163 @@
 
 
 }
-
 /* Asanti */
+
+
+/* User Page */
+.user {
+  font-family: din-round,sans-serif;
+}
+#bar_user_stats h3 {
+  margin-bottom: 0;
+}
+#bar_user_stats h4 {
+  margin-top: 1%;
+}
+#bar_user_stats h4 {
+  margin-top: 1%;
+}
+#bar_username h2 {
+  margin-bottom: 0;
+}
+#bar_username h3 {
+  margin-top: 0;
+}
+/* User Bar */
+.info_bar {
+  display: flex;
+  height: auto;
+  width: 100%;
+  overflow: auto;
+  background-color: rgb(197, 220, 180);
+  text-align: center;
+}
+
+#bar_user_stats {
+  flex: 20%;
+  display: flex;
+  margin-left: 2%;
+  text-align: center;
+}
+#stories_count {
+  flex: 30%;
+}
+#followers_count {
+  flex: 30%;
+}
+#following_count {
+  flex: 30%;
+}
+#bar_username {
+  flex: 60%;
+}
+#bar_interaction {
+  flex: 20%;
+  margin-right: 2%;
+}
+.button-editUser, .button-followUser {
+  margin-top: 8%;
+}
+
+/* user body content */
+.user_page_top {
+  margin: 2%;
+  display: flex;
+  height: auto;
+  /* width: 100%; */
+  /* overflow: auto; */
+}
+
+#profile_right {
+  flex: 70%;
+  height: 60%;
+  border-radius: 15px;
+  padding-left: 1%;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
+}
+
+#story_div {
+  display: flex;
+  flex-direction: column;
+}
+#story {
+  border-radius: 15px;
+  border: 1px solid #a9a9a9;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-bottom: 4%;
+  margin-right: 1.5%;
+  width: auto;
+}
+
+#profile_left {
+  flex: 30%;
+  margin-right: 2%;
+  height: 40%;
+}
+
+#new_story_div {
+  height: 15em;
+  width: auto;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
+  border-radius: 15px;
+  margin-bottom: 2%;
+  display: flex;
+  
+}
+
+#plus_box {
+  background-color: #e7e6e6;
+  height: 85%;
+  width: 40%;
+  border-radius: 15px;
+  border: 1px solid #d9d8d8;
+  display: table;
+  margin-left: 3%;
+  margin-top: 5%;
+  margin-bottom: 1%;
+}
+
+#plus_box i {
+  text-align: center;
+  margin-top: 45%;
+}
+.user a{
+  text-decoration: none;
+}
+
+#plus_box_words, #plus_box {
+  padding-left: 2%;
+  text-align: center;
+  color: #9DC183;
+}
+
+.fa-plus {
+  color: #9dc183;
+}
+
+#user_bio_text {
+  width: 96%;
+  padding-left: 3%;
+  padding-top: 3%;
+  min-height: 10em;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
+  border-radius: 15px;
+  margin-bottom: 2%;
+  resize: none; 
+}
+
+#user_library {
+  border-radius: 15px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
+  padding-left: 1%;
+  width: 95%; 
+  margin-left: 2%;
+}
 
 /* Home Page */
 .home {
