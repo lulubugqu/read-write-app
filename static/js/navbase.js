@@ -20,7 +20,7 @@ async function search(searchTerm) {
     console.log(searchTerm)
 
     if (searchTerm.trim() !== '') {     // Check if search term is not empty
-        var url = '/search/' + encodeURIComponent(searchTerm); // Encode search term for URL
+        var url = `/search/?query=${encodeURIComponent(searchTerm)}`; // Encode search term for URL
         window.location.href = url;     // Redirect to url with the search term
     }
     // SETUP HTTP REQ FOR SEARCH BUTTON

@@ -3,17 +3,87 @@
 {% block title %}Search Page{% endblock %}
 {% block head %}
     {{ super() }}
+
     
 {% endblock %}
 {% block content %}
     <h1>Search Page</h1>
-    <div class="left-side"> 
+    <div class="search-container"> 
+        <div class="left-side"> 
+            <h3> search results for {{ search }} </h3>
+            <h3> left side </h3>
+            <div class="search-filter">
+                <p> search filter </p>
+                <ul >
+                    <li class="filters">
+                        <p> Length</p>
+                        <a class="pure-button" href="#">Item 1</a>
+                        <button class="pure-button">Item 1</button>
+                        <button> item1 </button>
+                        <button> item2 </button>
+                        <button> item3 </button>
+                    </li>
+                    <li class="filters">
+                        <p> Votes </p>
+                        <button> item1 </button>
+                        <button> item2 </button>
+                        <button> item3 </button>
+                    </li>
+                    <li class="filters">
+                        <p> Genre </p>
+                        <button> item1 </button>
+                        <button> item2 </button>
+                        <button> item3 </button>
+                    </li>
 
-    </div>
-    <div class="right-side"> 
-        <ul class="search-result">
+                </ul>
+                
+            </div>
+        </div>
+        <div class="right-side"> 
+            <h3> right side</h3>
+            <div class="search-results">
+                <ul>
+                    <li class="search_lst">
+                        <div class="search-image"> 
+
+                            <img src= "{{url_for('static', filename='/images/green.png')}}" alt="green-box" width="150"> 
+                        </div>
+                        <div class="search-description">
+                            <p> story name </p>
+                            <p> search-description</p>
+
+
+                        </div>
+
+                    </li> 
+                    <li class="search_lst">
+                        <div class="search-image"> 
+
+                            <img src= "{{url_for('static', filename='/images/green.png')}}" alt="green-box" width="150"> 
+                        </div>
+                        <div class="search-description">
+                            <p> search results </p>
+                            <p> search-description</p>
+
+
+                        </div>
+                    </li>
+                    <li class="search_lst">
+                        <div class="search-image"> 
+
+                            <img src= "{{url_for('static', filename='/images/green.png')}}" alt="green-box" width="150"> 
+                        </div>
+                        <div class="search-info">
+                            <p class="story-name"> search results </p>
+                            <p class="search-description"> search-description </p>
+
+                        </div>
+                    </li>
+                </ul>
+                
+            </div>
             
-        </ul>
-        
+        </div>
     </div>
 {% endblock %}

@@ -130,8 +130,12 @@ def deleteStory():
     # return render_template("deleteStory.html")
 
 # Need to add more later !!!
-@app.route("/search")
+@app.route("/search/", methods=["GET"])
+@app.route("/search", methods=["GET"])
 def search():
     print("search")
     print(request.query_string)
-    return render_template("search.html")
+    search = request.args.get('query')
+    print(search)
+
+    return render_template("search.html", search=search)
