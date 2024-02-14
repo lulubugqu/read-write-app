@@ -37,8 +37,7 @@ def signup():
 
 @app.route("/home")
 def home():
-    print("home")
-    # return render_template("home.html")
+    return render_template("home.html")
 
 @app.route("/story/<int:storyId>")
 def getStory(storyId):

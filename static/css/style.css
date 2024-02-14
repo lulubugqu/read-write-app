@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=DM+Sans&display=swap');
 
 /* FOR ALL PAGES */
-.base, .navbase, .launch, .profile {
+.base, .navbase, .launch, .profile, .home {
   font-family: 'Titan One', sans-serif;
+  margin: 0px;
 }
 
 .launch h1 {
@@ -98,6 +100,10 @@
 /* NAVBAR IN NAVBASE */
 .nav_wrap {
   display: flex;
+  display: flex;
+  padding: 0% 2%;
+  background-color: white;
+  align-items: center;
 }
 
 /*Resize the wrap to see the search bar change!*/
@@ -105,14 +111,12 @@
   flex: 75%;
   width: auto;
   height: auto;
-  margin-top: 1.5%;
   /* top: 20%;
   left: 50%;
   transform: translate(-50%, -50%); */
 }
 .logo_wrap {
   flex: 8%;
-  margin-left: 0.25%;
   width: auto;
 }
 .profile_wrap {
@@ -167,4 +171,82 @@
   font-size: 20px;
 }
 
+/* Home Page */
+.home {
+  background-color: #9dc183;
+}
 
+.home h1 {
+  font-size: 2em;
+  text-align: center;
+  margin: 1%;
+}
+
+.home h3 {
+  font-size: 2em;
+  text-align: center;
+  margin: 5%;
+  font-weight: bold;
+}
+
+.book-section {
+  display: flex;
+  flex-direction: column;
+  background-color:#9dc183;
+  color: white;
+  text-align: center;
+  font-family: 'DM Sans', sans-serif;
+  font-weight: bolder;
+  font-size: larger;
+  margin-top: 0px;
+  height: max;
+  padding: 5px;
+}
+
+/* Type 1 Books */
+.books {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.book {
+  font-family: 'DM Sans', sans-serif;
+  width: 20%;
+  height: 250px;
+  margin: 10px;
+}
+
+.book-number {
+  text-align: left;
+  background-color: rgb(33, 49, 10);
+  color:white;
+  font-weight: bolder;
+  font-size: 2em;
+  width: 30%;
+}
+
+.book-tag-container {
+  background-color: rgb(33, 49, 10);
+  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  padding: 5%;
+}
+
+.book-tag {
+  background-color: white;
+  color: black;
+  text-align: center;
+  padding: 1% 1.5%;
+  border-radius: 5px;
+  font-size: x-small;
+}
+
+.book-tag p {
+  margin: 0;
+}
