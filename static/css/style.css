@@ -303,8 +303,7 @@
 .book-section {
   display: flex;
   flex-direction: column;
-  background-color:#9dc183;
-  color: white;
+  background-color:#e4f7d6;
   text-align: center;
   font-family: 'DM Sans', sans-serif;
   font-weight: bolder;
@@ -317,6 +316,7 @@
 /* Type 1 Books */
 .books {
   display: flex;
+  color: white;
   justify-content: space-between;
   margin-top: 20px;
   width: 70%;
@@ -332,7 +332,7 @@
 
 .book-number {
   text-align: left;
-  background-color: rgb(33, 49, 10);
+  background-color: rgb(171, 207, 119);
   color:white;
   font-weight: bolder;
   font-size: 2em;
@@ -340,7 +340,8 @@
 }
 
 .book-tag-container {
-  background-color: rgb(33, 49, 10);
+  background-color: rgba(58, 55, 55, 0.8);
+  
   width: 90%;
   display: flex;
   flex-wrap: wrap;
