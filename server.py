@@ -42,7 +42,7 @@ def home():
 @app.route("/story/<int:storyId>")
 def getStory(storyId):
     print("getting story")
-    # return render_template("story.html")
+    return render_template("story.html")
 
 @app.route("/user")
 def getUser():
