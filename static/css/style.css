@@ -341,7 +341,6 @@
 
 .book-tag-container {
   background-color: rgba(58, 55, 55, 0.8);
-  
   width: 90%;
   display: flex;
   flex-wrap: wrap;
@@ -362,6 +361,65 @@
 .book-tag p {
   margin: 0;
 }
+
+/* Book Type 2 */
+.bookdetails {
+  background-color: #cce3bb;
+  border: 0px;
+  border-radius: 15px;
+  display: flex;
+  color: white;
+  justify-content: space-between;
+  margin-top: 20px;
+  width: 30%; /* change as needed */
+  height: 250px;
+  margin-left: 10px;
+}
+
+
+.bookdetails .book {
+  background-color: #7a9d60;
+  font-family: 'DM Sans', sans-serif;
+  width: 50%;
+  height: 215px;
+  margin: 15px;
+  border-radius: 10px;
+}
+
+.bookdetails .book h3 {
+  margin-top: 20px;
+}
+
+.details {
+  font-family: 'DM Sans', sans-serif;
+  margin: 10px;
+  color: black;
+}
+
+.details p {
+  margin-right: 5px;
+}
+
+.details h3 {
+  text-align: left;
+  margin-left: 0px;
+}
+
+.details .book-tag p {
+  margin: 3px;
+}
+
+.details .book-tag-container {
+  background-color: transparent;
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 5px;
+  padding: 0%;
+}
+
+
 
 /* Story CSS*/
 
