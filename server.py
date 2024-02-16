@@ -5,6 +5,7 @@ from os import environ as env
 from urllib.parse import quote_plus, urlencode
 
 from authlib.integrations.flask_client import OAuth
+from functools import wraps
 
 import psycopg2, os
 
