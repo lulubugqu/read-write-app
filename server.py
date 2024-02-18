@@ -6,6 +6,8 @@ from urllib.parse import quote_plus, urlencode
 
 from authlib.integrations.flask_client import OAuth
 from functools import wraps
+# from flask-session import Session
+
 
 import psycopg2, os
 
@@ -14,8 +16,6 @@ from flask import Flask, render_template, request, url_for, flash, redirect, ses
 app = Flask(__name__)
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = env.get("FLASK_SECRET")
-
-# 👆 We're continuing from the steps above. Append this to your server.py file.
 
 oauth = OAuth(app)
 
@@ -38,18 +38,22 @@ def db_connection():
     except (Exception, psycopg2.Error) as error:
         print ("Error while connecting to PostgreSQL", error)
 
+
 @app.route("/login")
 def login():
     return oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True)
     )
-
+    
+# saves the session for the user and bypasses the need for them to login again when they return
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
     return redirect("/")
 
+# 
+# clears the user session in your app and redirects to the Auth0 logout endpoint 
 @app.route("/logout")
 def logout():
     session.clear()
@@ -58,7 +62,7 @@ def logout():
         + "/v2/logout?"
         + urlencode(
             {
-                "returnTo": url_for("home", _external=True),
+                "returnTo": url_for("launch", _external=True),
                 "client_id": env.get("AUTH0_CLIENT_ID"),
             },
             quote_via=quote_plus,
@@ -97,8 +101,14 @@ def getStory(storyId):
 @app.route("/user")
 def getUser():
     # if logged in user is the same as the user request, then set true
-    logged_in = True
-    print("getting user profile")
+    # session=session.get('user')
+    # print("session: ")
+    # print(session)
+    # if 'user' in session:
+    #     logged_in = True
+    # else:
+    #     logged_in = False
+    logged_in = True;
     return render_template("user.html", logged_in=logged_in)
 
 # FOR ONCE ACCOUNTS ARE ESTABLISHED
