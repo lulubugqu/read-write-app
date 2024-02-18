@@ -8,6 +8,9 @@ from authlib.integrations.flask_client import OAuth
 from functools import wraps
 
 import psycopg2, os
+from psycopg2.pool import ThreadedConnectionPool
+from psycopg2.extras import DictCursor
+from contextlib import contextmanager
 
 from flask import Flask, render_template, request, url_for, flash, redirect, session
 
@@ -29,14 +32,35 @@ oauth.register(
     server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
 
-def db_connection():
-    try:
-        connection = psycopg2.connect(os.environ["DATABASE_URL"])
-        print ("Success while connecting to PostgreSQL")  
-        return connection
+def setup():
+    global pool
+    DATABASE_URL = os.environ['DATABASE_URL']
+    pool = ThreadedConnectionPool(1, 100, dsn=DATABASE_URL, sslmode='require')
 
-    except (Exception, psycopg2.Error) as error:
-        print ("Error while connecting to PostgreSQL", error)
+
+@contextmanager
+def get_db_connection():
+    try:
+        connection = pool.getconn()
+        yield connection
+    finally:
+        pool.putconn(connection)
+
+
+@contextmanager
+def get_db_cursor(commit=False):
+    with get_db_connection() as connection:
+      cursor = connection.cursor(cursor_factory=DictCursor)
+      try:
+          yield cursor
+          if commit:
+              connection.commit()
+      finally:
+          cursor.close()
+
+@app.before_request
+def initialize():
+    setup()
 
 @app.route("/login")
 def login():
@@ -89,10 +113,20 @@ def signup():
 def home():
     return render_template("home.html")
 
-@app.route("/story/<int:storyId>")
-def getStory(storyId):
-    print("getting story")
-    return render_template("story.html")
+@app.route("/story/<int:storyId>/<int:chapterNum>/")
+def getStory(storyId, chapterNum):
+    print("getting chapter")
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (storyId, chapterNum))
+        chapter_content = cursor.fetchone()
+
+        cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
+        book_title = cursor.fetchone()
+
+        cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (storyId,))
+        num_chapters = cursor.fetchone()
+
+    return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters)
 
 @app.route("/user")
 def getUser():
