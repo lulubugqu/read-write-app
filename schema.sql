@@ -20,6 +20,12 @@ CREATE TABLE books (
     genres TEXT,
     tags TEXT,
     num_chapters INT,
+    chapter_ids TEXT
+)
+
+CREATE TABLE chapters (
+    chapter_id SERIAL PRIMARY KEY,
+    book_id INT,
     content TEXT
 )
 

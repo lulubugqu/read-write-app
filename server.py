@@ -5,7 +5,7 @@ from os import environ as env
 from urllib.parse import quote_plus, urlencode
 
 from authlib.integrations.flask_client import OAuth
-
+from functools import wraps
 
 import psycopg2, os
 
@@ -38,25 +38,17 @@ def db_connection():
     except (Exception, psycopg2.Error) as error:
         print ("Error while connecting to PostgreSQL", error)
 
-# 👆 We're continuing from the steps above. Append this to your server.py file.
-
 @app.route("/login")
 def login():
     return oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True)
     )
 
-
-
-# 👆 We're continuing from the steps above. Append this to your server.py file.
-
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
     token = oauth.auth0.authorize_access_token()
     session["user"] = token
     return redirect("/")
-
-# 👆 We're continuing from the steps above. Append this to your server.py file.
 
 @app.route("/logout")
 def logout():
@@ -76,7 +68,6 @@ def logout():
 @app.route("/")
 @app.route("/launch")
 def launch():
-    
     return render_template("launch.html")
 
 # @app.route("/login")
@@ -125,6 +116,16 @@ def newStory():
 def editStory():
     print("edits story, modifies DB entry")
     # return render_template("editStory.html")
+
+@app.route("/myworks/<int:storyId>/edit", methods=["PUT"])
+def editChapter():
+    print("edits chapter, modifies DB entry")
+    return render_template("editChapter.html")
+
+@app.route("/myworks/<int:storyId>/create", methods=["POST"])
+def createChapter():
+    print("writing a new chapter, creates an entry in the DB")
+    return render_template("createChapter.html")
 
 @app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
 def deleteStory():
