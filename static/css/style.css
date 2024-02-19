@@ -456,6 +456,10 @@ font-family: "Space Mono", monospace;
   text-align: center;
   margin-top: 45%;
 }
+.user #words {
+  margin-top: 42%;
+}
+
 .user a{
   text-decoration: none;
 }
@@ -489,11 +493,12 @@ font-family: "Space Mono", monospace;
   padding-left: 1%;
   width: 95%; 
   margin-left: 2%;
+  margin-bottom: 1%;
 }
 
 /* Home Page */
 .home {
-  background-color: #9dc183;
+  font-family: 'Din Next Rounded LT', sans-serif;
 }
 
 .home h1 {
@@ -503,7 +508,7 @@ font-family: "Space Mono", monospace;
 }
 
 .home h3 {
-  font-size: 2em;
+  /* font-size: 2em; */
   text-align: center;
   margin: 5%;
   font-weight: bold;
@@ -512,7 +517,7 @@ font-family: "Space Mono", monospace;
 .book-section {
   display: flex;
   flex-direction: column;
-  background-color:#e4f7d6;
+  background-color:#def0d2;
   text-align: center;
   font-family: 'DM Sans', sans-serif;
   font-weight: bolder;
@@ -520,6 +525,18 @@ font-family: "Space Mono", monospace;
   margin-top: 0px;
   height: max;
   padding: 5px;
+  /* border-radius: 15px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
+  padding-left: 1%; */
+}
+
+.home #user_library {
+  margin-top: 4%;
+  
+}
+.home a {
+  text-decoration: none; 
 }
 
 /* Type 1 Books */
@@ -628,7 +645,122 @@ font-family: "Space Mono", monospace;
   padding: 0%;
 }
 
+/* Book type 2 ON USER PAGE */
+.user {
+  font-family: 'DM Sans', sans-serif;
+}
 
+.user .user_books {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.user .bookdetails {
+  background-color: #cce3bb;
+  border: 0px;
+  border-radius: 15px;
+  display: flex;
+  color: white;
+  /* justify-content: space-between; */
+  width: 97%; 
+  margin-bottom: 2%;
+}
+
+.user .bookdetails .book {
+  background-color: #7a9d60;
+  font-family: 'DM Sans', sans-serif;
+  /* width: 20%; */
+  flex: 18%;
+  height: 90%;
+  border-radius: 10px;
+}
+.book-details-container {
+  position: relative;
+}
+.book-details-container a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.user .bookdetails .book h3 {
+  text-align: center;
+  margin-top: 45%;
+  color: white;
+}
+
+.user .details {
+  font-family: 'DM Sans', sans-serif;
+  flex: 80%;
+  margin: 10px;
+  color: black;
+}
+
+.user .book-details-container {
+  min-height: 75%;
+}
+
+.user .details .book-tag-container {
+  background-color: transparent;
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 5px;
+  padding: 0%;
+}
+
+/* Book type 1 on User Page */
+.user_library {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 95%;
+  margin-left: 5%;
+}
+.user_library .book1 {
+  height: 18em;
+  flex-basis: calc(18% - 2%);
+  margin: 1%;
+}
+
+.user_library .book1details {
+  width: 94%;
+  height: 16em;
+  margin: 2%;
+  background-color: #88ad6d;
+  border-radius: 10px;
+  position: relative;
+}
+
+.book1 .book-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.user_library .book1 h3 {
+  color: white;
+  text-align: center;
+  margin-top: 45%;
+}
+
+.book1author {
+  margin-left: 3%;
+}
+.author-link h6 {
+  margin: 0;
+  margin-left: 3%;
+  font-size: medium;
+}
+
+.book-tag p {
+  margin: 0;
+}
 
 /* Story CSS*/
 
