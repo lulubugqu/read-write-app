@@ -12,90 +12,88 @@
 
     </div>
     <div class="search-container"> 
-        <div class="left-side"> 
-            <!-- <h3> left side </h3> -->
-            <!-- <div class="search-filter">
-                <p> search filter </p>
-                <ul >
-                    <li class="filters">
-                        <p> Length</p>
-                        <a class="pure-button" href="#">Item 1</a>
-                        <button class="pure-button">Item 1</button>
-                        <button> item1 </button>
-                        <button> item2 </button>
-                        <button> item3 </button>
-                    </li>
-                    <li class="filters">
-                        <p> Votes </p>
-                        <button> item1 </button>
-                        <button> item2 </button>
-                        <button> item3 </button>
-                    </li>
-                    <li class="filters">
-                        <p> Genre </p>
-                        <button> item1 </button>
-                        <button> item2 </button>
-                        <button> item3 </button>
-                    </li>
+        <div class="search-left-side"> 
+            <div class="search-filter">
 
-                </ul>
-                
-            </div> -->
-            <div class="pure-menu custom-restricted-width">
-                <span class="pure-menu-heading">Length</span>
-                <ul class="pure-menu-list">
-                    <div class="menu-item">
-                        <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">Item1</a>
-                        </li>
-                        <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">Item2</a>
-                        </li>
-                        <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">Item3</a>
-                        </li>
-                        <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">Item4</a>
-                        </li>
+                <div class="filters"> 
+
+                    <div class="filter-title">
+                        Genre
                     </div>
-                    <!-- <li class="pure-menu-heading">More Sites</li> -->
-                    <span class="pure-menu-heading">Votes</span>
-                    <div class="menu-item">
+                    <div class="filter-container">
+                        <div class="checkbox_content">
+                            <input type="checkbox" id="Action" name="Action" value="Action">
+                            <label class="filter-checkbox" for="Action"> Action </label>
+                        </div>
 
-                        <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">Item1</a>
-                        </li>
-                        <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">Item2</a>
-                        </li>
-                        <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">Item3</a>
-                        </li>
-                        <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">Item4</a>
-                        </li>
+                        <div class="checkbox_content">
+                            <input type="checkbox" id="Adventure" name="Adventure" value="Adventure">
+                            <label class="filter-checkbox" for="Adventure">Adventure</label>
+
+                        </div>
+
+                        
+                        <div class="checkbox_content">
+
+                            <input type="checkbox" id="Fantasy" name="Fantasy" value="Fantasy">
+                            <label class="filter-checkbox" for="Fantasy">Fantasy</label>
+                        </div>
+
+                        <div class="checkbox_content">
+            
+                            <input type="checkbox" id="Romance" name="Romance" value="Romance">
+                            <label class="filter-checkbox" for="Romance">Romance</label>
+                        </div>
+
+                        <div class="checkbox_content">
+
+                            <input type="checkbox" id="Mystery" name="Mystery" value="Mystery">
+                            <label class="filter-checkbox" for="Mystery">Mystery</label>
+                        </div>  
+
+                        <div class="checkbox_content">
+
+
+                            <input type="checkbox" id="Action" name="Crime" value="Crime">
+                            <label class="filter-checkbox" for="Crime">Crime</label>
+                        </div>  
+                        
+                        <div class="checkbox_content">
+
+                            <input type="checkbox" id="Historical" name="Historical" value="Historical">
+                            <label class="filter-checkbox" for="Historical">Historical</label>
+                        </div> 
+                    </div>  
+                </div>
+                <div class="filters">
+                    <div class="filter-title">
+                        Length
                     </div>
+                    <div class="length_filter">
+                        <p>Length of Chapter:</p>
+                        <input type="range" min="1" max="100" value="50"
+                        oninput="rangeValue.innerText = this.value">
+                        <p id="rangeValue">100</p>   
 
-                    <span class="pure-menu-heading">Genre</span>
-                    <div class="menu-item">
-                        <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">Item1</a>
-                        </li>
-                        <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">Item2</a>
-                        </li>
-                        <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">Item3</a>
-                        </li>
-                        <li class="pure-menu-item">
-                            <a href="#" class="pure-menu-link">Item4</a>
-                        </li>
                     </div>
+                </div>
+                <div class="filters">
+                    <div class="filter-title">
+                        Likes
+                    </div>
+                    <div class="like_filter">
+                        <p>Number of Likes:</p>
+                        <input type="range" min="1" max="100" value="50"
+                        oninput="likeValue.innerText = this.value">
+                        <p id="likeValue">100</p>   
 
-                </ul>
+                    </div>
+                </div>
             </div>
+
         </div>
-        <div class="right-side"> 
+
+        <div class="search-right-side"> 
             <!-- <h3> right side</h3> -->
             <div class="search-results">
                 <ul>
