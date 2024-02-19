@@ -195,28 +195,66 @@
     
 }
 
-.left-side {
+.search-left-side {
     /* Styles for column 1 */
     width: 30%;
     /* background-color: lightblue; */
 }
 
-.right-side {
+.search-right-side {
     /* Styles for column 2 */
     width: 70%;
-    /* padding: 0; */
-    /* background-color: lightpink; */
+    
 }
 .search-filter{
-  /* background-color: #e2e0e0; */
   width: 50%;
-  /* border: 15px solid green; */
-  padding: 3em;
+  
+  padding: 1em;
   margin: 2em;
     border-radius: 1em;
 
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 
+}
+.filters{
+  margin-bottom: 1em;
+  border-bottom: 1px #f7f7f7;
+  display: block;
+    box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+
+    /* border-bottom: 1px black; */
+
+}
+.filter-title{
+  margin: 6px;
+  font-family: 'Times New Roman', Times, serif;
+      font-weight: 800;
+
+      font-size: 18px;
+
+}
+.filters .filter-container{
+  display: flex;
+  flex-direction: column;
+      flex-wrap: nowrap;
+
+}
+.filter .filter-container .checkbox_content {
+    padding: 4px 0 4px 8px;
+    margin-bottom: 8px;
+
+  }
+
+.checkbox_content {
+    font-size: 14px;
+    line-height: 24px;
+        font-family: "Space Mono", monospace;
+
+}
+.length_filter, .like_filter{
+  font-size: 14px;
+    line-height: 24px;
+        font-family: "Space Mono", monospace;
 
 }
 .search-image {
@@ -252,14 +290,7 @@
     
 
 }
-.filters{
-  display: flex;
-    /* max-width: 90%; */
-    flex-direction: column; /* Arrange items horizontally */
-  list-style: none;
-    /* padding: 1em; */
-    margin-bottom: 1em;
-}
+
 
 .search-info{
   display: flex;
@@ -333,6 +364,62 @@ font-family: "Space Mono", monospace;
   border-bottom: 1px solid #f2f2f2;
   margin-bottom: 1em;
 }
+
+/*story launch */
+.launch-container {
+    display: flex;
+    max-width: 100%;
+    flex-direction: row; /* Arrange items horizontally */
+    align-items: center;
+        box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
+        /* padding: 1em;
+        margin: 4em;
+        margin-left: 8em; */
+
+    
+}
+
+.launch-left-side {
+    /* Styles for column 1 */
+    width: 40%;
+    /* background-color: lightblue; */
+}
+
+.launch-right-side {
+    /* Styles for column 2 */
+    width: 60%;
+    /* padding: 0; */
+    /* background-color: lightpink; */
+}
+
+.create-book{
+  font-family: 'DM Sans', sans-serif;
+  width: 250px;
+  height: 250px;
+  margin: 10px;
+  margin-left: 20px;
+
+}
+.new-story-details{
+    box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 90%;
+    margin-left: 4em;
+
+
+}
+.new-story-title, .new-story-describtion {
+
+margin-bottom: 1em;
+    
+}
+.new-story-title label, .new-story-describtion label {
+  display: block;
+}
+/*story launch */
 /* Asanti */
 
 

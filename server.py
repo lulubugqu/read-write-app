@@ -151,10 +151,10 @@ def getUser():
 #     print("getting user profile")
 #     return render_template("profile.html")
 
-@app.route("/myworks/new", methods=["POST"])
+@app.route("/myworks/new", methods=["GET","POST"])
 def newStory():
     print("writing a new story, creates entry in the DB")
-    # return render_template("postStory.html")
+    return render_template("storylaunch.html")
 
 @app.route("/myworks/<int:storyId>/write", methods=["PUT"])
 def editStory():
