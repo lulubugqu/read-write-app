@@ -13,7 +13,7 @@ CREATE TABLE books (
     book_id SERIAL PRIMARY KEY,
     user_id INT,
     title TEXT,
-    color TEXT,
+    picture_url TEXT,
     summary TEXT,
     num_likes INT,
     num_saved INT,
