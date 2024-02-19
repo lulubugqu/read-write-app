@@ -73,8 +73,13 @@ def login():
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
     token = oauth.auth0.authorize_access_token()
+    #  this is when you finish a login/registration, do more work here
+    #  if new user add to database, is login, add
     session["user"] = token
-    return redirect("/")
+    print(token)
+    # check the data, the precence of the token represents a user we just dont jknow what kind
+    # 
+    return redirect("/")   
 
 # 
 # clears the user session in your app and redirects to the Auth0 logout endpoint 
