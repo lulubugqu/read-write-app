@@ -1,13 +1,61 @@
-{# templates/profile.html #}
+{# templates/storylaunch.html #}
 {% extends "navbase.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}Story Launch{% endblock %}
 {% block body %}
     <body class="storylaunch">
 {% endblock %}
 {% block page_content %}
-<div class="book">
-    <h3>Book Title Here</h3>
+<div class="launch-container">
+    <div class="launch-left-side">
+
+        <div class="create-book">
+
+        
+            <div class="create-book" style="background-color: #7f7fbc;">
+            
+                <h3>Book Title </h3>
+            </div>
+        </div>
+
+    </div>
+    <div class="launch-right-side">
+        <div class="new-story-details">
+            <div class="pure-form">
+                <div class="new-story-title">
+                    <label for="title">Title:</label>
+                    <input type="text" id="title" name="title" placeholder="Untitled" class="pure-input-1-2">
+
+
+                </div>
+                <div class="new-story-describtion">
+                    <label for="describtion">Story Describtion:</label>
+                    <!-- <input type="describtion" id="describtion" name="describtion" placeholder="stroy describtion"> -->
+                    <textarea class="pure-input-1-2" placeholder="Textareas work too"></textarea>
+
+
+
+                </div>
+                <div class="select-box">
+
+                    <label for="genre-select">Choose genre:</label>
+
+                    <select name="genre" id="genre-select" required>
+                        <option value="">--Please choose an option--</option>
+                        <option value="Action">Action</option> Adventure</option>
+                        <option value="Fantasy">Fantasy</option>
+                        <option value="Romance">Romance</option>
+                        <option value="Mystery">Mystery</option>
+                        <option value="Historical">Historical</option>
+                    </select>
+                </div>
+            </div>
+
+
+        </div>
+
+    </div>
 </div>
+
 
 {% endblock %}
 {% block footer %}{% endblock %}

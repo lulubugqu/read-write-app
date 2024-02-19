@@ -5,17 +5,20 @@ from os import environ as env
 from urllib.parse import quote_plus, urlencode
 
 from authlib.integrations.flask_client import OAuth
+from functools import wraps
+# from flask-session import Session
 
 
 import psycopg2, os
+from psycopg2.pool import ThreadedConnectionPool
+from psycopg2.extras import DictCursor
+from contextlib import contextmanager
 
 from flask import Flask, render_template, request, url_for, flash, redirect, session
 
 app = Flask(__name__)
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = env.get("FLASK_SECRET")
-
-# 👆 We're continuing from the steps above. Append this to your server.py file.
 
 oauth = OAuth(app)
 
@@ -29,35 +32,57 @@ oauth.register(
     server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
 
-def db_connection():
+def setup():
+    global pool
+    DATABASE_URL = os.environ['DATABASE_URL']
+    pool = ThreadedConnectionPool(1, 100, dsn=DATABASE_URL, sslmode='require')
+
+
+@contextmanager
+def get_db_connection():
     try:
-        connection = psycopg2.connect(os.environ["DATABASE_URL"])
-        print ("Success while connecting to PostgreSQL")  
-        return connection
+        connection = pool.getconn()
+        yield connection
+    finally:
+        pool.putconn(connection)
 
-    except (Exception, psycopg2.Error) as error:
-        print ("Error while connecting to PostgreSQL", error)
 
-# 👆 We're continuing from the steps above. Append this to your server.py file.
+@contextmanager
+def get_db_cursor(commit=False):
+    with get_db_connection() as connection:
+      cursor = connection.cursor(cursor_factory=DictCursor)
+      try:
+          yield cursor
+          if commit:
+              connection.commit()
+      finally:
+          cursor.close()
+
+@app.before_request
+def initialize():
+    setup()
+
 
 @app.route("/login")
 def login():
     return oauth.auth0.authorize_redirect(
         redirect_uri=url_for("callback", _external=True)
     )
-
-
-
-# 👆 We're continuing from the steps above. Append this to your server.py file.
-
+    
+# saves the session for the user and bypasses the need for them to login again when they return
 @app.route("/callback", methods=["GET", "POST"])
 def callback():
     token = oauth.auth0.authorize_access_token()
+    #  this is when you finish a login/registration, do more work here
+    #  if new user add to database, is login, add
     session["user"] = token
-    return redirect("/")
+    print(token)
+    # check the data, the precence of the token represents a user we just dont jknow what kind
+    # 
+    return redirect("/")   
 
-# 👆 We're continuing from the steps above. Append this to your server.py file.
-
+# 
+# clears the user session in your app and redirects to the Auth0 logout endpoint 
 @app.route("/logout")
 def logout():
     session.clear()
@@ -66,7 +91,7 @@ def logout():
         + "/v2/logout?"
         + urlencode(
             {
-                "returnTo": url_for("home", _external=True),
+                "returnTo": url_for("launch", _external=True),
                 "client_id": env.get("AUTH0_CLIENT_ID"),
             },
             quote_via=quote_plus,
@@ -76,7 +101,6 @@ def logout():
 @app.route("/")
 @app.route("/launch")
 def launch():
-    
     return render_template("launch.html")
 
 # @app.route("/login")
@@ -98,16 +122,32 @@ def signup():
 def home():
     return render_template("home.html")
 
-@app.route("/story/<int:storyId>")
-def getStory(storyId):
-    print("getting story")
-    return render_template("story.html")
+@app.route("/story/<int:storyId>/<int:chapterNum>/")
+def getStory(storyId, chapterNum):
+    print("getting chapter")
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (storyId, chapterNum))
+        chapter_content = cursor.fetchone()
+
+        cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
+        book_title = cursor.fetchone()
+
+        cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (storyId,))
+        num_chapters = cursor.fetchone()
+
+    return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters)
 
 @app.route("/user")
 def getUser():
     # if logged in user is the same as the user request, then set true
-    logged_in = True
-    print("getting user profile")
+    # session=session.get('user')
+    # print("session: ")
+    # print(session)
+    # if 'user' in session:
+    #     logged_in = True
+    # else:
+    #     logged_in = False
+    logged_in = True;
     return render_template("user.html", logged_in=logged_in)
 
 # FOR ONCE ACCOUNTS ARE ESTABLISHED

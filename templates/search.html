@@ -1,82 +1,147 @@
-{# templates/search1.html #}
+{# templates/search.html #}
 {% extends "navbase.html" %}
-{% block title %}Search1{% endblock %}
+{% block title %}Search{% endblock %}
 {% block body %}
     <body class="search_page">
 {% endblock %}
 
 {% block header %}{% endblock %}
 {% block page_content %}
-    <h1>Search Page</h1>
-    <div class="search-container"> 
-        <div class="left-side"> 
-            <h3> search results for {{ search }} </h3>
-            <h3> left side </h3>
-            <div class="search-filter">
-                <p> search filter </p>
-                <ul >
-                    <li class="filters">
-                        <p> Length</p>
-                        <a class="pure-button" href="#">Item 1</a>
-                        <button class="pure-button">Item 1</button>
-                        <button> item1 </button>
-                        <button> item2 </button>
-                        <button> item3 </button>
-                    </li>
-                    <li class="filters">
-                        <p> Votes </p>
-                        <button> item1 </button>
-                        <button> item2 </button>
-                        <button> item3 </button>
-                    </li>
-                    <li class="filters">
-                        <p> Genre </p>
-                        <button> item1 </button>
-                        <button> item2 </button>
-                        <button> item3 </button>
-                    </li>
+    <div class="main-text">
+        <h3> search results for {{ search }} </h3>
 
-                </ul>
-                
+    </div>
+    <div class="search-container"> 
+        <div class="search-left-side"> 
+            <div class="search-filter">
+
+                <div class="filters"> 
+
+                    <div class="filter-title">
+                        Genre
+                    </div>
+                    <div class="filter-container">
+                        <div class="checkbox_content">
+                            <input type="checkbox" id="Action" name="Action" value="Action">
+                            <label class="filter-checkbox" for="Action"> Action </label>
+                        </div>
+
+                        <div class="checkbox_content">
+                            <input type="checkbox" id="Adventure" name="Adventure" value="Adventure">
+                            <label class="filter-checkbox" for="Adventure">Adventure</label>
+
+                        </div>
+
+                        
+                        <div class="checkbox_content">
+
+                            <input type="checkbox" id="Fantasy" name="Fantasy" value="Fantasy">
+                            <label class="filter-checkbox" for="Fantasy">Fantasy</label>
+                        </div>
+
+                        <div class="checkbox_content">
+            
+                            <input type="checkbox" id="Romance" name="Romance" value="Romance">
+                            <label class="filter-checkbox" for="Romance">Romance</label>
+                        </div>
+
+                        <div class="checkbox_content">
+
+                            <input type="checkbox" id="Mystery" name="Mystery" value="Mystery">
+                            <label class="filter-checkbox" for="Mystery">Mystery</label>
+                        </div>  
+
+                        <div class="checkbox_content">
+
+
+                            <input type="checkbox" id="Action" name="Crime" value="Crime">
+                            <label class="filter-checkbox" for="Crime">Crime</label>
+                        </div>  
+                        
+                        <div class="checkbox_content">
+
+                            <input type="checkbox" id="Historical" name="Historical" value="Historical">
+                            <label class="filter-checkbox" for="Historical">Historical</label>
+                        </div> 
+                    </div>  
+                </div>
+                <div class="filters">
+                    <div class="filter-title">
+                        Length
+                    </div>
+                    <div class="length_filter">
+                        <p>Length of Chapter:</p>
+                        <input type="range" min="1" max="100" value="50"
+                        oninput="rangeValue.innerText = this.value">
+                        <p id="rangeValue">100</p>   
+
+                    </div>
+                </div>
+                <div class="filters">
+                    <div class="filter-title">
+                        Likes
+                    </div>
+                    <div class="like_filter">
+                        <p>Number of Likes:</p>
+                        <input type="range" min="1" max="100" value="50"
+                        oninput="likeValue.innerText = this.value">
+                        <p id="likeValue">100</p>   
+
+                    </div>
+                </div>
             </div>
+
         </div>
-        <div class="right-side"> 
-            <h3> right side</h3>
+
+        <div class="search-right-side"> 
+            <!-- <h3> right side</h3> -->
             <div class="search-results">
                 <ul>
                     <li class="search_lst">
-                        <div class="search-image"> 
 
-                            <img src= "{{url_for('static', filename='/images/green.png')}}" alt="green-box" width="150"> 
-                        </div>
-                        <div class="search-description">
-                            <p> story name </p>
-                            <p> search-description</p>
+                            <div class="search-image" style="background-color: #b48fc9;">
+                                <!-- <div class="book-number" >#2</div> -->
+                                <h3> Book Title 1</h3>
+                            </div>
 
+                        <div class="search-info">
+                            <div class="story-name">
+                                <h3> search results about {{ search }} </h3>
+                            </div>
+                            <div class="search-description"> 
+                                <p> search-description  search-description search-description search-description</p>
+                            </div>
 
                         </div>
 
                     </li> 
                     <li class="search_lst">
-                        <div class="search-image"> 
-
-                            <img src= "{{url_for('static', filename='/images/green.png')}}" alt="green-box" width="150"> 
-                        </div>
-                        <div class="search-description">
-                            <p> search results </p>
-                            <p> search-description</p>
-
+                        <div class="search-image" style="background-color: #ad8dbf;">
+                                <!-- <div class="book-number" >#2</div> -->
+                                <h3> Book Title 2</h3>
+                            </div>
+                        <div class="search-info">
+                            <div class="story-name">
+                                <h3> search results about {{ search }} </h3>
+                            </div>
+                            <div class="search-description"> 
+                                <p> search-description  search-description search-description search-description</p>
+                            </div>
 
                         </div>
                     </li>
                     <li class="search_lst">
-                        <div class="search-image"> 
-
-                            <img src= "{{url_for('static', filename='/images/green.png')}}" alt="green-box" width="150"> 
-                        </div>
+                        <div class="search-image" style="background-color: #b6a2c1;">
+                                <!-- <div class="book-number" >#2</div> -->
+                                <h3> Book Title 3</h3>
+                            </div>
                         <div class="search-info">
-                            <p class="story-name"> search results </p>
-                            <p class="search-description"> search-description </p>
+                            <div class="story-name">
+                                <h3> search results about {{ search }} </h3>
+                            </div>
+                            <div class="search-description"> 
+                                <p> search-description  search-description search-description search-description</p>
+                            </div>
 
                         </div>
                     </li>
