@@ -116,20 +116,38 @@ def getUser():
 #     print("getting user profile")
 #     return render_template("profile.html")
 
-@app.route("/myworks/new", methods=["POST"])
-def newStory():
-    print("writing a new story, creates entry in the DB")
-    # return render_template("postStory.html")
+## STORY EDITING PAGES - OVERVIEW AND WRITING PAGE
 
-@app.route("/myworks/<int:storyId>/write", methods=["PUT"])
-def editStory():
-    print("edits story, modifies DB entry")
-    # return render_template("editStory.html")
+@app.route("/myworks/<book_id>", method=["GET"])    #(STORY OVERVIEW PAGE)
+# this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty. 
 
-@app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
-def deleteStory():
-    print("deletes story, deletes entry in DB")
-    # return render_template("deleteStory.html")
+@app.route("/myworks/<book_id>/<chapter_id>", method=["GET"])   #(EDITING CHAPTER PAGE)
+# this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content.  
+
+# APIs for story overview and writing page
+@app.route("/myworks/api/newbook", method=["POST"])
+# this is where the form gets sent when its submitted
+# creates a new book with the data from the form. Called when the user clicks "create a new story" from their profile. When that button is clicked, we are redirected to 
+# /myworks/<book_id> with the new book id made. Chapter 1 should be made, with empty content. 
+
+@app.route("/myworks/api/<book_id>/updatebook", method=["PUT"])
+# updates the details of the book. Called when the user clicks "save" on the /myworks/<book_id> page. 
+
+@app.route("/myworks/api/<book_id>/<chapter_id>/createchapter", method=["POST"])
+# creates a chapter with empty content. called when "+ chapter" is pressed on the myworks/<book_id> book details page.
+
+@app.route("/myworks/api/<book_id>/<chapter_id>/updatechapter", method=["PUT"])
+# update chapter in DB with content from /myworks/<book_id>/<chapter_id> editing page.
+# called with "save" is clicked in the chapter editing page.
+
+@app.route("/myworks/api/<book_id>/delete", method=["DELETE"])
+# book is deleted from database. 
+# called when "delete" is clicked on the story detail page. 
+
+@app.route("/myworks/api/<book_id>/<chapter_id>/delete", method=["DELETE"])
+# this can be done last, we don't need it. 
+# book chapter is deleted from database. 
+# called when "delete" chpater is clicked from the story detail page. 
 
 # Need to add more later !!!
 @app.route("/search/", methods=["GET"])

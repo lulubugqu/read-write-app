@@ -15,18 +15,16 @@ CREATE TABLE books (
     user_id INT,
     title TEXT,
     picture_url TEXT,
-    summary TEXT,
-    num_likes INT,
-    num_saved INT,
-    genres TEXT,
+    num_likes INT DEFAULT 0,
+    num_saved INT DEFAULT 0,
+    genre TEXT,
     tags TEXT,
     num_chapters INT,
-    chapter_ids TEXT
+    summary TEXT
 )
 
 CREATE TABLE chapters (
-    chapter_id SERIAL PRIMARY KEY,
+    chapter_id INT,
     book_id INT,
     content TEXT
 )
-
