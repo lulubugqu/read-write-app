@@ -70,10 +70,10 @@
                         Length
                     </div>
                     <div class="length_filter">
-                        <p>Length of Chapter:</p>
-                        <input type="range" min="1" max="100" value="50"
+                        <label for="chapterRange"> Length of Chapter: </label>
+                        <input type="range" min="1" max="100" value="50" name="chapterRange"
                         oninput="rangeValue.innerText = this.value">
-                        <p id="rangeValue">100</p>   
+                        <span id="rangeValue">100</span>   
 
                     </div>
                 </div>
@@ -82,10 +82,11 @@
                         Likes
                     </div>
                     <div class="like_filter">
-                        <p>Number of Likes:</p>
-                        <input type="range" min="1" max="100" value="50"
+                        <!-- <p>Number of Likes:</p> -->
+                        <label for="range"> Number of Likes: </label>
+                        <input type="range" min="1" max="100" value="50" name="range"
                         oninput="likeValue.innerText = this.value">
-                        <p id="likeValue">100</p>   
+                        <span id="likeValue">100</span>   
 
                     </div>
                 </div>
@@ -115,6 +116,7 @@
                         </div>
 
                     </li> 
+                
                     <li class="search_lst">
                         <div class="search-image" style="background-color: #ad8dbf;">
                                 <!-- <div class="book-number" >#2</div> -->
@@ -146,8 +148,29 @@
                         </div>
                     </li>
                 </ul>
+            
                 
             </div>
+            <div class="bookdetails">
+                            <div class="book">
+                                <a href="/story/1" class="book-link">
+                                    <h3>Book Name</h3>
+                                </a>
+                            </div>
+                        <div class="details">
+                            <div class="book-details-container">
+                                <h3>Book Name</h3>
+                                <!-- Book Summary Limit of 410 Char -->
+                                <p>Here is a quick book description. The book is very good!</p>
+                            </div>
+                            <div class="book-tag-container">
+                                <div class="book-tag"><p>Fantasy</p></div>
+                                <div class="book-tag"><p>New author fiction</p></div>
+                                <div class="book-tag"><p>Mystery</p></div>
+                                <div class="book-tag"><p>Young Adult</p></div>
+                            </div>
+                        </div>
+                </div>
             
         </div>
     </div>

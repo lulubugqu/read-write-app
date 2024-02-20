@@ -157,6 +157,32 @@ def getUser():
 #     print("getting user profile")
 #     return render_template("profile.html")
 
+<<<<<<< HEAD
+@app.route("/myworks/new", methods=["GET","POST"])
+def newStory():
+    print("writing a new story, creates entry in the DB")
+    return render_template("storylaunch.html")
+
+@app.route("/myworks/<int:storyId>/write", methods=["GET", "PUT"])
+def editStory(storyId):
+    print("edits story, modifies DB entry")
+    return render_template("storydetail.html")
+
+@app.route("/myworks/<int:storyId>/edit", methods=["PUT"])
+def editChapter():
+    print("edits chapter, modifies DB entry")
+    return render_template("editChapter.html")
+
+@app.route("/myworks/<int:storyId>/create", methods=["POST"])
+def createChapter():
+    print("writing a new chapter, creates an entry in the DB")
+    return render_template("createChapter.html")
+
+@app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
+def deleteStory():
+    print("deletes story, deletes entry in DB")
+    # return render_template("deleteStory.html")
+=======
 ## STORY EDITING PAGES - OVERVIEW AND WRITING PAGE
 
 @app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
@@ -233,6 +259,7 @@ def top5():
     
     return jsonify(top_5)
 
+>>>>>>> main
 
 # Need to add more later !!!
 @app.route("/search/", methods=["GET"])
