@@ -6,6 +6,9 @@
 .base, .navbase, .launch, .profile, .home, .search_page {
   font-family: 'Titan One', sans-serif;
   margin: 0px;
+  /* margin-left:auto;
+  margin-right:auto;
+  width:960px; */
 }
 
 .launch {
@@ -115,47 +118,69 @@
 
 /* NAVBAR IN NAVBASE */
 .nav_wrap {
+  width: 100%;
   display: flex;
   display: flex;
-  padding: 0% 2%;
+  /* padding: 0% 2%; */
+  padding-left: 1%;
   background-color: white;
   align-items: center;
+  border-bottom: solid 1px #bebebe;
 }
 
-/*Resize the wrap to see the search bar change!*/
 .search_wrap{
   flex: 75%;
   width: auto;
   height: auto;
-  /* top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%); */
 }
 .logo_wrap {
-  flex: 8%;
-  width: auto;
+  flex: 5%;
+  /* width: auto; */
 }
 .profile_wrap {
   flex: 10%;
   width: 60%;
 }
 
-.login_out_wrap {
+.loggedin-log-wrap {
   flex: 10%;
   width: 60%; 
-  margin-left: 1.5%;
-  margin-right: 1%;
+  margin-left: 2%;
+  /* margin-right: 1%; */
+}
+.logout {
+  margin-left: 3%;
+}
+.loggedout-log-wrap {
+  flex: 5%;
+  width: 60%; 
+  margin-left: 3%;
+  /* margin-right: 1%; */
+}
+#out_button {
+  margin-top: 0;
+}
+#nav-button {
+  background-color: #88ad6d;
+  border-radius: 10px;
+  border: 0;
+  font-size: 130%;
+  color: white;
+  margin-top: 0;
 }
 
-#profile_button, #out_button {
+
+/* #profile_button, #out_button {
   margin-top: 10%;
-}
+} */
 
 /* search bar */
 .search {
   width: 100%;
   position: relative;
   display: flex;
+  margin-left: 1.5%;
+  margin-right: 1.5%;
 }
 
 .searchTerm {
@@ -632,6 +657,10 @@ width: 100%;
   text-align: center;
   margin-top: 45%;
 }
+.user #words {
+  margin-top: 42%;
+}
+
 .user a{
   text-decoration: none;
 }
@@ -665,11 +694,19 @@ width: 100%;
   padding-left: 1%;
   width: 95%; 
   margin-left: 2%;
+  margin-bottom: 1%;
 }
 
 /* Home Page */
 .home {
-  background-color: #9dc183;
+  font-family: 'Din Next Rounded LT', sans-serif;
+}
+
+.welcome-header {
+  border-bottom: 3px solid #507337;
+}
+.welcome-header-text {
+  margin-left: 4%;
 }
 
 .home h1 {
@@ -679,7 +716,7 @@ width: 100%;
 }
 
 .home h3 {
-  font-size: 2em;
+  /* font-size: 2em; */
   text-align: center;
   margin: 5%;
   font-weight: bold;
@@ -688,14 +725,27 @@ width: 100%;
 .book-section {
   display: flex;
   flex-direction: column;
-  background-color:#e4f7d6;
+  width: 100%;
+  height:100%;
+  background-color:#def0d2;
   text-align: center;
   font-family: 'DM Sans', sans-serif;
   font-weight: bolder;
   font-size: larger;
   margin-top: 0px;
-  height: max;
   padding: 5px;
+  /* border-radius: 15px;
+  border: 1px solid transparent;
+  box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
+  padding-left: 1%; */
+}
+
+.home #user_library {
+  margin-top: 4%;
+  
+}
+.home a {
+  text-decoration: none; 
 }
 
 /* Type 1 Books */
@@ -804,7 +854,122 @@ width: 100%;
   padding: 0%;
 }
 
+/* Book type 2 ON USER PAGE */
+.user {
+  font-family: 'DM Sans', sans-serif;
+}
 
+.user .user_books {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.user .bookdetails {
+  background-color: #cce3bb;
+  border: 0px;
+  border-radius: 15px;
+  display: flex;
+  color: white;
+  /* justify-content: space-between; */
+  width: 97%; 
+  margin-bottom: 2%;
+}
+
+.user .bookdetails .book {
+  background-color: #7a9d60;
+  font-family: 'DM Sans', sans-serif;
+  /* width: 20%; */
+  flex: 18%;
+  height: 90%;
+  border-radius: 10px;
+}
+.book-details-container {
+  position: relative;
+}
+.book-details-container a {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+.user .bookdetails .book h3 {
+  text-align: center;
+  margin-top: 45%;
+  color: white;
+}
+
+.user .details {
+  font-family: 'DM Sans', sans-serif;
+  flex: 80%;
+  margin: 10px;
+  color: black;
+}
+
+.user .book-details-container {
+  min-height: 75%;
+}
+
+.user .details .book-tag-container {
+  background-color: transparent;
+  width: 60%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  gap: 5px;
+  padding: 0%;
+}
+
+/* Book type 1 on User Page */
+.user_library {
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  width: 95%;
+  margin-left: 5%;
+}
+.user_library .book1 {
+  height: 18em;
+  flex-basis: calc(18% - 3%);
+  margin: 2%;
+}
+
+.user_library .book1details {
+  width: 94%;
+  height: 16em;
+  margin: 2%;
+  background-color: #88ad6d;
+  border-radius: 10px;
+  position: relative;
+}
+
+.book1 .book-link {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.user_library .book1 h3 {
+  color: white;
+  text-align: center;
+  margin-top: 45%;
+}
+
+.book1author {
+  margin-left: 3%;
+}
+.author-link h6 {
+  margin: 0;
+  margin-left: 3%;
+  font-size: medium;
+}
+
+.book-tag p {
+  margin: 0;
+}
 
 /* Story CSS*/
 

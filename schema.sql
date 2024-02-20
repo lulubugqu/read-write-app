@@ -2,6 +2,7 @@ CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(50),
     pass VARCHAR(50),
+    pfp_url TEXT,
     bio TEXT,
     email TEXT,
     birthday DATE,
@@ -13,19 +14,17 @@ CREATE TABLE books (
     book_id SERIAL PRIMARY KEY,
     user_id INT,
     title TEXT,
-    color TEXT,
-    summary TEXT,
-    num_likes INT,
-    num_saved INT,
-    genres TEXT,
+    picture_url TEXT,
+    num_likes INT DEFAULT 0,
+    num_saved INT DEFAULT 0,
+    genre TEXT,
     tags TEXT,
     num_chapters INT,
-    chapter_ids TEXT
+    summary TEXT
 )
 
 CREATE TABLE chapters (
-    chapter_id SERIAL PRIMARY KEY,
+    chapter_id INT,
     book_id INT,
     content TEXT
 )
-
