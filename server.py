@@ -163,8 +163,8 @@ def getUser():
 @app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty. 
 
-@app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])
-def editChapter(storyId, chapterNum):
+@app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["POST"])
+def editChapter(storyId, chapterNum, content):
       #(EDITING CHAPTER PAGE)
     # this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content.  
     with get_db_cursor() as cursor:
@@ -172,7 +172,7 @@ def editChapter(storyId, chapterNum):
             return "Database connection error", 500
         
         cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (storyId, chapterNum))
-        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s")
+        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s" (content, storyId))
         chapter_content = cursor.fetchone()
 
 
@@ -248,10 +248,7 @@ def top5():
     
     return jsonify(top_5)
 
-<<<<<<< HEAD
->>>>>>> main
-=======
->>>>>>> a41fb4c (editChapter started)
+
 
 # Need to add more later !!!
 @app.route("/search/", methods=["GET"])
