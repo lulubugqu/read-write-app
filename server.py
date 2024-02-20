@@ -112,10 +112,10 @@ def newStory():
     print("writing a new story, creates entry in the DB")
     return render_template("storylaunch.html")
 
-@app.route("/myworks/<int:storyId>/write", methods=["PUT"])
-def editStory():
+@app.route("/myworks/<int:storyId>/write", methods=["GET", "PUT"])
+def editStory(storyId):
     print("edits story, modifies DB entry")
-    # return render_template("editStory.html")
+    return render_template("storydetail.html")
 
 @app.route("/myworks/<int:storyId>/edit", methods=["PUT"])
 def editChapter():
