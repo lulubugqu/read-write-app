@@ -157,31 +157,6 @@ def getUser():
 #     print("getting user profile")
 #     return render_template("profile.html")
 
-@app.route("/myworks/new", methods=["GET","POST"])
-def newStory():
-    print("writing a new story, creates entry in the DB")
-    return render_template("storylaunch.html")
-
-@app.route("/myworks/<int:storyId>/write", methods=["GET", "PUT"])
-def editStory(storyId):
-    print("edits story, modifies DB entry")
-    return render_template("storydetail.html")
-
-@app.route("/myworks/<int:storyId>/edit", methods=["PUT"])
-def editChapter():
-    print("edits chapter, modifies DB entry")
-    return render_template("editChapter.html")
-
-@app.route("/myworks/<int:storyId>/create", methods=["POST"])
-def createChapter():
-    print("writing a new chapter, creates an entry in the DB")
-    return render_template("createChapter.html")
-
-@app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
-def deleteStory():
-    print("deletes story, deletes entry in DB")
-    # return render_template("deleteStory.html")
-
 ## STORY EDITING PAGES - OVERVIEW AND WRITING PAGE
 
 @app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
@@ -226,7 +201,7 @@ def updatechapter(book_id, chapter_id):
         if cursor is None:
             return "Database connection error", 500
         
-        content = request.data.decode('utf-8')
+        content = request.json.get('content')
         try:
             cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (content, book_id, chapter_id))
             if cursor.rowcount > 0:
@@ -258,6 +233,14 @@ def top5():
     
     return jsonify(top_5)
 
+@app.route("/api/top5/<string:genre>", methods=["GET"])
+def top5genre(genre):
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT * FROM books WHERE LOWER(genre) = LOWER(%s) ORDER BY num_likes DESC LIMIT 5", (genre,))
+        top_5 = cursor.fetchall()
+    
+    return jsonify(top_5)
+
 # Need to add more later !!!
 @app.route("/search/", methods=["GET"])
 @app.route("/search", methods=["GET"])
@@ -268,3 +251,8 @@ def search():
     print(search)
 
     return render_template("search.html", search=search)
+
+
+# # USER RELATED APIs
+# @app.route("/api/currentuser")
+# def currentuser():
