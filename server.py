@@ -172,7 +172,7 @@ def editChapter(storyId, chapterNum, content):
             return "Database connection error", 500
         
         cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (storyId, chapterNum))
-        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s" (content, storyId))
+        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s" (content, storyId, chapterNum))
         chapter_content = cursor.fetchone()
 
 
