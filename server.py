@@ -157,40 +157,29 @@ def getUser():
 #     print("getting user profile")
 #     return render_template("profile.html")
 
-<<<<<<< HEAD
-@app.route("/myworks/new", methods=["GET","POST"])
-def newStory():
-    print("writing a new story, creates entry in the DB")
-    return render_template("storylaunch.html")
 
-@app.route("/myworks/<int:storyId>/write", methods=["GET", "PUT"])
-def editStory(storyId):
-    print("edits story, modifies DB entry")
-    return render_template("storydetail.html")
-
-@app.route("/myworks/<int:storyId>/edit", methods=["PUT"])
-def editChapter():
-    print("edits chapter, modifies DB entry")
-    return render_template("editChapter.html")
-
-@app.route("/myworks/<int:storyId>/create", methods=["POST"])
-def createChapter():
-    print("writing a new chapter, creates an entry in the DB")
-    return render_template("createChapter.html")
-
-@app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
-def deleteStory():
-    print("deletes story, deletes entry in DB")
-    # return render_template("deleteStory.html")
-=======
 ## STORY EDITING PAGES - OVERVIEW AND WRITING PAGE
 
 @app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty. 
 
-@app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
-# this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content.  
+@app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])
+def editChapter(storyId, chapterNum):
+      #(EDITING CHAPTER PAGE)
+    # this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content.  
+    with get_db_cursor() as cursor:
+        if cursor is None:
+            return "Database connection error", 500
+        
+        cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (storyId, chapterNum))
+        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s")
+        chapter_content = cursor.fetchone()
 
+
+@app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
+def deleteStory():
+    print("deletes story, deletes entry in DB")
+    # return render_template("deleteStory.html")
 # APIs for story overview and writing page
 @app.route("/myworks/api/newbook", methods=["POST"])
 # this is where the form gets sent when its submitted
@@ -259,7 +248,10 @@ def top5():
     
     return jsonify(top_5)
 
+<<<<<<< HEAD
 >>>>>>> main
+=======
+>>>>>>> a41fb4c (editChapter started)
 
 # Need to add more later !!!
 @app.route("/search/", methods=["GET"])
