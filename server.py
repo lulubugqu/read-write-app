@@ -157,7 +157,6 @@ def getUser():
 #     print("getting user profile")
 #     return render_template("profile.html")
 
-<<<<<<< HEAD
 @app.route("/myworks/new", methods=["GET","POST"])
 def newStory():
     print("writing a new story, creates entry in the DB")
@@ -182,7 +181,7 @@ def createChapter():
 def deleteStory():
     print("deletes story, deletes entry in DB")
     # return render_template("deleteStory.html")
-=======
+
 ## STORY EDITING PAGES - OVERVIEW AND WRITING PAGE
 
 @app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
@@ -258,8 +257,6 @@ def top5():
         top_5 = cursor.fetchall()
     
     return jsonify(top_5)
-
->>>>>>> main
 
 # Need to add more later !!!
 @app.route("/search/", methods=["GET"])
