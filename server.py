@@ -114,10 +114,9 @@ def launch():
 #     print("logout")
 #     return render_template("launch.html")
 
-@app.route("/signup", methods=["GET", "POST"])
-def signup():
-    print("signup")
-    # return render_template("signup.html")
+@app.route("/firstLogin", methods=["GET"])
+def firstLogin():
+    return render_template("first-login.html")
 
 @app.route("/home")
 def home():
