@@ -83,7 +83,7 @@ def callback():
     # 
     return redirect("/")   
 
-# 
+
 # clears the user session in your app and redirects to the Auth0 logout endpoint 
 @app.route("/logout")
 def logout():
@@ -205,7 +205,7 @@ def editChapter(storyId, chapterNum):
         cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
         chapter_content = cursor.fetchone()
         book_title = cursor.fetchone()
-        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s" (chapter_content, book_title, chapterNum))
+        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (chapter_content, book_title, chapterNum))
 
         return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title)
 
@@ -267,7 +267,7 @@ def updatechapter(book_id, chapter_id):
 # book is deleted from database. 
 # called when "delete" is clicked on the story detail page. 
 
-@app.route("/myworks/api/<book_id>/<chapter_id>/delete", method=["DELETE"])
+@app.route("/myworks/api/<book_id>/<chapter_id>/delete", methods=["DELETE"])
 # this can be done last, we don't need it. 
 # book chapter is deleted from database. 
 # called when "delete" chpater is clicked from the story detail page. 
@@ -305,9 +305,9 @@ def search():
 
 
 # USER RELATED APIs
-@app.route("/api/currentuser")
-def currentuser():
-    # find current user with session ID
+# @app.route("/api/currentuser")
+# def currentuser():
+#     # find current user with session ID
     
 
 @app.route("/api/userlibrary")
