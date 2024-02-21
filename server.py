@@ -184,14 +184,39 @@ def getUser(username):
 #     print("getting user profile")
 #     return render_template("profile.html")
 
-# STORY EDITING PAGES - OVERVIEW AND WRITING PAGE
+
+
+## STORY EDITING PAGES - OVERVIEW AND WRITING PAGE
+
 
 @app.route("/myworks/<book_id>", method=["GET"])    #(STORY OVERVIEW PAGE)
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty. 
 
-@app.route("/myworks/<book_id>/<chapter_id>", method=["GET"])   #(EDITING CHAPTER PAGE)
-# this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content.  
 
+@app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["POST"])
+def editChapter(storyId, chapterNum):
+      #(EDITING CHAPTER PAGE)
+    # this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content.  
+    with get_db_cursor() as cursor:
+        if cursor is None:
+            return "Database connection error", 500
+        
+        cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (storyId, chapterNum))
+        cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
+        chapter_content = cursor.fetchone()
+        book_title = cursor.fetchone()
+        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s" (chapter_content, book_title, chapterNum))
+
+        return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title)
+
+
+
+
+
+@app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
+def deleteStory():
+    print("deletes story, deletes entry in DB")
+    # return render_template("deleteStory.html")
 # APIs for story overview and writing page
 @app.route("/myworks/api/newbook", method=["POST"])
 # this is where the form gets sent when its submitted
@@ -208,7 +233,26 @@ def getUser(username):
 # update chapter in DB with content from /myworks/<book_id>/<chapter_id> editing page.
 # called with "save" is clicked in the chapter editing page.
 
-@app.route("/myworks/api/<book_id>/delete", method=["DELETE"])
+def updatechapter(book_id, chapter_id):
+    with get_db_cursor() as cursor:
+        if cursor is None:
+            return "Database connection error", 500
+        
+        content = request.json.get('content')
+        try:
+            cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (content, book_id, chapter_id))
+            if cursor.rowcount > 0:
+                return "Chapter content updated successfully", 200
+            else:
+                return "Failed to update chapter content", 500
+        except Exception as e:
+            print(e)
+            return "Failed to update chapter content", 500
+
+
+
+@app.route("/myworks/api/<int:book_id>/delete", methods=["DELETE"])
+
 # book is deleted from database. 
 # called when "delete" is clicked on the story detail page. 
 
@@ -216,6 +260,27 @@ def getUser(username):
 # this can be done last, we don't need it. 
 # book chapter is deleted from database. 
 # called when "delete" chpater is clicked from the story detail page. 
+
+
+## HOME PAGE APIs
+@app.route("/api/top5", methods=["GET"])
+def top5():
+    "SELECT * FROM books ORDER BY num_likes DESC LIMIT 5"
+    with get_db_cursor() as cursor:
+        cursor.execute( "SELECT * FROM books ORDER BY num_likes DESC LIMIT 5")
+        top_5 = cursor.fetchall()
+    
+    return jsonify(top_5)
+
+  
+@app.route("/api/top5/<string:genre>", methods=["GET"])
+def top5genre(genre):
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT * FROM books WHERE LOWER(genre) = LOWER(%s) ORDER BY num_likes DESC LIMIT 5", (genre,))
+        top_5 = cursor.fetchall()
+    
+    return jsonify(top_5)
+
 
 # Need to add more later !!!
 @app.route("/search/", methods=["GET"])
@@ -227,3 +292,8 @@ def search():
     print(search)
 
     return render_template("search.html", search=search)
+
+
+# # USER RELATED APIs
+# @app.route("/api/currentuser")
+# def currentuser():

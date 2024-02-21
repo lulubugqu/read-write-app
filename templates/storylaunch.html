@@ -8,29 +8,37 @@
 <div class="launch-container">
     <div class="launch-left-side">
 
-        <div class="create-book">
+        <!-- <div class="create-book"> -->
 
         
-            <div class="create-book" style="background-color: #7f7fbc;">
+            <div class="create-book" >
             
-                <h3>Book Title </h3>
+                <h3> Image </h3>
             </div>
-        </div>
+        <!-- </div> -->
 
     </div>
     <div class="launch-right-side">
         <div class="new-story-details">
-            <div class="pure-form">
+            <div class="story-details">
+                Story Details
+            </div>
+            <form class="pure-form">
                 <div class="new-story-title">
                     <label for="title">Title:</label>
-                    <input type="text" id="title" name="title" placeholder="Untitled" class="pure-input-1-2">
+                    <div class="text-input">
+                        <input type="text" id="title" name="title" placeholder="Untitled" class="pure-input-1-2">
+                    </div>
 
 
                 </div>
                 <div class="new-story-describtion">
                     <label for="describtion">Story Describtion:</label>
                     <!-- <input type="describtion" id="describtion" name="describtion" placeholder="stroy describtion"> -->
-                    <textarea class="pure-input-1-2" placeholder="Textareas work too"></textarea>
+                    <div class="text-input">
+                        <textarea class="pure-input-1-2" placeholder="Story describtion goes here"></textarea>
+
+                    </div>
 
 
 
@@ -48,7 +56,9 @@
                         <option value="Historical">Historical</option>
                     </select>
                 </div>
-            </div>
+            </form>
+            <a class="pure-button pure-button-active" href="/myworks/<int:storyId>/create"> Next </a>
+
 
 
         </div>
