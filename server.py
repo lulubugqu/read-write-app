@@ -193,6 +193,21 @@ def getUser(username):
 
 @app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty. 
+def editDetails(storyId):
+    print("getting book details")
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (storyId,))
+        book = cursor.fetchone()
+    title = book[3]
+    picture_url = book[4]
+    genre = book[6]
+    tags = (book[7].split(", "))
+
+    tags_info = []
+
+
+
+
 
 
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
@@ -206,10 +221,9 @@ def editChapter(storyId, chapterNum):
         cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
         chapter_content = cursor.fetchone()
         book_title = cursor.fetchone()
-        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s" (chapter_content, book_title, chapterNum))
+        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (chapter_content, book_title, chapterNum))
 
         return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title)
-
 
 
 
@@ -309,6 +323,7 @@ def search():
 @app.route("/api/currentuser")
 def currentuser():
     # find current user with session ID
+    return
     
 
 @app.route("/api/userlibrary")
