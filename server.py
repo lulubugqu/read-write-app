@@ -223,9 +223,6 @@ def editChapter(storyId, chapterNum):
         return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title)
 
 
-
-
-
 @app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
 def deleteStory():
     print("deletes story, deletes entry in DB")
@@ -234,9 +231,11 @@ def deleteStory():
 
 # APIs for story overview and writing page
 @app.route("/myworks/api/newbook", methods=["POST"])
-# this is where the form gets sent when its submitted
-# creates a new book with the data from the form. Called when the user clicks "create a new story" from their profile. When that button is clicked, we are redirected to 
-# /myworks/<book_id> with the new book id made. Chapter 1 should be made, with empty content. 
+# this API is called whe user clicks "NEW STORY"
+# story is initialied with empty string for everything we don't have data for
+# defualt image URL IS: https://thumbs.dreamstime.com/b/paper-texture-smooth-pastel-pink-color-perfect-background-uniform-pure-minimal-photo-trendy-149575202.jpg
+# story title is intialized as "Untitled Story"
+# chpater 1 should be made, with empty content
 
 @app.route("/myworks/api/<int:book_id>/updatebook", methods=["PUT"])
 # updates the details of the book. Called when the user clicks "save" on the /myworks/<book_id> page. 
@@ -276,7 +275,6 @@ def updatechapter(book_id, chapter_id):
             return "Failed to update chapter content", 500
 
 @app.route("/myworks/api/<int:book_id>/delete", methods=["DELETE"])
-
 # book is deleted from database. 
 # called when "delete" is clicked on the story detail page. 
 
@@ -334,5 +332,4 @@ def userlibrary():
         cursor.execute("SELECT * FROM books WHERE user_id = %s", (current_user_id,))
         library = cursor.fetchall()
 
-    return jsonify(library) 
-
+    return jsonify(library)
