@@ -222,7 +222,7 @@ def updatechapter(book_id, chapter_id):
         if cursor is None:
             return "Database connection error", 500
         
-        content = request.data.decode('utf-8')
+        content = request.json.get('content')
         try:
             cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (content, book_id, chapter_id))
             if cursor.rowcount > 0:
@@ -254,7 +254,14 @@ def top5():
     
     return jsonify(top_5)
 
-
+  
+@app.route("/api/top5/<string:genre>", methods=["GET"])
+def top5genre(genre):
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT * FROM books WHERE LOWER(genre) = LOWER(%s) ORDER BY num_likes DESC LIMIT 5", (genre,))
+        top_5 = cursor.fetchall()
+    
+    return jsonify(top_5)
 
 # Need to add more later !!!
 @app.route("/search/", methods=["GET"])
@@ -266,3 +273,8 @@ def search():
     print(search)
 
     return render_template("search.html", search=search)
+
+
+# # USER RELATED APIs
+# @app.route("/api/currentuser")
+# def currentuser():
