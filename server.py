@@ -199,22 +199,22 @@ def storyoverview():
 
 
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
-def editChapter(storyId, chapterNum):
+def editChapter(book_id, chapter_id):
     # this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content. 
     print("getting chapter")
     with get_db_cursor() as cursor:
-        cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (storyId, chapterNum))
+        cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (book_id, chapter_id))
         chapter_content = cursor.fetchone()
 
-        cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
+        cursor.execute("SELECT title FROM books WHERE book_id = %s", (book_id,))
         book_title = cursor.fetchone()
 
-        cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (storyId,))
+        cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (book_id,))
         num_chapters = cursor.fetchone()
     
-    return render_template("saveChapter.html")
+    return render_template("saveChapter.html", storyId = book_id, chapterNum = chapter_id, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters)
     # CODE OUTLINE
-    # get current chapter content, chapter number, book title, (maybe) storyID from database
+    # get current chapter content, chapter number, book title, (maybe) book_id from database
     # render an HTML page, returning this info
     # the HTML page should a be simple for with one text box, where the user can edit the 
     # content of the chapter. 
