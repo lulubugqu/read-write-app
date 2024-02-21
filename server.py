@@ -200,8 +200,19 @@ def storyoverview():
 
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
 def editChapter(storyId, chapterNum):
-    # this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content.  
+    # this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content. 
+    print("getting chapter")
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (storyId, chapterNum))
+        chapter_content = cursor.fetchone()
+
+        cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
+        book_title = cursor.fetchone()
+
+        cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (storyId,))
+        num_chapters = cursor.fetchone()
     
+    return render_template("saveChapter.html")
     # CODE OUTLINE
     # get current chapter content, chapter number, book title, (maybe) storyID from database
     # render an HTML page, returning this info
@@ -210,17 +221,7 @@ def editChapter(storyId, chapterNum):
     # there will be a save page where users can save their edits.
     # the save page calls the api "/myworks/api/<book_id>/<chapter_id>/updatechapter"
     
-    with get_db_cursor() as cursor:
-        if cursor is None:
-            return "Database connection error", 500
-        
-        cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (storyId, chapterNum))
-        cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
-        chapter_content = cursor.fetchone()
-        book_title = cursor.fetchone()
-        # cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (chapter_content, book_title, chapterNum))
 
-        return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title)
 
 
 @app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
