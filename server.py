@@ -305,6 +305,20 @@ def search():
     return render_template("search.html", search=search)
 
 
-# # USER RELATED APIs
-# @app.route("/api/currentuser")
-# def currentuser():
+# USER RELATED APIs
+@app.route("/api/currentuser")
+def currentuser():
+    # find current user with session ID
+    
+
+@app.route("/api/userlibrary")
+def userlibrary():
+    current_user_email = currentuser()['email'] #assuming current users returns a JSON
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT user_id FROM users WHERE email = %s", (current_user_email,))
+        current_user_id = cursor.fetchone()
+        cursor.execute("SELECT * FROM books WHERE user_id = %s", (current_user_id,))
+        library = cursor.fetchall()
+
+    return jsonify(library) 
+
