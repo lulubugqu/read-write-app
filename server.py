@@ -154,7 +154,7 @@ def getUser(username):
     #     logged_in = True
     # else:
     #     logged_in = False
-    logged_in = True;
+    logged_in = True
     print("getting user")
     with get_db_cursor() as cursor:
         cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
@@ -191,12 +191,25 @@ def getUser(username):
 
 
 @app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
-# this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty. 
+# this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
+def storyoverview():    
+    # get data from database about the specific book 
+
+    return render_template("storydetail.html")
 
 
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
 def editChapter(storyId, chapterNum):
     # this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content.  
+    
+    # CODE OUTLINE
+    # get current chapter content, chapter number, book title, (maybe) storyID from database
+    # render an HTML page, returning this info
+    # the HTML page should a be simple for with one text box, where the user can edit the 
+    # content of the chapter. 
+    # there will be a save page where users can save their edits.
+    # the save page calls the api "/myworks/api/<book_id>/<chapter_id>/updatechapter"
+    
     with get_db_cursor() as cursor:
         if cursor is None:
             return "Database connection error", 500
@@ -205,7 +218,7 @@ def editChapter(storyId, chapterNum):
         cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
         chapter_content = cursor.fetchone()
         book_title = cursor.fetchone()
-        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (chapter_content, book_title, chapterNum))
+        # cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (chapter_content, book_title, chapterNum))
 
         return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title)
 
@@ -305,9 +318,11 @@ def search():
 
 
 # USER RELATED APIs
-# @app.route("/api/currentuser")
-# def currentuser():
-#     # find current user with session ID
+@app.route("/api/currentuser")
+def currentuser():
+    # find current user with session ID
+    return 0
+
     
 
 @app.route("/api/userlibrary")
