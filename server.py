@@ -155,7 +155,7 @@ def getUser(username):
     #     logged_in = True
     # else:
     #     logged_in = False
-    logged_in = True;
+    logged_in = True
     print("getting user")
     with get_db_cursor() as cursor:
         cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
@@ -268,7 +268,7 @@ def updatechapter(book_id, chapter_id):
 # book is deleted from database. 
 # called when "delete" is clicked on the story detail page. 
 
-@app.route("/myworks/api/<book_id>/<chapter_id>/delete", method=["DELETE"])
+@app.route("/myworks/api/<book_id>/<chapter_id>/delete", methods=["DELETE"])
 # this can be done last, we don't need it. 
 # book chapter is deleted from database. 
 # called when "delete" chpater is clicked from the story detail page. 
@@ -309,6 +309,7 @@ def search():
 @app.route("/api/currentuser")
 def currentuser():
     # find current user with session ID
+    return 0
     
 
 @app.route("/api/userlibrary")
