@@ -1,5 +1,6 @@
 # server.py
 # 📁 server.py -----
+
 from flask import jsonify
 
 from os import environ as env
@@ -137,8 +138,14 @@ def getStory(storyId, chapterNum):
 
     return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters)
 
-@app.route("/user")
-def getUser():
+def get_book_details(book_id):
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT * FROM books WHERE book_id = %s", (book_id,))
+        book_details = cursor.fetchone()
+    return book_details
+
+@app.route("/user/<string:username>")
+def getUser(username):
     # if logged in user is the same as the user request, then set true
     # session=session.get('user')
     # print("session: ")
@@ -147,8 +154,30 @@ def getUser():
     #     logged_in = True
     # else:
     #     logged_in = False
-    logged_in = True
-    return render_template("user.html", logged_in=logged_in)
+    logged_in = True;
+    print("getting user")
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
+        user_info = cursor.fetchone()
+    pfp_url = user_info[3]
+    bio = user_info[4]
+    published_books =  (user_info[7].split(", "))
+    library_books = (user_info[8].split(", "))
+
+    published_books_info = []
+    library_books_info = []
+
+    for book_id in published_books:
+        book_info = get_book_details(book_id)
+        published_books_info.append(book_info)
+
+    for book_id in library_books:
+        book_info = get_book_details(book_id)
+        library_books_info.append(book_info)
+
+    return render_template("user.html", logged_in=logged_in, username = username, pfp_url = pfp_url, bio = bio, published_books = published_books_info, library_books = library_books_info)
+
+
 
 # FOR ONCE ACCOUNTS ARE ESTABLISHED
 # @app.route("/user/<string:username>")
@@ -156,13 +185,39 @@ def getUser():
 #     print("getting user profile")
 #     return render_template("profile.html")
 
+
+
 ## STORY EDITING PAGES - OVERVIEW AND WRITING PAGE
+
 
 @app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty. 
 
+
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
-# this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content.  
+def editChapter(storyId, chapterNum):
+    # this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content.  
+    with get_db_cursor() as cursor:
+        if cursor is None:
+            return "Database connection error", 500
+        
+        cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (storyId, chapterNum))
+        cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
+        chapter_content = cursor.fetchone()
+        book_title = cursor.fetchone()
+        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s" (chapter_content, book_title, chapterNum))
+
+        return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title)
+
+
+
+
+
+@app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
+def deleteStory():
+    print("deletes story, deletes entry in DB")
+    # return render_template("deleteStory.html")
+
 
 # APIs for story overview and writing page
 @app.route("/myworks/api/newbook", methods=["POST"])
@@ -174,7 +229,6 @@ def getUser():
 # updates the details of the book. Called when the user clicks "save" on the /myworks/<book_id> page. 
 
 @app.route("/myworks/api/<int:book_id>/createchapter", methods=["POST"])
-# creates a chapter with empty content. called when "+ chapter" is pressed on the myworks/<book_id> book details page.
 def createchapter(book_id):
     with get_db_cursor() as cursor:
         cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (book_id,))
@@ -185,22 +239,19 @@ def createchapter(book_id):
         print(num_chapters)
 
         cursor.execute("INSERT INTO chapters (chapter_id, book_id, content) VALUES (%s, %s, %s)", (num_chapters + 1, book_id, ''))
-        
+
         if cursor.rowcount > 0:
             return jsonify({"message": "Chapter added successfully"}), 200
         else:
             return jsonify({"message": "Failed to add chapter"}), 500
-
-
-@app.route("/myworks/api/<int:book_id>/<int:chapter_id>/updatechapter", methods=["PUT"])
-# update chapter in DB with content from /myworks/<book_id>/<chapter_id> editing page.
-# called with "save" is clicked in the chapter editing page.
+        
+@app.route("/myworks/api/<book_id>/<chapter_id>/updatechapter", methods=["PUT"])
 def updatechapter(book_id, chapter_id):
     with get_db_cursor() as cursor:
         if cursor is None:
             return "Database connection error", 500
         
-        content = request.data.decode('utf-8')
+        content = request.json.get('content')
         try:
             cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (content, book_id, chapter_id))
             if cursor.rowcount > 0:
@@ -211,16 +262,16 @@ def updatechapter(book_id, chapter_id):
             print(e)
             return "Failed to update chapter content", 500
 
-
-
 @app.route("/myworks/api/<int:book_id>/delete", methods=["DELETE"])
+
 # book is deleted from database. 
 # called when "delete" is clicked on the story detail page. 
 
-@app.route("/myworks/api/<int:book_id>/<int:chapter_id>/delete", methods=["DELETE"])
+@app.route("/myworks/api/<book_id>/<chapter_id>/delete", method=["DELETE"])
 # this can be done last, we don't need it. 
 # book chapter is deleted from database. 
 # called when "delete" chpater is clicked from the story detail page. 
+
 
 ## HOME PAGE APIs
 @app.route("/api/top5", methods=["GET"])
@@ -229,7 +280,15 @@ def top5():
     with get_db_cursor() as cursor:
         cursor.execute( "SELECT * FROM books ORDER BY num_likes DESC LIMIT 5")
         top_5 = cursor.fetchall()
-    
+
+    return jsonify(top_5)
+
+@app.route("/api/top5/<string:genre>", methods=["GET"])
+def top5genre(genre):
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT * FROM books WHERE LOWER(genre) = LOWER(%s) ORDER BY num_likes DESC LIMIT 5", (genre,))
+        top_5 = cursor.fetchall()
+
     return jsonify(top_5)
 
 
@@ -243,3 +302,22 @@ def search():
     print(search)
 
     return render_template("search.html", search=search)
+
+
+# USER RELATED APIs
+@app.route("/api/currentuser")
+def currentuser():
+    # find current user with session ID
+    
+
+@app.route("/api/userlibrary")
+def userlibrary():
+    current_user_email = currentuser()['email'] #assuming current users returns a JSON
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT user_id FROM users WHERE email = %s", (current_user_email,))
+        current_user_id = cursor.fetchone()
+        cursor.execute("SELECT * FROM books WHERE user_id = %s", (current_user_id,))
+        library = cursor.fetchall()
+
+    return jsonify(library) 
+
