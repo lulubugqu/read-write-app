@@ -154,7 +154,7 @@ def getUser(username):
     #     logged_in = True
     # else:
     #     logged_in = False
-    logged_in = True;
+    logged_in = True
     print("getting user")
     with get_db_cursor() as cursor:
         cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
@@ -308,6 +308,7 @@ def search():
 # @app.route("/api/currentuser")
 # def currentuser():
 #     # find current user with session ID
+
     
 
 @app.route("/api/userlibrary")
