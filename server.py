@@ -83,7 +83,7 @@ def callback():
     # 
     return redirect("/")   
 
-# 
+
 # clears the user session in your app and redirects to the Auth0 logout endpoint 
 @app.route("/logout")
 def logout():
@@ -115,10 +115,9 @@ def launch():
 #     print("logout")
 #     return render_template("launch.html")
 
-@app.route("/signup", methods=["GET", "POST"])
-def signup():
-    print("signup")
-    # return render_template("signup.html")
+@app.route("/firstLogin", methods=["GET"])
+def firstLogin():
+    return render_template("first-login.html")
 
 @app.route("/home")
 def home():
@@ -206,7 +205,7 @@ def editChapter(storyId, chapterNum):
         cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
         chapter_content = cursor.fetchone()
         book_title = cursor.fetchone()
-        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s" (chapter_content, book_title, chapterNum))
+        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (chapter_content, book_title, chapterNum))
 
         return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title)
 
@@ -306,10 +305,10 @@ def search():
 
 
 # USER RELATED APIs
-@app.route("/api/currentuser")
-def currentuser():
-    # find current user with session ID
-    return 0
+# @app.route("/api/currentuser")
+# def currentuser():
+#     # find current user with session ID
+
     
 
 @app.route("/api/userlibrary")
