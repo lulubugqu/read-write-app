@@ -1,6 +1,7 @@
 {# templates/first-login.html #}
 {% extends "navbase.html" %}
-{% block title %}Home{% endblock %}
+{% block title %}First Login{% endblock %}
+{% block page_script %}{% endblock %}
 {% block body %}
     <body class="first-login">
 {% endblock %}
@@ -21,8 +22,10 @@
                 <label for="stacked-bio">Bio</label>
                     <textarea id="stacked-bio" class="pure-input-1" placeholder="Tell us a bit about yourself" maxlength='430'/></textarea>
                 <br>
+                <!--
                     <label for="stacked-pfp">Profile Picture</label>
                 <input type="text" id="stacked-pfp" class="pure-input-1"placeholder="Enter your profile picture URL" />
+                -->
                 <button type="submit" class="pure-button pure-button-primary" id="button-extra">Submit</button>
             </fieldset>
         </form>
@@ -30,4 +33,3 @@
 </div>
 {% endblock %}
 {% block footer %}{% endblock %}
-{% block page_script %}{% endblock %}

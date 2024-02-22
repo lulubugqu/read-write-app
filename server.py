@@ -1,15 +1,12 @@
 # server.py
-# 📁 server.py -----
 
 from flask import jsonify
-
+import random
 from os import environ as env
 from urllib.parse import quote_plus, urlencode
 
 from authlib.integrations.flask_client import OAuth
 from functools import wraps
-# from flask-session import Session
-
 
 import psycopg2, os
 from psycopg2.pool import ThreadedConnectionPool
@@ -105,23 +102,44 @@ def logout():
 def launch():
     return render_template("launch.html")
 
-# @app.route("/login")
-# def login():
-#     print("login")
-#     # return render_template("login.html")
-
-# @app.route("/logout")
-# def logout():
-#     print("logout")
-#     return render_template("launch.html")
-
 @app.route("/firstLogin", methods=["GET"])
 def firstLogin():
     return render_template("first-login.html")
 
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    top_5_books = top5()
+    print("top 5 in home")
+    print(top_5_books)
+    # rand_genre = random.randint(0, 10)
+    # print(rand_genre)
+    # match rand_genre:
+    #     case 0:
+    #         genre = "Action"
+    #     case 1: 
+    #         genre = "Adventure"
+    #     case 2:
+    #         genre = "Fantasy"
+    #     case 3: 
+    #         genre = "Romance"
+    #     case 4:
+    #         genre = "Mystery"
+    #     case 5: 
+    #         genre = "Crime"
+    #     case 6:
+    #         genre = "Historical"
+    #     case 7: 
+    #         genre = "SciFi"
+    #     case 8:
+    #         genre = "Horror"
+    #     case 9: 
+    #         genre = "Poetry"
+    #     case 10:
+    #         genre = "Comedy"
+    # print(genre)
+    genre="Fantasy"
+    top_5_genre = top5genre(genre)
+    return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, genre=genre)
 
 @app.route("/story/<int:storyId>/<int:chapterNum>/")
 def getStory(storyId, chapterNum):
@@ -306,16 +324,14 @@ def top5():
     with get_db_cursor() as cursor:
         cursor.execute( "SELECT * FROM books ORDER BY num_likes DESC LIMIT 5")
         top_5 = cursor.fetchall()
-
-    return jsonify(top_5)
+    return top_5
 
 @app.route("/api/top5/<string:genre>", methods=["GET"])
 def top5genre(genre):
     with get_db_cursor() as cursor:
         cursor.execute("SELECT * FROM books WHERE LOWER(genre) = LOWER(%s) ORDER BY num_likes DESC LIMIT 5", (genre,))
         top_5 = cursor.fetchall()
-
-    return jsonify(top_5)
+    return top_5
 
 
 # Need to add more later !!!
@@ -346,5 +362,6 @@ def userlibrary():
         current_user_id = cursor.fetchone()
         cursor.execute("SELECT * FROM books WHERE user_id = %s", (current_user_id,))
         library = cursor.fetchall()
+
 
     return jsonify(library)
