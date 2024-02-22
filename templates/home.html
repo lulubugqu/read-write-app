@@ -21,7 +21,7 @@ border-bottom: 3px solid #507337;">
                     <div class="book-number">#{{loop.index}}</div>
                     <img src={{ x['picture_url'] }} alt="{{ x['title'] }} Cover" class="book-image">
                     <!-- CHANGE TO TABLE OF CONTENTS -->
-                    <a href="/story/{{ x['book_id'] }}/1" class="book-link">
+                    <a href="/story/{{ x['book_id'] }}/1" class="book-link"></a>
                 </div>
             </div>
         {% endfor %}
@@ -52,7 +52,7 @@ border-bottom: 3px solid #507337;">
                         <div class="book-tag"><p>Young Adult</p></div>
                     </div>
                     <img src={{ x['picture_url'] }} alt="{{ x['title'] }} Cover" class="book-image">
-                    <!-- CHANGE TO TABLE OF CONTENTS -->
+                    <!-- CHANGE TO TABLE OF CONTENTS/STORY DETAIL -->
                     <a href="/story/{{ x['book_id'] }}/1" class="book-link"></a>
                 </div>
             </div>

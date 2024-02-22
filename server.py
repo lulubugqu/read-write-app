@@ -109,35 +109,30 @@ def firstLogin():
 @app.route("/home")
 def home():
     top_5_books = top5()
-    print("top 5 in home")
-    print(top_5_books)
-    # rand_genre = random.randint(0, 10)
-    # print(rand_genre)
-    # match rand_genre:
-    #     case 0:
-    #         genre = "Action"
-    #     case 1: 
-    #         genre = "Adventure"
-    #     case 2:
-    #         genre = "Fantasy"
-    #     case 3: 
-    #         genre = "Romance"
-    #     case 4:
-    #         genre = "Mystery"
-    #     case 5: 
-    #         genre = "Crime"
-    #     case 6:
-    #         genre = "Historical"
-    #     case 7: 
-    #         genre = "SciFi"
-    #     case 8:
-    #         genre = "Horror"
-    #     case 9: 
-    #         genre = "Poetry"
-    #     case 10:
-    #         genre = "Comedy"
-    # print(genre)
-    genre="Fantasy"
+    rand_genre = random.randint(0, 10)
+    match rand_genre:
+        case 0:
+            genre = "Action"
+        case 1: 
+            genre = "Adventure"
+        case 2:
+            genre = "Fantasy"
+        case 3: 
+            genre = "Romance"
+        case 4:
+            genre = "Mystery"
+        case 5: 
+            genre = "Crime"
+        case 6:
+            genre = "Historical"
+        case 7: 
+            genre = "SciFi"
+        case 8:
+            genre = "Horror"
+        case 9: 
+            genre = "Poetry"
+        case 10:
+            genre = "Comedy"
     top_5_genre = top5genre(genre)
     return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, genre=genre)
 
