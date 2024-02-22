@@ -285,6 +285,10 @@ def updatechapter(book_id, chapter_id):
 # this can be done last, we don't need it. 
 # book chapter is deleted from database. 
 # called when "delete" chpater is clicked from the story detail page. 
+def deleteChapter(chapter_id):
+    print("getting chapter")
+    # with get_db_cursor() as cursor: 
+    #     cursor.execute("DELETE * FROM chapters")
 
 
 ## HOME PAGE APIs
