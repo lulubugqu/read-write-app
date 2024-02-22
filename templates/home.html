@@ -1,6 +1,9 @@
 {# templates/home.html #}
 {% extends "navbase.html" %}
 {% block title %}Home{% endblock %}
+{% block page_script %}
+    <script src="{{url_for('static', filename='js/home.js')}}" defer></script>
+{% endblock %}
 {% block body %}
     <body class="home">
 {% endblock %}
@@ -12,180 +15,51 @@
 border-bottom: 3px solid #507337;">
     <h1>Top 5 in the U.S.</h1>
     <div class="books">
-        <!-- Book name, title, color should be dynamically edited when we get there -->
+        {% for x in top_5_books %}
+            <div class="book">
+                <div class="book1details">
+                    <div class="book-number">#{{loop.index}}</div>
+                    <img src={{ x['picture_url'] }} alt="{{ x['title'] }} Cover" class="book-image">
+                    <!-- CHANGE TO TABLE OF CONTENTS -->
+                    <a href="/story/{{ x['book_id'] }}/1" class="book-link">
+                </div>
+            </div>
+        {% endfor %}
+        <!-- OFFICIAL IMG COVER 
+
         <div class="book">
             <div class="book1details">
                 <div class="book-number">#1</div>
-                <a href="/story/1/1" class="book-link">
-                    <h3>Book Title 1</h3>
-                </a>
+                <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1680726063i/125378265.jpg" alt="Book Cover" class="book-image">
+                <a href="/story/1/1" class="book-link"></a>
             </div>
         </div>
+        -->
 
-        <div class="book">
-            <div class="book1details">
-                <div class="book-number">#2</div>
-                <a href="/story/1/1" class="book-link">
-                    <h3>Book Title 1</h3>
-                </a>
-            </div>
-        </div>
-
-        <div class="book">
-            <div class="book1details">
-                <div class="book-number">#3</div>
-                <a href="/story/1/1" class="book-link">
-                    <h3>Book Title 1</h3>
-                </a>
-            </div>
-        </div>
-
-        <div class="book">
-            <div class="book1details">
-                <div class="book-number">#4</div>
-                <a href="/story/1/1" class="book-link">
-                    <h3>Book Title 1</h3>
-                </a>
-            </div>
-        </div>
-
-        <div class="book">
-            <div class="book1details">
-                <div class="book-number">#5</div>
-                <a href="/story/1/1" class="book-link">
-                    <h3>Book Title 1</h3>
-                </a>
-            </div>
-        </div>
     </div>
 </div>
 
 <div class="book-section1">
-    <h1>Genre Spotlight: Fantasy</h1>
-    <div class="books">
-        <!-- Book name, title, color should be dynamically edited when we get there -->
-        <div class="book">
-            <div class="book1details">
-                <a href="/story/1/1" class="book-link">
-                    <h3>Book Title 1</h3>
-                </a>
+    <h1 class="genre-spotlight-h1">Genre Spotlight: {{ genre }} </h1>
+    <div class="books-genre-spotlight">
+        {% for x in top_5_books %}
+            <div class="book">
+                <div class="book1details">
+                    <div class="book-tag-container">
+                        <div class="book-tag"><p>Fantasy</p></div>
+                        <div class="book-tag"><p>New author fiction</p></div>
+                        <div class="book-tag"><p>Mystery</p></div>
+                        <div class="book-tag"><p>Young Adult</p></div>
+                    </div>
+                    <img src={{ x['picture_url'] }} alt="{{ x['title'] }} Cover" class="book-image">
+                    <!-- CHANGE TO TABLE OF CONTENTS -->
+                    <a href="/story/{{ x['book_id'] }}/1" class="book-link"></a>
+                </div>
             </div>
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Fantasy</p></div>
-                <div class="book-tag"><p>New author fiction</p></div>
-                <div class="book-tag"><p>Mystery</p></div>
-                <div class="book-tag"><p>Young Adult</p></div>
-            </div>
-        </div>
-
-        <div class="book">
-            <div class="book1details">
-                <a href="/story/1/1" class="book-link">
-                    <h3>Book Title 1</h3>
-                </a>
-            </div>
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Fantasy</p></div>
-                <div class="book-tag"><p>Friendship</p></div>
-                <div class="book-tag"><p>Aliens</p></div>
-                <div class="book-tag"><p>Teenage</p></div>
-            </div>
-        </div>
-
-        <div class="book">
-            <div class="book1details">
-                <a href="/story/1/1" class="book-link">
-                    <h3>Book Title 1</h3>
-                </a>
-            </div>
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Fantasy</p></div>
-                <div class="book-tag"><p>First time author</p></div>
-                <div class="book-tag"><p>Young Adult</p></div>
-            </div>
-        </div>
-            
-        <div class="book">
-            <div class="book1details">
-                <a href="/story/1/1" class="book-link">
-                    <h3>Book Title 1</h3>
-                </a>
-            </div>
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Sci-Fi Fantasy</p></div>
-                <div class="book-tag"><p>Action and Adventure</p></div>
-                <div class="book-tag"><p>Teenage</p></div>
-            </div>
-        </div>
-            
-        <div class="book">
-            <div class="book1details">
-                <a href="/story/1/1" class="book-link">
-                    <h3>Book Title 1</h3>
-                </a>
-            </div>
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Comtemporary</p></div>
-                <div class="book-tag"><p>Fantasy</p></div>
-                <div class="book-tag"><p>Friendship</p></div>
-                <div class="book-tag"><p>Young Adult</p></div>
-            </div>
-        </div>
-            
-            
+        {% endfor %}
     </div>
 </div>
-<!--
-<div class="book-section" style="background-color: #b1da94;">
-    <h1>Genre Spotlight: Fantasy</h1>
-    <div class="books">
-        <div class="book" style="background-color: #799498;">
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Fantasy</p></div>
-                <div class="book-tag"><p>New author fiction</p></div>
-                <div class="book-tag"><p>Mystery</p></div>
-                <div class="book-tag"><p>Young Adult</p></div>
-            </div>
-            <h3>Book Title 1</h3>
-        </div>
-        
-        <div class="book" style="background-color: #614a5b;">
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Fantasy</p></div>
-                <div class="book-tag"><p>Friendship</p></div>
-                <div class="book-tag"><p>Aliens</p></div>
-                <div class="book-tag"><p>Teenage</p></div>
-            </div>
-            <h3>Book Title 2</h3>
-        </div>
-        <div class="book" style="background-color: #b96c67;">
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Fantasy</p></div>
-                <div class="book-tag"><p>First time author</p></div>
-                <div class="book-tag"><p>Young Adult</p></div>
-            </div>
-            <h3>Book Title 3</h3>
-        </div>
-        <div class="book" style="background-color: #4b4b5c;">
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Comtemporary</p></div>
-                <div class="book-tag"><p>Fantasy</p></div>
-                <div class="book-tag"><p>Friendship</p></div>
-                <div class="book-tag"><p>Young Adult</p></div>
-            </div>
-            <h3>Book Title 4</h3>
-        </div>
-        <div class="book" style="background-color: #b96c67;">
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Sci-Fi Fantasy</p></div>
-                <div class="book-tag"><p>Action and Adventure</p></div>
-                <div class="book-tag"><p>Teenage</p></div>
-            </div>
-            <h3>Book Title 5</h3>
-        </div>
-    </div>
-</div>
--->
+
 <div id="user_library"> 
     <h2>Your Library</h2>
     <div class="user_library">
@@ -278,4 +152,3 @@ border-bottom: 3px solid #507337;">
 </div>
 {% endblock %}
 {% block footer %}{% endblock %}
-{% block page_script %}{% endblock %}

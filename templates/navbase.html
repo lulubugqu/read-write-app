@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/purecss@3.0.0/build/pure-min.css" integrity="sha384-X38yfunGUhNzHpBaEBsWLO+A0HDYOQi8ufWDkZ0k9e0eXz/tH3II7uKZ9msv++Ls" crossorigin="anonymous">
     <script src="{{url_for('static', filename='js/navbase.js')}}" defer></script>
+    {% block page_script %}{% endblock %}
 </head>
 {% block body %}
     <body class="navbase">
@@ -61,6 +62,5 @@
     <div id="footer">
         {% block footer %} {% endblock %}
     </div>
-    {% block page_script %}{% endblock %}
 </body>
 </html>
