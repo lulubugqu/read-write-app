@@ -13,7 +13,7 @@
         
             <div class="create-book" >
             
-                <h3> Image </h3>
+                <img src="{{ book_details[3] }}" alt="Book Cover">
             </div>
         <!-- </div> -->
 
@@ -69,14 +69,20 @@
             <div class="table-of-content">
                 Table of Content
             </div>
+            
+            {% for chapter in range(1, book_details[8] + 1) %}
+                <div class="chapters">
+                    <a href="/myworks/{{book_id}}/{{ chapter }}">Chapter {{chapter}}</a>
+                    <span class="bttn">
+                        <a href="/survey" class="pure-button"> Edit </a>
+                        <a href="/survey" class="pure-button"> Delete </a>
+                    </span>
+                </div>
+            {% endfor %}
             <div class="chapters">
-                <a href="#"> Chapter 1 </a>
-                <span class="bttn">
-                    <a href="/survey" class="pure-button"> Edit </a>
-                    <a href="/survey" class="pure-button"> Delete </a>
-                </span>
+                <a href="/myworks/{{book_id}}/{{ book_details[8] + 1 }}">Add a New Chapter </a>
             </div>
-            <div class="chapters">
+            <!-- <div class="chapters">
                 <a href="#"> Chapter 2 </a>
                 <span class="bttn">
                     <a href="/survey" class="pure-button"> Edit </a>
@@ -89,7 +95,7 @@
                     <a href="/survey" class="pure-button"> Edit </a>
                     <a href="/survey" class="pure-button"> Delete </a>
                 </span>
-            </div>
+            </div> -->
                 
         </div>
 

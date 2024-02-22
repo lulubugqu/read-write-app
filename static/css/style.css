@@ -515,25 +515,25 @@ font-family: "Space Mono", monospace;
 
 .launch-left-side {
     /* Styles for column 1 */
-    flex: 40%;
+    flex: 30%;
 }
 
 .launch-right-side {
     /* Styles for column 2 */
-    flex: 60%;
+    flex: 70%;
     /* padding: 0; */
     /* background-color: lightpink; */
 }
 
 .create-book img{
   font-family: 'DM Sans', sans-serif;
-  width: 250px;
-  height: 250px;
+  width: 220px;
+  height: 260px;
   margin: 10px;
   margin-left: 20px;
 
   height: 304px;
-    width: 195px;
+    /* width: 195px; */
     background-color: #eee;
     border: 1px solid #eee;
     margin: 0 auto;
@@ -599,6 +599,7 @@ width: 100%;
 .chapter-lst {
   box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
     padding: 10px;
+    /* background-color: #E4E9DF; */
     /* border-radius: 10px; */
 
 }
