@@ -332,11 +332,23 @@ def search():
 
 
 # USER RELATED APIs
-@app.route("/api/currentuser")
-def currentuser():
-    # find current user with session ID
-    return 0
+@app.route("/api/adduser", methods=["POST"])
+def adduser():
+    username = request.form.get('stacked-name')
+    bio = request.form.get('stacked-bio')
+    email = request.form.get('email')
 
+    # Print or do something with the data
+    print(f"Username: {username}, Bio: {bio}, Emai: {email}")
+
+    with get_db_cursor() as cursor:
+        cursor.execute("""
+            INSERT INTO users 
+            (username, bio, email, pass, pfp_url, birthday, published_books, library_books) 
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """, (username, bio, email, "", "", None, '', ''))
+
+    return redirect(f"/home/{username}")
     
 
 @app.route("/api/userlibrary/<string:current_user>")
