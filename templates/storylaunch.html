@@ -27,7 +27,7 @@
                 <div class="new-story-title">
                     <label for="title">Title:</label>
                     <div class="text-input">
-                        <input type="text" id="title" name="title" placeholder="Untitled" class="pure-input-1-2">
+                        <input type="text" id="title" name="title" placeholder="Untitled" class="pure-input-1">
                     </div>
 
 
@@ -36,7 +36,7 @@
                     <label for="describtion">Story Describtion:</label>
                     <!-- <input type="describtion" id="describtion" name="describtion" placeholder="stroy describtion"> -->
                     <div class="text-input">
-                        <textarea class="pure-input-1-2" placeholder="Story describtion goes here"></textarea>
+                        <textarea class="pure-input-1" placeholder="Story describtion goes here"></textarea>
 
                     </div>
 
@@ -56,11 +56,41 @@
                         <option value="Historical">Historical</option>
                     </select>
                 </div>
+                
             </form>
+
             <a class="pure-button pure-button-active" href="/myworks/<int:storyId>/create"> Next </a>
 
+            
 
 
+        </div>
+        <div class="chapter-lst">
+            <div class="table-of-content">
+                Table of Content
+            </div>
+            <div class="chapters">
+                <a href="#"> Chapter 1 </a>
+                <span class="bttn">
+                    <a href="/survey" class="pure-button"> Edit </a>
+                    <a href="/survey" class="pure-button"> Delete </a>
+                </span>
+            </div>
+            <div class="chapters">
+                <a href="#"> Chapter 2 </a>
+                <span class="bttn">
+                    <a href="/survey" class="pure-button"> Edit </a>
+                    <a href="/survey" class="pure-button"> Delete </a>
+                </span>
+            </div>
+            <div class="chapters">
+                <a href="#"> Chapter 3 </a>
+                <span class="bttn">
+                    <a href="/survey" class="pure-button"> Edit </a>
+                    <a href="/survey" class="pure-button"> Delete </a>
+                </span>
+            </div>
+                
         </div>
 
     </div>

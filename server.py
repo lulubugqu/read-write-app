@@ -193,6 +193,9 @@ def getUser(username):
 
 @app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty. 
+def storylaucnh(book_id):
+
+    return render_template("storylaunch.html")
 
 
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
@@ -206,7 +209,7 @@ def editChapter(storyId, chapterNum):
         cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
         chapter_content = cursor.fetchone()
         book_title = cursor.fetchone()
-        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s" (chapter_content, book_title, chapterNum))
+        cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (chapter_content, book_title, chapterNum))
 
         return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title)
 
@@ -226,8 +229,10 @@ def deleteStory():
 # creates a new book with the data from the form. Called when the user clicks "create a new story" from their profile. When that button is clicked, we are redirected to 
 # /myworks/<book_id> with the new book id made. Chapter 1 should be made, with empty content. 
 
+
 @app.route("/myworks/api/<int:book_id>/updatebook", methods=["PUT"])
 # updates the details of the book. Called when the user clicks "save" on the /myworks/<book_id> page. 
+
 
 @app.route("/myworks/api/<int:book_id>/createchapter", methods=["POST"])
 def createchapter(book_id):
@@ -268,7 +273,7 @@ def updatechapter(book_id, chapter_id):
 # book is deleted from database. 
 # called when "delete" is clicked on the story detail page. 
 
-@app.route("/myworks/api/<book_id>/<chapter_id>/delete", method=["DELETE"])
+@app.route("/myworks/api/<book_id>/<chapter_id>/delete", methods=["DELETE"])
 # this can be done last, we don't need it. 
 # book chapter is deleted from database. 
 # called when "delete" chpater is clicked from the story detail page. 
@@ -305,10 +310,10 @@ def search():
     return render_template("search.html", search=search)
 
 
-# USER RELATED APIs
-@app.route("/api/currentuser")
-def currentuser():
-    # find current user with session ID
+# # USER RELATED APIs
+# @app.route("/api/currentuser")
+# def currentuser():
+#     # find current user with session ID
     
 
 @app.route("/api/userlibrary")
