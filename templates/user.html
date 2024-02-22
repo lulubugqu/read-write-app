@@ -34,16 +34,16 @@
     <div class="user_page_top">
         <div id="profile_left">
             {% if logged_in == True %}
-                <a id="new_story" href="/myworks/new">
+                <form action="/myworks/api/newbook/{{user_id}}" method="POST">
                     <div id="new_story_div"> 
                         <div id="plus_box">
                             <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
                         </div>
                         <div id="plus_box_words">         
-                            <h2 id="words">Create a new Story</h2>
+                            <button type="submit" id = "words">Create a new Story</button>
                         </div>
                     </div>
-                </a>
+                </form>
                 <div id="user_bio">
                     <p id="user_bio_text"> {{ bio }}</p>
                 </div>
@@ -67,9 +67,9 @@
                     <div class="details">
                         <div class="book-details-container">
                             <h3>{{book[2]}}</h3>
-                            <!-- Book Summary Limit of 410 Char -->
                             <p>{{book[9]}}</p>
                         </div>
+                        
                         <div class="book-tag-container">
                             {% set tag_list = book[7][1:-1].split(", ") %}
                             {% for tag in tag_list%}
@@ -77,8 +77,10 @@
                             {% endfor %}
                         </div>
                     </div>
+                    <div class="continue-writing-container">
+                        <a href="/myworks/{{ book[0] }}"><button class="button-editStory pure-button" id="button-extra">Continue Writing...</button></a>
+                    </div>
                 </div>
-           
                 {% endfor %}
             </div>
         </div>

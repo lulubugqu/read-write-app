@@ -353,22 +353,25 @@
     margin-bottom: 8px;
 
 }
-.search_page .bookdetails {
+.search-right-side .search-bookdetails {
     background-color: #cce3bb;
     border: 0px;
     border-radius: 15px;
     display: flex;
     color: white;
     /* justify-content: space-between; */
-    width: 97%;
+  flex: 70%;
     margin-bottom: 2%;
+        padding: 8px;
+
 }
-.search_page .bookdetails .book {
+.search-right-side .search-bookdetails .search-book {
     background-color: #7a9d60;
     font-family: 'DM Sans', sans-serif;
-    /* width: 20%; */
-    flex: 10%;
+    width: 20%;
     height: 90%;
+            padding: 8px;
+
     border-radius: 10px;
 }
 .search-image {
@@ -388,8 +391,18 @@
  /* padding: 3em; */
   /* margin: 2em; */
   border-radius: 1em;
+  flex-wrap: wrap;
   /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; */
+}
 
+.search_page .bookdetails {
+  width: 95%;
+}
+.search_page .bookdetails .book {
+  width: 20%;
+}
+.search_page .bookdetails .details{
+  width: 80%;
 }
 
 .search_lst{
@@ -398,10 +411,10 @@
     /* max-width: 90%; */
     flex-direction: row; /* Arrange items horizontally */
   list-style: none;
-  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-    border-radius: 1em;
-    padding: 1em;
-    margin-bottom: 1em;
+  /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; */
+    /* border-radius: 1em; */
+    /* padding: 1em;
+    margin-bottom: 1em; */
     
 
 }
@@ -504,7 +517,6 @@ font-family: "Space Mono", monospace;
 .launch-left-side {
     /* Styles for column 1 */
     flex: 40%;
-    /* background-color: lightblue; */
 }
 
 .launch-right-side {
@@ -514,12 +526,12 @@ font-family: "Space Mono", monospace;
     /* background-color: lightpink; */
 }
 
-.create-book{
+.create-book img{
   font-family: 'DM Sans', sans-serif;
-  /* width: 250px;
+  width: 250px;
   height: 250px;
   margin: 10px;
-  margin-left: 20px; */
+  margin-left: 20px;
 
   height: 304px;
     width: 195px;
@@ -563,6 +575,7 @@ font-family: "Space Mono", monospace;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    margin-bottom: 2em;
     border-radius: 15px;
     /* margin-left: em; */
 
@@ -584,6 +597,13 @@ width: 100%;
     border: 1px solid #eee;
     resize: none;
 }
+
+.chapter-lst {
+  box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
+    padding: 10px;
+    /* border-radius: 10px; */
+
+}
 /*story launch */
 
 /*story detail */
@@ -593,8 +613,25 @@ width: 100%;
 }
 .chapters{
     padding: 15px 0;
-    border-top: solid 1px #eee;
+    border: solid 1px #eee;
     color: #6f6f6f;
+    margin-bottom: 1em;
+    /* background-color: #c3f1a2; */
+    /* border-radius: 10px; */
+}
+.chapters a {
+  text-decoration: none;
+  color: black;
+}
+.chapters span{
+  width: 20%;
+  margin-left: 60%;
+}
+.table-of-content{
+      border-bottom: 5px solid #c4dfb1;
+    font-weight: 600;
+    padding-bottom: 15px;
+    margin-bottom: 1em;
 }
 
 
@@ -763,6 +800,15 @@ width: 100%;
   margin-bottom: 1%;
 }
 
+a {
+  color: inherit;
+  text-decoration: none; 
+}
+
+a:hover {
+  text-decoration: underline; 
+}
+
 /* Home Page */
 
 .welcome-header {
@@ -904,13 +950,30 @@ width: 100%;
 
 .book-tag-container {
   background-color: rgba(58, 55, 55, 0.8);
-  /* width: 90%; */
+  width: 90%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 5px;
   padding: 5%;
 }
+
+.launch-tag-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 5px;
+  padding: 5%;
+}
+
+/* .launch-book-tag {
+  background-color: green
+  color: black;
+  text-align: center;
+  padding: 1% 1.5%;
+  border-radius: 5px;
+  font-size: x-small;
+} */
 
 .book-tag {
   background-color: white;
@@ -952,7 +1015,7 @@ width: 100%;
   border-radius: 15px;
   display: flex;
   color: white;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   margin-top: 20px;
   width: 30%; /* change as needed */
   height: 250px;
@@ -1250,4 +1313,3 @@ width: 100%;
   color: white;
   text-decoration: none; 
 }
-

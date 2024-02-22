@@ -162,6 +162,13 @@ def get_book_details(book_id):
         book_details = cursor.fetchone()
     return book_details
 
+def get_chapter_details(book_id, chapter_id):
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT * FROM chapters WHERE book_id = %s AND chapter_id = %s", (book_id, chapter_id))
+        chapter_details = cursor.fetchone()
+    return chapter_details
+
+
 @app.route("/user/<string:username>")
 def getUser(username):
     # if logged in user is the same as the user request, then set true
@@ -177,6 +184,7 @@ def getUser(username):
     with get_db_cursor() as cursor:
         cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
         user_info = cursor.fetchone()
+    user_id = user_info[0]
     pfp_url = user_info[3]
     bio = user_info[4]
     published_books =  (user_info[7].split(", "))
@@ -193,7 +201,7 @@ def getUser(username):
         book_info = get_book_details(book_id)
         library_books_info.append(book_info)
 
-    return render_template("user.html", logged_in=logged_in, username = username, pfp_url = pfp_url, bio = bio, published_books = published_books_info, library_books = library_books_info)
+    return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, pfp_url = pfp_url, bio = bio, published_books = published_books_info, library_books = library_books_info)
 
 
 
@@ -210,37 +218,41 @@ def getUser(username):
 
 @app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
-def storyoverview(book_id):    
-    # get data from database about the specific book 
+def storyoverview(book_id): 
+    book_details = get_book_details(book_id)    
+    print(book_details)
+    return render_template("storydetail.html", book_details = book_details)
 
-    return render_template("storydetail.html")
-
+@app.route("/myworks/<int:book_id>", methods=["POST"])
+def updateOverview(book_id):
+    book_title = request.form.get('book_title')
+    genre = request.form.get('genre')
+    summary = request.form.get('summary')
+    return storyoverview(book_id)
 
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
-def editChapter(storyId, chapterNum):
-    # this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content.  
+def editChapter(book_id, chapter_id):
+    # this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content. 
+    print("getting chapter")
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (book_id, chapter_id))
+        chapter_content = cursor.fetchone()
+
+        cursor.execute("SELECT title FROM books WHERE book_id = %s", (book_id,))
+        book_title = cursor.fetchone()
+
+        cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (book_id,))
+        num_chapters = cursor.fetchone()
     
+    return render_template("saveChapter.html", book_id = book_id, chapterNum = chapter_id, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters)
     # CODE OUTLINE
-    # get current chapter content, chapter number, book title, (maybe) storyID from database
+    # get current chapter content, chapter number, book title, (maybe) book_id from database
     # render an HTML page, returning this info
     # the HTML page should a be simple for with one text box, where the user can edit the 
     # content of the chapter. 
     # there will be a save page where users can save their edits.
     # the save page calls the api "/myworks/api/<book_id>/<chapter_id>/updatechapter"
     
-    with get_db_cursor() as cursor:
-        if cursor is None:
-            return "Database connection error", 500
-        
-        cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (storyId, chapterNum))
-        cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
-        chapter_content = cursor.fetchone()
-        book_title = cursor.fetchone()
-        # cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (chapter_content, book_title, chapterNum))
-
-        return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title)
-
-
 
 
 
@@ -251,13 +263,18 @@ def deleteStory():
 
 
 # APIs for story overview and writing page
-@app.route("/myworks/api/newbook", methods=["POST"])
-# this is where the form gets sent when its submitted
-# creates a new book with the data from the form. Called when the user clicks "create a new story" from their profile. When that button is clicked, we are redirected to 
-# /myworks/<book_id> with the new book id made. Chapter 1 should be made, with empty content. 
+@app.route("/myworks/api/newbook/<int:user_id>", methods=["POST"])
+
+# this API is called whe user clicks "NEW STORY"
+# story is initialied with empty string for everything we don't have data for
+# defualt image URL IS: https://thumbs.dreamstime.com/b/paper-texture-smooth-pastel-pink-color-perfect-background-uniform-pure-minimal-photo-trendy-149575202.jpg
+# story title is intialized as "Untitled Story"
+# chpater 1 should be made, with empty content
+
 
 @app.route("/myworks/api/<int:book_id>/updatebook", methods=["PUT"])
 # updates the details of the book. Called when the user clicks "save" on the /myworks/<book_id> page. 
+
 
 @app.route("/myworks/api/<int:book_id>/createchapter", methods=["POST"])
 def createchapter(book_id):
@@ -276,25 +293,21 @@ def createchapter(book_id):
         else:
             return jsonify({"message": "Failed to add chapter"}), 500
         
-@app.route("/myworks/api/<book_id>/<chapter_id>/updatechapter", methods=["PUT"])
+@app.route("/myworks/api/<book_id>/<chapter_id>/updatechapter", methods=["POST"])
 def updatechapter(book_id, chapter_id):
+    updated_content = request.form.get('chapter_content')
     with get_db_cursor() as cursor:
-        if cursor is None:
-            return "Database connection error", 500
-        
-        content = request.json.get('content')
-        try:
-            cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (content, book_id, chapter_id))
-            if cursor.rowcount > 0:
-                return "Chapter content updated successfully", 200
-            else:
-                return "Failed to update chapter content", 500
-        except Exception as e:
-            print(e)
-            return "Failed to update chapter content", 500
+        cursor.execute("SELECT * FROM chapters WHERE book_id = %s AND chapter_id = %s", (book_id, chapter_id))
+        existing_chapter = cursor.fetchone()
+        if existing_chapter:
+            cursor.execute("UPDATE chapters SET content = %s WHERE book_id = %s AND chapter_id = %s", (updated_content, book_id, chapter_id))
+        else:
+            cursor.execute("INSERT INTO chapters (chapter_id, book_id, content) VALUES (%s, %s, %s)", (chapter_id, book_id, updated_content))
+            cursor.execute("UPDATE books SET num_chapters = num_chapters + 1 WHERE book_id = %s", (book_id,))
+    return storyoverview(book_id)
+    
 
 @app.route("/myworks/api/<int:book_id>/delete", methods=["DELETE"])
-
 # book is deleted from database. 
 # called when "delete" is clicked on the story detail page. 
 
@@ -350,5 +363,5 @@ def userlibrary():
         cursor.execute("SELECT * FROM books WHERE user_id = %s", (current_user_id,))
         library = cursor.fetchall()
 
-    return jsonify(library) 
 
+    return jsonify(library)
