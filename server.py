@@ -77,9 +77,13 @@ def callback():
     session["user"] = token
     user_email = token.get("userinfo").get("name")
 
+    print(user_email)
+
     with get_db_cursor() as cursor:
         cursor.execute("SELECT email, username FROM users WHERE email = %s", (user_email,))
         user_data = cursor.fetchall()
+    
+    print(len(user_data))
 
     if len(user_data) == 1:
         user_name = user_data[0][1]
@@ -110,10 +114,6 @@ def logout():
 @app.route("/launch")
 def launch():
     return render_template("launch.html")
-
-@app.route("/firstLogin", methods=["GET"])
-def firstLogin():
-    return render_template("first-login.html")
 
 @app.route("/home/<string:current_user>")
 def home(current_user):
@@ -348,7 +348,7 @@ def adduser():
             INSERT INTO users 
             (username, bio, email, pass, pfp_url, birthday, published_books, library_books) 
             VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """, (username, bio, email, "", "", None, 0, 0))
+        """, (username, bio, email, "", "", None, '', ''))
 
     return redirect(f"/home/{username}")
 
