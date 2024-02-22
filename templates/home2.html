@@ -1,17 +1,46 @@
-{# templates/profile.html #}
+{# templates/home.html #}
 {% extends "navbase.html" %}
 {% block title %}Home{% endblock %}
 {% block body %}
     <body class="home">
 {% endblock %}
 {% block page_content %}
-<div class="book-section">
+<div class="welcome-header">
+    <h2 class="welcome-header-text">Welcome Home @Username</h2>
+</div>
+
+
+<div class="book-spotlight">
+    <div class="bookdetails">
+        <div class="book">
+            <a href="/story/1" class="book-link">
+                <h3>Book Name</h3>
+            </a>
+        </div>
+        <div class="details">
+            <div class="book-details-container">
+                <h3>Book Name</h3>
+                <!-- Book Summary Limit of 410 Char -->
+                <p>Here is a quick book description. The book is very good!</p>
+            </div>
+            <div class="book-tag-container">
+                <div class="book-tag"><p>Fantasy</p></div>
+                <div class="book-tag"><p>New author fiction</p></div>
+                <div class="book-tag"><p>Mystery</p></div>
+                <div class="book-tag"><p>Young Adult</p></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="book-section"style="background-color: #E1F0DA";>
     <h1>Top 5 in the U.S.</h1>
     <div class="books">
-        <a href="/story/1" class="book-link">
+        <a href="/story/1/1" class="book-link">
         <div class="book" style="background-color: #b96c67;">
             <div class="book-number">#1</div>
-            <a href="/story/1" class="book-link"><h3>Book Title 1</h3></a>
+            <a href="/story/1/1" class="book-link"><h3>Book Title 1</h3></a>
         </div>
        
         <!-- Book name, title, color should be dynamically edited when we get there -->
@@ -82,54 +111,95 @@
         </div>
     </div>
 </div>
-<div class="book-section">
-    <h1>Your Library</h1>
-    <div class="books">
-        <!-- Book name, title, color should be dynamically edited when we get there -->
-        <div class="book" style="background-color: #614a5b;">
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Fantasy</p></div>
-                <div class="book-tag"><p>First time author</p></div>
-                <div class="book-tag"><p>Young Adult</p></div>
+<div id="user_library"> 
+    <h2>Your Library</h2>
+    <div class="user_library">
+        <div class="book1">
+            <div class="book1details">
+                <a href="/story/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
             </div>
-            <h3>Book Title 1</h3>
+            <div class="book1author">
+                <a href="/user" class="author-link">
+                    <h6>Author</h6>
+                </a>
+            </div>
         </div>
-        <div class="book" style="background-color: #799498;">
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Sci-Fi Fantasy</p></div>
-                <div class="book-tag"><p>Action and Adventure</p></div>
-                <div class="book-tag"><p>Teenage</p></div>
+        <div class="book1">
+            <div class="book1details">
+                <a href="/story/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
             </div>
-            <h3>Book Title 2</h3>
+            <div class="book1author">
+                <a href="/user" class="author-link">
+                    <h6>Author</h6>
+                </a>
+            </div>
         </div>
-        <div class="book" style="background-color: #614a5b;">
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Comtemporary</p></div>
-                <div class="book-tag"><p>Fantasy</p></div>
-                <div class="book-tag"><p>Friendship</p></div>
-                <div class="book-tag"><p>Young Adult</p></div>
+        <div class="book1">
+            <div class="book1details">
+                <a href="/story/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
             </div>
-            <h3>Book Title 3</h3>
+            <div class="book1author">
+                <a href="/user" class="author-link">
+                    <h6>Author</h6>
+                </a>
+            </div>
         </div>
-        <div class="book" style="background-color: #799498;">
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Fantasy</p></div>
-                <div class="book-tag"><p>New author fiction</p></div>
-                <div class="book-tag"><p>Mystery</p></div>
-                <div class="book-tag"><p>Young Adult</p></div>
+        <div class="book1">
+            <div class="book1details">
+                <a href="/story/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
             </div>
-            <h3>Book Title 1</h3>
+            <div class="book1author">
+                <a href="/user" class="author-link">
+                    <h6>Author</h6>
+                </a>
+            </div>
         </div>
-        <div class="book" style="background-color: #614f6b;">
-            <div class="book-tag-container">
-                <div class="book-tag"><p>Fantasy</p></div>
-                <div class="book-tag"><p>Friendship</p></div>
-                <div class="book-tag"><p>Aliens</p></div>
-                <div class="book-tag"><p>Teenage</p></div>
+        <div class="book1">
+            <div class="book1details">
+                <a href="/story/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
             </div>
-            <h3>Book Title 5</h3>
+            <div class="book1author">
+                <a href="/user" class="author-link">
+                    <h6>Author</h6>
+                </a>
+            </div>
+        </div>
+        <div class="book1">
+            <div class="book1details">
+                <a href="/story/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
+            </div>
+            <div class="book1author">
+                <a href="/user" class="author-link">
+                    <h6>Author</h6>
+                </a>
+            </div>
+        </div>
+        <div class="book1">
+            <div class="book1details">
+                <a href="/story/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
+            </div>
+            <div class="book1author">
+                <a href="/user" class="author-link">
+                    <h6>Author</h6>
+                </a>
+            </div>
         </div>
     </div>
+</div>
 </div>
 {% endblock %}
 {% block footer %}{% endblock %}

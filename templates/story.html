@@ -24,7 +24,8 @@
   <h2>Chapter {{ chapterNum }}</h2>
   <a href="/authorProfile" class="author-link">by Author's Name </a>
   <div class="story-content" style="text-align: left;">
-    {{ chapter_content[0] | safe }} </div>
+  {{ chapter_content[0] | safe }} 
+</div>
       {% if chapterNum == 1 %}
       <button class="chapter-button" disabled style="background-color: grey;">Previous Chapter</button>
       {% else %}

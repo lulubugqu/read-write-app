@@ -1,4 +1,4 @@
-{# templates/profile.html #}
+{# templates/home.html #}
 {% extends "navbase.html" %}
 {% block title %}Home{% endblock %}
 {% block body %}
@@ -8,34 +8,134 @@
 <div class="welcome-header">
     <h2 class="welcome-header-text">Welcome Home @Username</h2>
 </div>
-<div class="book-section"style="background-color: #E1F0DA";>
+<div class="book-section1" style="background-color: #e1f0da; border-top: 3px solid #507337;
+border-bottom: 3px solid #507337;">
     <h1>Top 5 in the U.S.</h1>
     <div class="books">
-        <a href="/story/1/1" class="book-link">
-        <div class="book" style="background-color: #b96c67;">
-            <div class="book-number">#1</div>
-            <a href="/story/1/1" class="book-link"><h3>Book Title 1</h3></a>
-        </div>
-       
         <!-- Book name, title, color should be dynamically edited when we get there -->
-        <div class="book" style="background-color: #614f6b;">
-            <div class="book-number" >#2</div>
-            <h3>Book Title 2</h3>
+        <div class="book">
+            <div class="book1details">
+                <div class="book-number">#1</div>
+                <a href="/story/1/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
+            </div>
         </div>
-        <div class="book" style="background-color: #799498;">
-            <div class="book-number" >#3</div>
-            <h3>Book Title 3</h3>
+
+        <div class="book">
+            <div class="book1details">
+                <div class="book-number">#2</div>
+                <a href="/story/1/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
+            </div>
         </div>
-        <div class="book" style="background-color: #4b4b5c;">
-            <div class="book-number">#4</div>
-            <h3>Book Title 4</h3>
+
+        <div class="book">
+            <div class="book1details">
+                <div class="book-number">#3</div>
+                <a href="/story/1/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
+            </div>
         </div>
-        <div class="book" style="background-color: #614a5b;">
-            <div class="book-number">#5</div>
-            <h3>Book Title 5</h3>
+
+        <div class="book">
+            <div class="book1details">
+                <div class="book-number">#4</div>
+                <a href="/story/1/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
+            </div>
+        </div>
+
+        <div class="book">
+            <div class="book1details">
+                <div class="book-number">#5</div>
+                <a href="/story/1/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
+            </div>
         </div>
     </div>
 </div>
+
+<div class="book-section1">
+    <h1>Genre Spotlight: Fantasy</h1>
+    <div class="books">
+        <!-- Book name, title, color should be dynamically edited when we get there -->
+        <div class="book">
+            <div class="book1details">
+                <a href="/story/1/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
+            </div>
+            <div class="book-tag-container">
+                <div class="book-tag"><p>Fantasy</p></div>
+                <div class="book-tag"><p>New author fiction</p></div>
+                <div class="book-tag"><p>Mystery</p></div>
+                <div class="book-tag"><p>Young Adult</p></div>
+            </div>
+        </div>
+
+        <div class="book">
+            <div class="book1details">
+                <a href="/story/1/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
+            </div>
+            <div class="book-tag-container">
+                <div class="book-tag"><p>Fantasy</p></div>
+                <div class="book-tag"><p>Friendship</p></div>
+                <div class="book-tag"><p>Aliens</p></div>
+                <div class="book-tag"><p>Teenage</p></div>
+            </div>
+        </div>
+
+        <div class="book">
+            <div class="book1details">
+                <a href="/story/1/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
+            </div>
+            <div class="book-tag-container">
+                <div class="book-tag"><p>Fantasy</p></div>
+                <div class="book-tag"><p>First time author</p></div>
+                <div class="book-tag"><p>Young Adult</p></div>
+            </div>
+        </div>
+            
+        <div class="book">
+            <div class="book1details">
+                <a href="/story/1/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
+            </div>
+            <div class="book-tag-container">
+                <div class="book-tag"><p>Sci-Fi Fantasy</p></div>
+                <div class="book-tag"><p>Action and Adventure</p></div>
+                <div class="book-tag"><p>Teenage</p></div>
+            </div>
+        </div>
+            
+        <div class="book">
+            <div class="book1details">
+                <a href="/story/1/1" class="book-link">
+                    <h3>Book Title 1</h3>
+                </a>
+            </div>
+            <div class="book-tag-container">
+                <div class="book-tag"><p>Comtemporary</p></div>
+                <div class="book-tag"><p>Fantasy</p></div>
+                <div class="book-tag"><p>Friendship</p></div>
+                <div class="book-tag"><p>Young Adult</p></div>
+            </div>
+        </div>
+            
+            
+    </div>
+</div>
+<!--
 <div class="book-section" style="background-color: #b1da94;">
     <h1>Genre Spotlight: Fantasy</h1>
     <div class="books">
@@ -48,7 +148,7 @@
             </div>
             <h3>Book Title 1</h3>
         </div>
-        <!-- Book name, title, color should be dynamically edited when we get there -->
+        
         <div class="book" style="background-color: #614a5b;">
             <div class="book-tag-container">
                 <div class="book-tag"><p>Fantasy</p></div>
@@ -85,6 +185,7 @@
         </div>
     </div>
 </div>
+-->
 <div id="user_library"> 
     <h2>Your Library</h2>
     <div class="user_library">
