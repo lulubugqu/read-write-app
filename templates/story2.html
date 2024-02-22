@@ -1,0 +1,42 @@
+{# templates/story.html #}
+{% extends "navbase.html" %}
+{% block title %}Story{% endblock %}
+{% block page_script %}{% endblock %}
+{% block body %}
+    <body class="story">
+{% endblock %}
+<body>
+{% block page_content %}
+<div class="navbarStory">
+    <a href="/home" class="nav-link">Home</a>
+    <div class="dropdownStory">
+      <button class="dropbtnStory"> {{ book_title[0] }} <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-contentStory">
+        {% for chapter in range(1, num_chapters[0] + 1) %}
+        <a href="/story/{{ storyId }}/{{ chapter }}" class="nav-link">Chapter {{ chapter }}</a> 
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+<div style="padding:20px;" class = "storyContent">
+  <h1>{{ book_title[0] }}</h1>
+  <h2>Chapter {{ chapterNum }}</h2>
+  <a href="/authorProfile" class="author-link">by Author's Name </a>
+  <div class="story-content" style="text-align: left;">
+    {{ chapter_content[0] | safe }} </div>
+      {% if chapterNum == 1 %}
+      <button class="chapter-button" disabled style="background-color: grey;">Previous Chapter</button>
+      {% else %}
+      <a href="/story/{{ storyId }}/{{ chapterNum - 1 }}"><button class="chapter-button">Previous Chapter</button></a>
+      {% endif %}
+
+      {% if chapterNum == num_chapters[0] %}
+      <button class="chapter-button" disabled style="background-color: grey;">Next Chapter</button>
+      {% else %}
+      <a href="/story/{{ storyId }}/{{ chapterNum + 1 }}"><button class="chapter-button">Next Chapter</button></a>
+      {% endif %} 
+</div>
+{% endblock %}
+{% block footer %}{% endblock %}
