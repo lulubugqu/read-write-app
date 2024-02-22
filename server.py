@@ -191,19 +191,21 @@ def getUser(username):
     user_id = user_info[0]
     pfp_url = user_info[3]
     bio = user_info[4]
-    published_books =  (user_info[7].split(", "))
-    library_books = (user_info[8].split(", "))
+    published_books =  user_info[7].split(", ")
+    library_books = user_info[8].split(", ")
 
     published_books_info = []
     library_books_info = []
 
-    for book_id in published_books:
-        book_info = get_book_details(book_id)
-        published_books_info.append(book_info)
+    if published_books[0] != '':
+        for book_id in published_books:
+            book_info = get_book_details(book_id)
+            published_books_info.append(book_info)
 
-    for book_id in library_books:
-        book_info = get_book_details(book_id)
-        library_books_info.append(book_info)
+    if library_books[0] != '':
+        for book_id in library_books:
+            book_info = get_book_details(book_id)
+            library_books_info.append(book_info)
 
     return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, pfp_url = pfp_url, bio = bio, published_books = published_books_info, library_books = library_books_info)
 
@@ -266,12 +268,26 @@ def deleteStory(book_id):
 
 # APIs for story overview and writing page
 @app.route("/myworks/api/newbook/<int:user_id>", methods=["POST"])
+def create_new_book(user_id):
+    default_title = 'Untitled Story'
+    default_image_url = 'https://thumbs.dreamstime.com/b/paper-texture-smooth-pastel-pink-color-perfect-background-uniform-pure-minimal-photo-trendy-149575202.jpg'
+    with get_db_cursor() as cursor:
+        cursor.execute("INSERT INTO books (user_id, title, picture_url, num_chapters, genre, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s)", (user_id, default_title, default_image_url,1, '', '{}', ''))
+        cursor.execute("SELECT LASTVAL()")
+        new_book_id = cursor.fetchone()[0]
+        cursor.execute("INSERT INTO chapters (chapter_id, book_id, content) VALUES (%s, %s, %s)", (1, new_book_id, ''))
+        
+        cursor.execute("SELECT published_books FROM users WHERE user_id = %s", (user_id,))
+        published_books = cursor.fetchone()[0]
+        if published_books != '':
+            published_books += f", {new_book_id}"
+        else:
+            published_books = str(new_book_id)
 
-# this API is called whe user clicks "NEW STORY"
-# story is initialied with empty string for everything we don't have data for
-# defualt image URL IS: https://thumbs.dreamstime.com/b/paper-texture-smooth-pastel-pink-color-perfect-background-uniform-pure-minimal-photo-trendy-149575202.jpg
-# story title is intialized as "Untitled Story"
-# chpater 1 should be made, with empty content
+        cursor.execute("UPDATE users SET published_books = %s WHERE user_id = %s", (published_books, user_id))
+    
+    return redirect(url_for('storyoverview', book_id=new_book_id))
+
 
         
 @app.route("/myworks/api/<book_id>/<chapter_id>/updatechapter", methods=["POST"])
