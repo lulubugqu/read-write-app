@@ -215,15 +215,18 @@ def getUser(username):
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
 def storyoverview(book_id): 
     book_details = get_book_details(book_id)    
-    print(book_details)
-    return render_template("storylaunch.html", book_details = book_details)
+    return render_template("storydetail.html", book_details = book_details)
 
-@app.route("/myworks/<int:book_id>", methods=["POST"])
+@app.route("/myworks/api/updatebook/<int:book_id>", methods=["POST"])
 def updateOverview(book_id):
+    print("updating book")
     book_title = request.form.get('book_title')
     genre = request.form.get('genre')
     summary = request.form.get('summary')
-    return storyoverview(book_id)
+    image = request.form.get('book_image')
+    with get_db_cursor() as cursor:
+        cursor.execute("UPDATE books SET title = %s, genre = %s, summary = %s, picture_url = %s WHERE book_id = %s", (book_title, genre, summary, image, book_id))
+    return redirect(url_for('storyoverview', book_id=book_id))
 
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
 def editChapter(book_id, chapter_id):
@@ -240,15 +243,7 @@ def editChapter(book_id, chapter_id):
         num_chapters = cursor.fetchone()
     
     return render_template("saveChapter.html", book_id = book_id, chapterNum = chapter_id, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters)
-    # CODE OUTLINE
-    # get current chapter content, chapter number, book title, (maybe) book_id from database
-    # render an HTML page, returning this info
-    # the HTML page should a be simple for with one text box, where the user can edit the 
-    # content of the chapter. 
-    # there will be a save page where users can save their edits.
-    # the save page calls the api "/myworks/api/<book_id>/<chapter_id>/updatechapter"
     
-
 
 
 @app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
@@ -266,27 +261,6 @@ def deleteStory():
 # story title is intialized as "Untitled Story"
 # chpater 1 should be made, with empty content
 
-
-@app.route("/myworks/api/<int:book_id>/updatebook", methods=["PUT"])
-# updates the details of the book. Called when the user clicks "save" on the /myworks/<book_id> page. 
-
-
-@app.route("/myworks/api/<int:book_id>/createchapter", methods=["POST"])
-def createchapter(book_id):
-    with get_db_cursor() as cursor:
-        cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (book_id,))
-        book = cursor.fetchone()
-        if not book:
-            return jsonify({"message": "Book not found"}), 404
-        num_chapters = book[0]
-        print(num_chapters)
-
-        cursor.execute("INSERT INTO chapters (chapter_id, book_id, content) VALUES (%s, %s, %s)", (num_chapters + 1, book_id, ''))
-
-        if cursor.rowcount > 0:
-            return jsonify({"message": "Chapter added successfully"}), 200
-        else:
-            return jsonify({"message": "Failed to add chapter"}), 500
         
 @app.route("/myworks/api/<book_id>/<chapter_id>/updatechapter", methods=["POST"])
 def updatechapter(book_id, chapter_id):

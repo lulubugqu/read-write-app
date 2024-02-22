@@ -8,32 +8,38 @@
 
 <div class="launch-container">
     <div class="launch-left-side">
-        <form action="/myworks/<int:book_id>" method="POST" id="story_form">
-            <div>
-                <label for="book_title" name="book_title">Title</label><br>
-                <input type="text" id="book_title" name="book_title" value="{{ book_details[2] }}">
-            </div>
-            <div>
-                <label for="genre">Genre: </label>
-                <select name="genre" id="genre">
-                <option value="Fantasy">Fantasy</option>
-                <option value="Action">Action</option>
-                <option value="Romance">Romance</option>
-                <option value="Comtemporary">Contemporary</option>
-                <option value="Horror">Horror</option>
-                <option value="Comedy">Comedy</option>
-                <option value="Sci-Fi">Sci-Fi</option>		
-                </select>
-            </div>
-            <div>
-                <label for="summary">Summary:</label><br>
-              <textarea id="summary" name="summary">{{ book_details[9] }}</textarea><br>
-            </div>
-        </form>
-        
         <div class="create-book">
             <img src="{{ book_details[3] }}" alt="Book Cover">
         </div>
+        <form class="pure-form pure-form-aligned" action="/myworks/api/updatebook/{{ book_details[0] }}" method="POST" id="story_form">
+            <div>
+                <label for="book_title">Book Title</label>
+                <input type="text" id="book_title" name="book_title" value="{{ book_details[2] }}" />
+            </div> <br>
+            <div>
+                <label for="genre">Genre</label>
+                <select name="genre" id="genre">
+                    <option value="Fantasy" {% if book_details[6] == 'Fantasy' %} selected {% endif %}>Fantasy</option>
+                    <option value="Action" {% if book_details[6] == 'Action' %} selected {% endif %}>Action</option>
+                    <option value="Romance" {% if book_details[6] == 'Romance' %} selected {% endif %}>Romance</option>
+                    <option value="Comtemporary" {% if book_details[6] == 'Contemporary' %} selected {% endif %}>Contemporary</option>
+                    <option value="Horror" {% if book_details[6] == 'Horror' %} selected {% endif %}>Horror</option>
+                    <option value="Comedy" {% if book_details[6] == 'Comedy' %} selected {% endif %}>Comedy</option>
+                    <option value="Sci-Fi" {% if book_details[6] == 'Contemporary' %} selected {% endif %}>Sci-Fi</option>		
+                </select>
+            </div> <br>
+            <div>
+                <label for="summary">Summary</label>
+                <textarea id="summary" name="summary" rows="5" cols="40">{{ book_details[9] }}</textarea>
+            </div> <br>
+            <div>
+                <label for="book_image">Image URL</label>
+                <input type="text" id="book_image" name="book_image" value="{{ book_details[3] }}" />
+            </div> <br>
+            <div>
+                <input class="button-editStory pure-button" type="submit" value="Save Changes" />
+            </div> <br>
+        </form>
     </div>
     <div class="launch-right-side">
         <div class="new-story-details">
@@ -41,20 +47,16 @@
                 <h2>Table of Contents</h2>
             </div>
             <div class="table-of-content">
-                <ul>
                     {% for chapter in range(1, book_details[8] + 1) %}
-                    <li>
                         <div class="chapters">
-                            <a href="/myworks/{{book_details[0]}}/{{ chapter }}">Chapter {{chapter}}</a>
+                            <h4>Chapter {{chapter}}</h4>
+                            <a href="/myworks/{{book_details[0]}}/{{ chapter }}" class="pure-button"> Edit </a>
+                            <a href="/survey" class="pure-button"> Delete </a>
                         </div>
-                    </li>
                     {% endfor %}
-                    <li>
                         <div class="chapters">
-                            <a href="/myworks/{{book_details[0]}}/{{ book_details[8] + 1 }}">Add a New Chapter </a>
+                            <p><a href="/myworks/{{book_details[0]}}/{{ book_details[8] + 1 }}">Add a New Chapter </a></p>
                         </div>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>
