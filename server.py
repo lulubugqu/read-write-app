@@ -240,8 +240,10 @@ def deleteStory():
 # story title is intialized as "Untitled Story"
 # chpater 1 should be made, with empty content
 
+
 @app.route("/myworks/api/<int:book_id>/updatebook", methods=["PUT"])
 # updates the details of the book. Called when the user clicks "save" on the /myworks/<book_id> page. 
+
 
 @app.route("/myworks/api/<int:book_id>/createchapter", methods=["POST"])
 def createchapter(book_id):
