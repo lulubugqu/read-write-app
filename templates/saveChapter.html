@@ -23,12 +23,9 @@
     <h1>{{ book_title[0] }}</h1>
     <h2>Chapter {{ chapterNum }}</h2>
     <form action="/action_page.php" id="usrform">
-        Chapter <input type="text" name="chapter"><input type="submit">
     </form>
     <br>
     <textarea rows="4" cols="50" name="comment" form="usrform">Enter text here...</textarea>
-
-<!-- <p>The text area above is outside the form element, but should still be a part of the form.</p> -->
 
 </div>
 {% endblock %}
