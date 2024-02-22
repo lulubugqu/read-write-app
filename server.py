@@ -221,7 +221,7 @@ def getUser(username):
 def storyoverview(book_id): 
     book_details = get_book_details(book_id)    
     print(book_details)
-    return render_template("storydetail.html", book_details = book_details)
+    return render_template("storylaunch.html", book_details = book_details)
 
 @app.route("/myworks/<int:book_id>", methods=["POST"])
 def updateOverview(book_id):
