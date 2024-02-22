@@ -77,13 +77,9 @@ def callback():
     session["user"] = token
     user_email = token.get("userinfo").get("name")
 
-    print(user_email)
-
     with get_db_cursor() as cursor:
         cursor.execute("SELECT email, username FROM users WHERE email = %s", (user_email,))
         user_data = cursor.fetchall()
-    
-    print(len(user_data))
 
     if len(user_data) == 1:
         user_name = user_data[0][1]
@@ -115,8 +111,12 @@ def logout():
 def launch():
     return render_template("launch.html")
 
-@app.route("/home/<string:current_user>")
-def home(current_user):
+@app.route("/firstLogin", methods=["GET"])
+def firstLogin():
+    return render_template("first-login.html")
+
+@app.route("/home")
+def home():
     top_5_books = top5()
     rand_genre = random.randint(0, 10)
     match rand_genre:
@@ -326,33 +326,12 @@ def search():
 
 
 # USER RELATED APIs
-# @app.route("/api/currentuser")
-# def currentuser():
-    
-#     print(session["user"])
-#     # find current user with session ID
-#     return ""
+@app.route("/api/currentuser")
+def currentuser():
+    # find current user with session ID
+    return 0
 
     
-@app.route("/api/adduser", methods=["POST"])
-def adduser():
-    username = request.form.get('stacked-name')
-    bio = request.form.get('stacked-bio')
-    email = request.form.get('email')
-
-    # Print or do something with the data
-    print(f"Username: {username}, Bio: {bio}, Emai: {email}")
-
-    with get_db_cursor() as cursor:
-        cursor.execute("""
-            INSERT INTO users 
-            (username, bio, email, pass, pfp_url, birthday, published_books, library_books) 
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """, (username, bio, email, "", "", None, '', ''))
-
-    return redirect(f"/home/{username}")
-
-
 
 @app.route("/api/userlibrary/<string:current_user>")
 def userlibrary(current_user):
