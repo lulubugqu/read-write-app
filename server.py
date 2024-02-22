@@ -248,9 +248,11 @@ def editChapter(book_id, chapter_id):
 
 
 @app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
-def deleteStory():
-    print("deletes story, deletes entry in DB")
-    # return render_template("deleteStory.html")
+def deleteStory(book_id):
+    book_details = get_book_details(book_id)
+    with get_db_cursor() as cursor: 
+        cursor.execute("DELETE * FROM books WHERE book_id = %s", (book_details))
+
 
 
 # APIs for story overview and writing page
@@ -286,9 +288,9 @@ def updatechapter(book_id, chapter_id):
 # book chapter is deleted from database. 
 # called when "delete" chpater is clicked from the story detail page. 
 def deleteChapter(chapter_id):
-    print("getting chapter")
-    # with get_db_cursor() as cursor: 
-    #     cursor.execute("DELETE * FROM chapters")
+    chapter_details = get_chapter_details(chapter_id)
+    with get_db_cursor() as cursor: 
+        cursor.execute("DELETE * FROM chapters WHERE chapter_id = %s", (chapter_details))
 
 
 ## HOME PAGE APIs
