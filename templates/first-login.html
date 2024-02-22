@@ -12,16 +12,17 @@
 </div>
 <div class="first-login-right">
     <div class="login-form-wrapper">
-        <form class="pure-form pure-form-stacked">
+        <form class="pure-form pure-form-stacked" method="POST" action="/api/adduser">
             <h2>We want to learn more about you!</h2>
             <fieldset class="login-form-fieldset">
-                <label for="stacked-name">Name</label>
-                    <input type="text" id="stacked-name" class="pure-input-1" placeholder="Enter name" />
+                <label for="stacked-name">Username</label>
+                    <input type="text" id="stacked-name" name="stacked-name" class="pure-input-1" placeholder="Enter name" />
                     <span class="pure-form-message">This is a required field.</span>
                 <br>
                 <label for="stacked-bio">Bio</label>
-                    <textarea id="stacked-bio" class="pure-input-1" placeholder="Tell us a bit about yourself" maxlength='430'/></textarea>
+                    <textarea id="stacked-bio" name="stacked-bio" class="pure-input-1" placeholder="Tell us a bit about yourself" maxlength='430'></textarea>
                 <br>
+                <p name="email" style="display: none;">{{ email }}</p>
                 <!--
                     <label for="stacked-pfp">Profile Picture</label>
                 <input type="text" id="stacked-pfp" class="pure-input-1"placeholder="Enter your profile picture URL" />

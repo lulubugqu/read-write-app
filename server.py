@@ -75,10 +75,19 @@ def callback():
     #  this is when you finish a login/registration, do more work here
     #  if new user add to database, is login, add
     session["user"] = token
-    print(token)
-    # check the data, the precence of the token represents a user we just dont jknow what kind
-    # 
-    return redirect("/")   
+    user_email = token.get("userinfo").get("name")
+
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT email, username FROM users WHERE email = %s", (user_email,))
+        user_data = cursor.fetchall()
+
+    if len(user_data) == 1:
+        user_name = user_data[0][1]
+        return redirect(f"/home/{user_name}")
+    else:
+        # add user to database
+        return render_template("first-login.html", email=user_email)
+
 
 
 # clears the user session in your app and redirects to the Auth0 logout endpoint 
@@ -106,8 +115,8 @@ def launch():
 def firstLogin():
     return render_template("first-login.html")
 
-@app.route("/home")
-def home():
+@app.route("/home/<string:current_user>")
+def home(current_user):
     top_5_books = top5()
     rand_genre = random.randint(0, 10)
     match rand_genre:
@@ -134,7 +143,7 @@ def home():
         case 10:
             genre = "Comedy"
     top_5_genre = top5genre(genre)
-    return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, genre=genre)
+    return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, genre=genre, current_user=current_user)
 
 @app.route("/story/<int:storyId>/<int:chapterNum>/")
 def getStory(storyId, chapterNum):
@@ -317,18 +326,39 @@ def search():
 
 
 # USER RELATED APIs
-@app.route("/api/currentuser")
-def currentuser():
-    # find current user with session ID
-    return 0
+# @app.route("/api/currentuser")
+# def currentuser():
+    
+#     print(session["user"])
+#     # find current user with session ID
+#     return ""
 
     
+@app.route("/api/adduser", methods=["POST"])
+def adduser():
+    username = request.form.get('stacked-name')
+    bio = request.form.get('stacked-bio')
+    email = request.form.get('email')
 
-@app.route("/api/userlibrary")
-def userlibrary():
-    current_user_email = currentuser()['email'] #assuming current users returns a JSON
+    # Print or do something with the data
+    print(f"Username: {username}, Bio: {bio}, Emai: {email}")
+
     with get_db_cursor() as cursor:
-        cursor.execute("SELECT user_id FROM users WHERE email = %s", (current_user_email,))
+        cursor.execute("""
+            INSERT INTO users 
+            (username, bio, email, pass, pfp_url, birthday, published_books, library_books) 
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """, (username, bio, email, "", "", None, 0, 0))
+
+    return redirect(f"/home/{username}")
+
+
+
+@app.route("/api/userlibrary/<string:current_user>")
+def userlibrary(current_user):
+    # current_user_email = currentuser()['email'] #assuming current users returns a JSON
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT user_id FROM users WHERE username = %s", (current_user,))
         current_user_id = cursor.fetchone()
         cursor.execute("SELECT * FROM books WHERE user_id = %s", (current_user_id,))
         library = cursor.fetchall()
