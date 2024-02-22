@@ -144,6 +144,13 @@ def get_book_details(book_id):
         book_details = cursor.fetchone()
     return book_details
 
+def get_chapter_details(book_id, chapter_id):
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT * FROM chapters WHERE book_id = %s AND chapter_id = %s", (book_id, chapter_id))
+        chapter_details = cursor.fetchone()
+    return chapter_details
+
+
 @app.route("/user/<string:username>")
 def getUser(username):
     # if logged in user is the same as the user request, then set true
@@ -193,11 +200,17 @@ def getUser(username):
 
 @app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
-def storyoverview(book_id):    
-    book_details = get_book_details(book_id) 
+def storyoverview(book_id): 
+    book_details = get_book_details(book_id)    
     print(book_details)
-    return render_template("storydetail.html", book_id = book_id, book_details = book_details)
+    return render_template("storydetail.html", book_details = book_details)
 
+@app.route("/myworks/<int:book_id>", methods=["POST"])
+def updateOverview(book_id):
+    book_title = request.form.get('book_title')
+    genre = request.form.get('genre')
+    summary = request.form.get('summary')
+    return storyoverview(book_id)
 
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
 def editChapter(book_id, chapter_id):
