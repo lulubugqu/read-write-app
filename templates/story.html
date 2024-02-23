@@ -29,7 +29,7 @@
       Chapter {{ chapterNum }}
     </div>
     <div class="story-content" style="text-align:left;">
-      {{ chapter_content[0] | safe }} </div>
+      {{ chapter_content[0] | replace('\r\n\r\n', '<br><br>') | safe }} </div>
         {% if chapterNum == 1 %}
           <button class="chapter-button pure-button" id="button-extra" disabled>Previous Chapter</button>
         {% else %}

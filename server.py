@@ -210,6 +210,7 @@ def getStory(storyId, chapterNum):
     with get_db_cursor() as cursor:
         cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (storyId, chapterNum))
         chapter_content = cursor.fetchone()
+        print(chapter_content)
 
         cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
         book_title = cursor.fetchone()
