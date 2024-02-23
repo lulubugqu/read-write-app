@@ -110,11 +110,14 @@ def authenticate_book(requested_book):
     return False
 
 def get_current_user():
-    user_email = session["user"].get("userinfo").get("name")
+    try:
+        user_email = session["user"].get("userinfo").get("name")
+    except:
+        return "guest"
     with get_db_cursor() as cursor:
         cursor.execute("SELECT username FROM users WHERE email = %s", (user_email,))
         current_username = cursor.fetchone()[0]
-        return current_username
+    return current_username
 
 
 @app.route("/login")
