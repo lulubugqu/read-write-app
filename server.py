@@ -109,6 +109,9 @@ def authenticate_book(requested_book):
     
     return False
 
+def get_current_user():
+    return session["users"].get("userinfo").get("name")
+
 
 @app.route("/login")
 def login():
@@ -210,7 +213,8 @@ def getStory(storyId, chapterNum):
         cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (storyId,))
         num_chapters = cursor.fetchone()
 
-    return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters)
+    current_user = get_current_user()
+    return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters, current_user=current_user)
 
 def get_book_details(book_id):
     with get_db_cursor() as cursor:
@@ -253,7 +257,7 @@ def getUser(username):
             book_info = get_book_details(book_id)
             library_books_info.append(book_info)
 
-    return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info)
+    return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info, current_user=username)
 
 
 
@@ -274,7 +278,8 @@ def storyoverview(book_id):
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
     book_details = get_book_details(book_id)    
-    return render_template("storylaunch.html", book_details = book_details)
+    current_user = get_current_user()
+    return render_template("storylaunch.html", book_details = book_details, current_user=current_user)
 
 @app.route("/myworks/api/updatebook/<int:book_id>", methods=["POST"])
 def updateOverview(book_id):
@@ -304,7 +309,8 @@ def editChapter(book_id, chapter_id):
         cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (book_id,))
         num_chapters = cursor.fetchone()
     
-    return render_template("saveChapter.html", book_id = book_id, chapterNum = chapter_id, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters)
+    current_user = get_current_user()
+    return render_template("saveChapter.html", book_id = book_id, chapterNum = chapter_id, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters, current_user=current_user)
     
 
 
@@ -404,7 +410,8 @@ def search():
     search = request.args.get('query')
     print(search)
 
-    return render_template("search.html", search=search)
+    current_user = get_current_user()
+    return render_template("search.html", search=search, current_user=current_user)
 
 
 # USER RELATED APIs
