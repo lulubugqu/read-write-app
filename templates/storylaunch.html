@@ -46,7 +46,7 @@
                     <option value="Sci-Fi" {% if book_details[6] == 'Contemporary' %} selected {% endif %}>Sci-Fi</option>		
                 </select>
                 </div>
-                <div class="tags">
+                <!-- <div class="tags">
                     <p> Please select your Tags: </p>
                     <span class="tag-content">
                         <input type="checkbox" id="ActionTag" name="ActionTag" value="ActionTag">
@@ -67,7 +67,11 @@
                         <label class="filter-checkbox" for="DramaTag"> + Drama </label>
                     </span>
 
-                </div>
+                </div> -->
+                <div class="tags">
+                    <label for="tags">Tags</label>
+                    <input type="text" id="tags" name="tags" placeholder= "romance,young adult" value="{{ book_details[7] }}" />
+                 </div>
 
                 <div class="new-story-image">
                     <label for="book_image">Image URL: </label>
