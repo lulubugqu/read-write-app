@@ -1,11 +1,11 @@
 @import url('https://fonts.googleapis.com/css2?family=Titan+One&display=swap');
 @import url('https://fonts.googleapis.com/css?family=DM+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,800;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100..900;1,100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap');
 
 /* FOR ALL PAGES */
-.base, .navbase, .launch, .profile, .home, .search_page, .first-login, .story, .user {
+.base, .navbase, .launch, .profile, .home, .search_page, .first-login, .story, .user .storylaunch {
   font-family: "Overpass", sans-serif;
   margin: 0px;
   /* background-color: #ece0da; */
@@ -317,16 +317,16 @@
 }
 .filter-title{
   margin: 6px;
-    font-family: 'Source Sans Pro', sans-serif;
-      line-height: 24px;
-    font-size: 18px;
-    font-weight: 800;
+  font-family: "Overpass", sans-serif;
+  line-height: 24px;
+  font-size: 18px;
+  font-weight: 800;
 
 }
 .filters .filter-container{
   display: flex;
   flex-direction: column;
-      flex-wrap: nowrap;
+  flex-wrap: nowrap;
 
 }
 .filter .filter-container .checkbox_content {
@@ -338,7 +338,8 @@
 .checkbox_content {
     font-size: 18px;
     line-height: 24px;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: "Overpass", sans-serif;
+    font-weight: 400;
     padding: 4px 0 4px 8px;
     margin-bottom: 2px;
 
@@ -346,9 +347,11 @@
 
 }
 .length_filter, .like_filter{
-  font-size: 17px;
+  font-size: 16px;
     line-height: 24px;
-    font-family: 'Source Sans Pro', sans-serif;
+    font-family: "Overpass", sans-serif;
+    font-weight: 400;
+  font-style: normal;
     padding: 4px 0 4px 8px;
     margin-bottom: 8px;
 
@@ -385,11 +388,8 @@
 
 }
 .search-results{
-  /* background-color: #e2e0e0; */
   flex: 70%;
-  /* border: 15px solid green; */
- /* padding: 3em; */
-  /* margin: 2em; */
+ 
   border-radius: 1em;
   flex-wrap: wrap;
   /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; */
@@ -460,34 +460,7 @@ font-family: "Space Mono", monospace;
 
 
     }
-.pure-menu-item{
-    font-family: "Space Mono", monospace;
-  font-weight: 400;
-  font-style: normal;    
-  color: black;
-  margin-bottom: 3em;
 
-}
-.menu-item{
-  padding-top: 0.5em;
-    padding-left: 1em;
-        padding-right: 0.5em;
-
-
-
-}
-.pure-menu-links{
-  padding-left: 3em;
-  /* padding-left: 1em; */
-        /* padding-right: 4em; */
-}
-
-.pure-menu-heading{
-    font-family: 'DM Sans', sans-serif;
-  /* font-style: bold;     */
-    font-weight: 800;
-
-}
 .main-text{
   border-bottom: 1px solid #f2f2f2;
   margin-bottom: 1em;
@@ -500,11 +473,7 @@ font-family: "Space Mono", monospace;
     /* flex-direction: row; Arrange items horizontally */
     /* width: 80%; */
     width: 960px;
-    /* align-items: center; */
-    /* box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1); */
-    /* margin-left: 8em; */
-    
-
+  
     margin-right: auto;
     margin-left: auto;
     padding-left: 10px;
@@ -515,15 +484,12 @@ font-family: "Space Mono", monospace;
 }
 
 .launch-left-side {
-    /* Styles for column 1 */
     flex: 40%;
 }
 
 .launch-right-side {
-    /* Styles for column 2 */
     flex: 60%;
-    /* padding: 0; */
-    /* background-color: lightpink; */
+  
 }
 
 .create-book img{
@@ -551,22 +517,23 @@ font-family: "Space Mono", monospace;
 
 }
 .story-details{
-      border-bottom: 5px solid #9DC183;
-    font-weight: 600;
-    padding-bottom: 15px;
+    border-bottom: 5px solid #9DC183;
+    font-family: "Overpass", sans-serif;
+    font-weight: 900;
+    padding-bottom: 8px;
 }
 .create-book h3{
   text-align: center;
 }
 .pure-form{
-      padding: 2% 5%;
+  padding: 2% 5%;
 
 }
 .text-input {
-    width: 100%;
+  width: 100%;
 }
 .container .new-story-details{
-      width: 90%;
+  width: 90%;
 
 }
 .new-story-details{
@@ -589,28 +556,38 @@ margin-bottom: 1em;
 }
 .new-story-title label, .new-story-describtion label {
   display: block;
+  font-family: "Overpass", sans-serif;
+    font-weight: 400;
 }
 .new-story-describtion textarea {
-width: 100%;
+    width: 100%;
     height: 187px;
     padding: 3px 0 0 9px;
     border: 1px solid #eee;
     resize: none;
 }
 
-.chapter-lst {
+.table-of-content {
   box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
     padding: 10px;
     /* border-radius: 10px; */
 
 }
+/* .chapter-lst{
+  border-bottom: 5px solid #c4dfb1;
+    font-weight: 600;
+    padding-bottom: 15px;
+    margin-bottom: 1em;
+
+} */
 /*story launch */
 
 /*story detail */
+/* .story-details{
+  font-family: "Overpass", sans-serif;
+  font-weight: 900;
+} */
 
-.table-of-content li{
-  list-style: none;
-}
 .chapters{
     padding: 15px 0;
     border: solid 1px #eee;
@@ -627,12 +604,12 @@ width: 100%;
   width: 20%;
   margin-left: 60%;
 }
-.table-of-content{
+/* .table-of-content{
       border-bottom: 5px solid #c4dfb1;
     font-weight: 600;
     padding-bottom: 15px;
     margin-bottom: 1em;
-}
+} */
 
 
 /*story detail */
