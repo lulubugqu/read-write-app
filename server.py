@@ -320,7 +320,11 @@ def deleteStory(book_id):
 # APIs for story overview and writing page
 @app.route("/myworks/api/newbook/<int:user_id>", methods=["POST"])
 def create_new_book(user_id):
-    if not authenticate_user(user_id):
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT username FROM users WHERE user_id = %s", (user_id,))
+        current_username = cursor.fetchone()[0]
+    print(current_username)
+    if not authenticate_user(current_username):
         return render_template("accessdenied.html")
     default_title = 'Untitled Story'
     default_image_url = 'https://thumbs.dreamstime.com/b/paper-texture-smooth-pastel-pink-color-perfect-background-uniform-pure-minimal-photo-trendy-149575202.jpg'
