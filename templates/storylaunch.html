@@ -9,10 +9,7 @@
     <div class="detail-left-side">
 
         <!-- <div class="create-book"> -->
-
-        
             <div class="create-book" >
-            
                 <img src="{{ book_details[3] }}" alt="Book Cover">
             </div>
         <!-- </div> -->
@@ -24,30 +21,21 @@
                 Story Details
             </div>
             <form class="pure-form pure-form-aligned" action="/myworks/api/updatebook/{{ book_details[0] }}" method="POST" id="story_form">
-
                 <div class="new-story-title">
                     <label for="title">Title:</label>
                     <div class="text-input">
-                        <input type="text" id="book_title" name="title" placeholder="Untitled" class="pure-input-1" value="{{ book_details[2] }}">
+                        <input type="text" id="book_title" name="book_title" placeholder="Untitled" class="pure-input-1" value="{{ book_details[2] }}">
                     </div>
-
-
                 </div>
                 <div class="new-story-describtion">
-                    <label for="describtion">Story Describtion:</label>
+                    <label for="describtion">Story Description:</label>
                     <!-- <input type="describtion" id="describtion" name="describtion" placeholder="stroy describtion"> -->
                     <div class="text-input">
-                        <textarea class="pure-input-1" id="summary" placeholder="Story describtion goes here"> {{ book_details[9] }}</textarea>
-
+                        <textarea class="pure-input-1" name = "summary" id="summary" placeholder="Story description goes here"> {{ book_details[9] }}</textarea>
                     </div>
-
-
-
                 </div>
                 <div class="select-box">
-
                     <label for="genre" >Choose genre:</label>
-
                     <select name="genre" id="genre">
                     <option value="Fantasy" {% if book_details[6] == 'Fantasy' %} selected {% endif %}>Fantasy</option>
                     <option value="Action" {% if book_details[6] == 'Action' %} selected {% endif %}>Action</option>
@@ -58,7 +46,6 @@
                     <option value="Sci-Fi" {% if book_details[6] == 'Contemporary' %} selected {% endif %}>Sci-Fi</option>		
                 </select>
                 </div>
-
                 <div class="tags">
                     <p> Please select your Tags: </p>
                     <span class="tag-content">
@@ -93,7 +80,6 @@
                 
             </form>
 
-            <!-- <a class="pure-button pure-button-active" href="/myworks/<int:storyId>/create"> Next </a> -->
 
             
 
@@ -104,7 +90,7 @@
                 Table of Content
             </div>
             
-            {% for chapter in range(1, book_details[8] + 1) %}
+            <!-- {% for chapter in range(1, book_details[8] + 1) %}
                 <div class="chapters">
                     <a href="/myworks/{{book_id}}/{{ chapter }}">Chapter {{chapter}}</a>
                     <span class="bttn">
@@ -112,9 +98,10 @@
                         <a href="/survey" class="pure-button"> Delete </a>
                     </span>
                 </div>
-            {% endfor %}
-            <div class="chapters">
-                <a href="/myworks/{{book_id}}/{{ book_details[8] + 1 }}">Add a New Chapter </a>
+            {% endfor %} -->
+            
+            <!-- <div class="chapters">
+                <a href="/myworks/{{book_id}}/{{ book_details[8] + 1 }}">Add a New Chapter </a> -->
 
             <div class="chapter-lst">
 
@@ -132,7 +119,6 @@
                 {% endfor %}
 
                 <div class="">
-                    <!-- <i class="fa-solid fa-square-plus"></i> -->
                     <a href="/myworks/{{book_details[0]}}/{{ book_details[8] + 1 }}" class="pure-button">
                         <i class="fa-solid fa-square-plus"></i> Add a New Chapter </a>
                 </div>
