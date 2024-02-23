@@ -85,6 +85,30 @@ def authenticate_user(requested_user):
     
     return True
 
+def authenticate_book(requested_book):
+    # first, see if any user is logged in
+    # if not, return access denied
+    try: 
+        current_user_session = session["user"]
+    except:
+        return False
+
+    # then, check if the user has access to their book
+    current_user_email = current_user_session.get("userinfo").get("name")
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT user_id FROM users WHERE email = %s", (current_user_email,))
+        current_user_id = cursor.fetchone()[0]
+        cursor.execute("SELECT * FROM books WHERE book_id = %s AND user_id = %s", (requested_book, current_user_id))
+        selected_book = cursor.fetchall()
+
+    print(current_user_id)
+    print(requested_book)
+    print(selected_book)
+    if (len(selected_book) == 1):
+        return True
+    
+    return False
+
 
 @app.route("/login")
 def login():
@@ -252,6 +276,8 @@ def getUser(username):
 @app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
 def storyoverview(book_id): 
+    if not (authenticate_book(book_id)):
+        return render_template("accessdenied.html")
     book_details = get_book_details(book_id)    
     return render_template("storydetail.html", book_details = book_details)
 
