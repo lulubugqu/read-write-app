@@ -281,6 +281,13 @@ def storyoverview(book_id):
     current_user = get_current_user()
     return render_template("storylaunch.html", book_details = book_details, current_user=current_user)
 
+@app.route("/books/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
+# this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
+def storydetail(book_id): 
+    book_details = get_book_details(book_id)    
+    print(book_details)
+    return render_template("storydetail2.html", book_details = book_details, book_id = book_id)
+
 @app.route("/myworks/api/updatebook/<int:book_id>", methods=["POST"])
 def updateOverview(book_id):
     if not (authenticate_book(book_id)):
@@ -326,11 +333,15 @@ def deleteStory(book_id):
 # APIs for story overview and writing page
 @app.route("/myworks/api/newbook/<int:user_id>", methods=["POST"])
 def create_new_book(user_id):
+<<<<<<< HEAD
+    if not authenticate_user(user_id):
+=======
     with get_db_cursor() as cursor:
         cursor.execute("SELECT username FROM users WHERE user_id = %s", (user_id,))
         current_username = cursor.fetchone()[0]
     print(current_username)
     if not authenticate_user(current_username):
+>>>>>>> 238cf4a63e977074a965b95bfdcb6aeef4dc2496
         return render_template("accessdenied.html")
     default_title = 'Untitled Story'
     default_image_url = 'https://thumbs.dreamstime.com/b/paper-texture-smooth-pastel-pink-color-perfect-background-uniform-pure-minimal-photo-trendy-149575202.jpg'

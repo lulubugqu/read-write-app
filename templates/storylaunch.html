@@ -80,7 +80,6 @@
                 
             </form>
 
-            <!-- <a class="pure-button pure-button-active" href="/myworks/<int:storyId>/create"> Next </a> -->
 
             
 
@@ -91,7 +90,7 @@
                 Table of Content
             </div>
             
-            {% for chapter in range(1, book_details[8] + 1) %}
+            <!-- {% for chapter in range(1, book_details[8] + 1) %}
                 <div class="chapters">
                     <a href="/myworks/{{book_id}}/{{ chapter }}">Chapter {{chapter}}</a>
                     <span class="bttn">
@@ -99,9 +98,10 @@
                         <a href="/survey" class="pure-button"> Delete </a>
                     </span>
                 </div>
-            {% endfor %}
-            <div class="chapters">
-                <a href="/myworks/{{book_id}}/{{ book_details[8] + 1 }}">Add a New Chapter </a>
+            {% endfor %} -->
+            
+            <!-- <div class="chapters">
+                <a href="/myworks/{{book_id}}/{{ book_details[8] + 1 }}">Add a New Chapter </a> -->
 
             <div class="chapter-lst">
 
@@ -119,7 +119,6 @@
                 {% endfor %}
 
                 <div class="">
-                    <!-- <i class="fa-solid fa-square-plus"></i> -->
                     <a href="/myworks/{{book_details[0]}}/{{ book_details[8] + 1 }}" class="pure-button">
                         <i class="fa-solid fa-square-plus"></i> Add a New Chapter </a>
                 </div>
