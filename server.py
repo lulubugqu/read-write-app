@@ -110,7 +110,7 @@ def authenticate_book(requested_book):
     return False
 
 def get_current_user():
-    return session["users"].get("userinfo").get("name")
+    return session["user"].get("userinfo").get("name")
 
 
 @app.route("/login")
