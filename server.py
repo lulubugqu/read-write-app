@@ -202,7 +202,8 @@ def home(current_user):
         case 10:
             genre = "Comedy"
     top_5_genre = top5genre(genre)
-    return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, genre=genre, current_user=current_user)
+    user_library = userlibrary(current_user)
+    return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, user_library=user_library, genre=genre, current_user=current_user)
 
 @app.route("/story/<int:storyId>/<int:chapterNum>/")
 def getStory(storyId, chapterNum):
