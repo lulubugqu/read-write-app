@@ -335,12 +335,13 @@ def editChapter(book_id, chapter_id):
 
 
 @app.route("/myworks/api/<int:book_id>/delete", methods=["DELETE"])
-def deleteStory(book_id):
+def deleteStory(book_id, chapter_id):
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
     book_details = get_book_details(book_id)
+    chapter_details = get_chapter_details(chapter_id)
     with get_db_cursor() as cursor: 
-        cursor.execute("DELETE * FROM books WHERE book_id = %s", (book_details))
+        cursor.execute("DELETE * FROM books WHERE book_id = %s AND chapter_id = %s", (book_details, chapter_details))
 
 
 # APIs for story overview and writing page
