@@ -110,7 +110,11 @@ def authenticate_book(requested_book):
     return False
 
 def get_current_user():
-    return session["user"].get("userinfo").get("name")
+    user_email = session["user"].get("userinfo").get("name")
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT username FROM users WHERE email = %s", (user_email,))
+        current_username = cursor.fetchone()[0]
+        return current_username
 
 
 @app.route("/login")
@@ -214,7 +218,16 @@ def getStory(storyId, chapterNum):
         num_chapters = cursor.fetchone()
 
     current_user = get_current_user()
+    print(current_user)
     return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters, current_user=current_user)
+
+
+@app.route("/story/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE - USER (NOT AUTHOR) ACESSS )
+# this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
+def storydetail(book_id): 
+    book_details = get_book_details(book_id)    
+    print(book_details)
+    return render_template("storydetail2.html", book_details = book_details, book_id = book_id)
 
 def get_book_details(book_id):
     with get_db_cursor() as cursor:
@@ -272,7 +285,7 @@ def getUser(username):
 ## STORY EDITING PAGES - OVERVIEW AND WRITING PAGE
 
 
-@app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
+@app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE - AUTHOR ACCESS)
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
 def storyoverview(book_id): 
     if not (authenticate_book(book_id)):
@@ -280,13 +293,6 @@ def storyoverview(book_id):
     book_details = get_book_details(book_id)    
     current_user = get_current_user()
     return render_template("storylaunch.html", book_details = book_details, current_user=current_user)
-
-@app.route("/books/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
-# this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
-def storydetail(book_id): 
-    book_details = get_book_details(book_id)    
-    print(book_details)
-    return render_template("storydetail2.html", book_details = book_details, book_id = book_id)
 
 @app.route("/myworks/api/updatebook/<int:book_id>", methods=["POST"])
 def updateOverview(book_id):
@@ -419,6 +425,13 @@ def search():
 
     current_user = get_current_user()
     return render_template("search.html", search=search, current_user=current_user)
+
+@app.route("/search/filter/", methods=["GET"])
+@app.route("/search/filter", methods=["GET"])
+def filter_search():
+    print("filtering search")
+    print(request)
+
 
 
 # USER RELATED APIs
