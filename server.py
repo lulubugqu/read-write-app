@@ -367,6 +367,16 @@ def create_new_book(user_id):
     
     return redirect(url_for('storyoverview', book_id=new_book_id))
 
+@app.route("/story/<book_id>/save" , methods=["POST"])
+def save_book(book_id):
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT published_books FROM users WHERE user_id = %s", (user_id,))
+        library_books = cursor.fetchone()[0]
+        if library_books != '':
+            library_books += f", {book_id}"
+        else:
+            library_books = str(book_id)
+    cursor.execute("UPDATE users SET published_books = %s WHERE user_id = %s", (library_books, user_id))
 
         
 @app.route("/myworks/api/<book_id>/<chapter_id>/updatechapter", methods=["POST"])
