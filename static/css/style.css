@@ -52,7 +52,7 @@
   border-radius: 10px;
   border: 0;
   font-size: 130%;
-  color: white;
+  color: #ffffff;
 }
 
 /* OLD BUTTON CSS - saving because theres a lot going on and I don't want to accientally break something*/
@@ -83,7 +83,7 @@
   user-select: none;
   -webkit-user-select: none;
   vertical-align: middle;
-  white-space: nowrap;
+  #ffffff-space: nowrap;
   width: 100%;
 }
 
@@ -167,7 +167,7 @@
   border-radius: 10px;
   border: 0;
   font-size: 130%;
-  color: white;
+  color: #ffffff;
   margin-top: 0;
 }
 
@@ -367,7 +367,7 @@
     border: 0px;
     border-radius: 15px;
     display: flex;
-    color: white;
+    color: #ffffff;
     /* justify-content: space-between; */
   flex: 70%;
     margin-bottom: 2%;
@@ -525,10 +525,18 @@ font-family: "Space Mono", monospace;
   font-weight: 500;
 
   background-color: #88ad6d;
-    border-radius: 10px;
-    border: 0;
-    /* font-size: 100%; */
-    color: white;
+  border-radius: 10px;
+  border: 0;
+  /* font-size: 100%; */
+  color: white;
+
+  /*   margin-top: 1em;
+  width: 20%;
+  margin-left: 27em;
+  background-color: #9DC183;
+  color: #ffffff;
+  font-family: sans-serif;
+   */
 
 }
 
@@ -770,9 +778,6 @@ margin-bottom: 1em;
 
 
 /* User Page */
-.user {
-  font-family: din-round,sans-serif;
-}
 #bar_user_stats h3 {
   margin-bottom: 0;
 }
@@ -783,10 +788,7 @@ margin-bottom: 1em;
   margin-top: 1%;
 }
 #bar_username h2 {
-  margin-bottom: 0;
-}
-#bar_username h3 {
-  margin-top: 0;
+  margin-top: 3%;
 }
 /* User Bar */
 .info_bar {
@@ -836,6 +838,7 @@ margin-bottom: 1em;
 #profile_right {
   flex: 70%;
   height: 60%;
+  min-height: 60vh;
   border-radius: 15px;
   padding-left: 1%;
   border: 1px solid transparent;
@@ -846,6 +849,7 @@ margin-bottom: 1em;
   display: flex;
   flex-direction: column;
 }
+
 #story {
   border-radius: 15px;
   border: 1px solid #a9a9a9;
@@ -863,6 +867,7 @@ margin-bottom: 1em;
 }
 
 #new_story_div {
+  min-height: 35vh;
   height: 15em;
   width: auto;
   border: 1px solid transparent;
@@ -870,7 +875,11 @@ margin-bottom: 1em;
   border-radius: 15px;
   margin-bottom: 2%;
   display: flex;
-  
+}
+
+.user a:hover {
+  cursor: pointer;
+  text-decoration: none;
 }
 
 #plus_box {
@@ -893,14 +902,14 @@ margin-bottom: 1em;
   margin-top: 42%;
 }
 
-.user a{
+.new_story a{
   text-decoration: none;
 }
 
 #plus_box_words, #plus_box {
   padding-left: 2%;
   text-align: center;
-  color: #9DC183;
+  color: #9DC183;  
 }
 
 .fa-plus {
@@ -908,15 +917,18 @@ margin-bottom: 1em;
 }
 
 #user_bio_text {
+  min-height: 20vh;
   width: 96%;
-  padding-left: 3%;
-  padding-top: 3%;
-  min-height: 10em;
+  padding-left: 5%;
+  padding-top: 5%;
   border: 1px solid transparent;
   box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
   border-radius: 15px;
   margin-bottom: 2%;
   resize: none; 
+  font-family: "Nunito", sans-serif;
+
+
 }
 
 #user_library {
@@ -927,6 +939,7 @@ margin-bottom: 1em;
   width: 95%; 
   margin-left: 2%;
   margin-bottom: 1%;
+  min-height: 65vh;
 }
 
 a {
@@ -1033,7 +1046,7 @@ a:hover {
 }
 
 .home .book1details h3 {
-  color: white;
+  color: #ffffff;
   text-align: center;
   margin-top: 45%;
 }
@@ -1055,13 +1068,20 @@ a:hover {
   position: relative;
 }
 
+#resized-image {
+  width: 163px; 
+  height: 260px; 
+  object-fit: cover;
+  border-radius: 10px;;
+}
+
 .book-number {
   text-align: left;
   padding-left: 8%;
   padding-right: 2%;
   background-color: rgb(171, 207, 119);
   border-top-left-radius: 15px;
-  color:white;
+  color:#ffffff;
   font-weight: bolder;
   font-size: 2em;
   width: 25%;
@@ -1103,7 +1123,7 @@ a:hover {
 } */
 
 .book-tag {
-  background-color: white;
+  background-color: #ffffff;
   color: black;
   text-align: center;
   padding: 1% 1.5%;
@@ -1141,35 +1161,32 @@ a:hover {
   border: 0px;
   border-radius: 15px;
   display: flex;
-  color: white;
-  /* justify-content: space-between; */
+  color: #ffffff;
   margin-top: 20px;
-  width: 30%; /* change as needed */
-  height: 250px;
+  width: 30%; 
+  /* height: 250px; */
   margin-left: 10px;
 }
 
-
-.bookdetails .book {
+/* .bookdetails .book {
   background-color: #7a9d60;
-  font-family: 'DM Sans', sans-serif;
   width: 50%;
   height: 215px;
   margin: 15px;
   border-radius: 10px;
-}
+} */
 
-.bookdetails .book h3 {
+/* .bookdetails .book h3 {
   margin-top: 20px;
-}
+} */
 
 .details {
-  font-family: 'DM Sans', sans-serif;
   margin: 10px;
   color: black;
 }
 
 .details p {
+  font-family: "Nunito", sans-serif;
   margin-right: 5px;
 }
 
@@ -1178,13 +1195,14 @@ a:hover {
   margin-left: 0px;
 }
 
-.details .book-tag p {
-  margin: 3px;
+.user .book-details-bottom {
+  display: flex;
 }
 
-.details .book-tag-container {
+.user .book-tag-container {
   background-color: transparent;
-  width: 60%;
+  /* width: 60%; */
+  flex: 85%;
   display: flex;
   flex-wrap: wrap;
   justify-content: left;
@@ -1192,10 +1210,21 @@ a:hover {
   padding: 0%;
 }
 
-/* Book type 2 ON USER PAGE */
-.user {
-  font-family: 'DM Sans', sans-serif;
+.user .continue-writing-container {
+  flex: 7%;
+  margin-left: 20%;
+  color: #507337;
 }
+
+.details .book-tag p {
+  margin: 3px;
+}
+
+
+/* Book type 2 ON USER PAGE */
+/* .user {
+  font-family: 'DM Sans', sans-serif;
+} */
 
 
 .user .user_books {
@@ -1209,19 +1238,14 @@ a:hover {
   border: 0px;
   border-radius: 15px;
   display: flex;
-  color: white;
-  /* justify-content: space-between; */
+  color: #ffffff;
   width: 97%; 
+  height: 40vh;
   margin-bottom: 2%;
 }
 
-.user .bookdetails .book {
-  background-color: #7a9d60;
-  font-family: 'DM Sans', sans-serif;
-  /* width: 20%; */
-  flex: 18%;
-  height: 90%;
-  border-radius: 10px;
+.user .bookdetails .book img {
+  margin: 10% 0 10% 10%;
 }
 
 .book-details-container {
@@ -1235,15 +1259,13 @@ a:hover {
   width: 100%;
   height: 100%;
 }
-.user .bookdetails .book h3 {
-  text-align: center;
-  margin-top: 45%;
-  color: white;
+
+.user .bookdetails .book {
+  flex: 25%;
 }
 
 .user .details {
-  font-family: 'DM Sans', sans-serif;
-  flex: 80%;
+  flex: 75%;
   margin: 10px;
   color: black;
 }
@@ -1295,7 +1317,7 @@ a:hover {
 }
 
 .user_library .book1 h3 {
-  color: white;
+  color: #ffffff;
   text-align: center;
   margin-top: 45%;
 }
@@ -1323,7 +1345,7 @@ a:hover {
 .navbarStory a {
   float: left;
   display: block;
-  color: white;
+  color: #ffffff;
   text-align: center;
   padding: 14px 20px;
   text-decoration: none;
@@ -1343,7 +1365,7 @@ a:hover {
   font-size: 16px;
   border: none;
   outline: none;
-  color: white;
+  color: #ffffff;
   padding: 14px 20px;
   background-color: inherit;
   font-family: inherit;
@@ -1393,15 +1415,15 @@ a:hover {
   font-size: 20px;
 }
 .separator:first-line {
-  background-color: white;
+  background-color: #ffffff;
 }
 .separator:before {
   content: "__";
-  color: white;
+  color: #ffffff;
 }
 .separator:after {
   content: "__";
-  color: white;
+  color: #ffffff;
 }
 
 .story-content {
@@ -1441,6 +1463,6 @@ a:hover {
 }
 
 .book-section a {
-  color: white;
+  color: #ffffff;
   text-decoration: none; 
 }
