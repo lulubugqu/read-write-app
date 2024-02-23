@@ -995,6 +995,7 @@ a:hover {
 
 .book-section1 {
   height: auto;
+  min-height: 55vh;
   /* border-top: 3px solid #507337;
   border-bottom: 3px solid #507337; */
   /* background-color:#def0d2; */
@@ -1004,6 +1005,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   width: 100%;
+  min-height: 40vh;
   height:auto;
   /* background-color:#def0d2; */
   text-align: center;
