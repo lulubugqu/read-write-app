@@ -227,14 +227,9 @@ def get_chapter_details(book_id, chapter_id):
 
 @app.route("/user/<string:username>")
 def getUser(username):
-    # if logged in user is the same as the user request, then set true
-    # session=session.get('user')
-    # print("session: ")
-    # print(session)
-    # if 'user' in session:
-    #     logged_in = True
-    # else:
-    #     logged_in = False
+    ## AUTHENTICATE USER
+    if not authenticate_user(username):
+        logged_in = False
     logged_in = True
     print("getting user")
     with get_db_cursor() as cursor:
@@ -283,7 +278,8 @@ def storyoverview(book_id):
 
 @app.route("/myworks/api/updatebook/<int:book_id>", methods=["POST"])
 def updateOverview(book_id):
-    print("updating book")
+    if not (authenticate_book(book_id)):
+        return render_template("accessdenied.html")
     book_title = request.form.get('book_title')
     genre = request.form.get('genre')
     tags = request.form.get('tags')
@@ -296,7 +292,8 @@ def updateOverview(book_id):
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
 def editChapter(book_id, chapter_id):
     # this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content. 
-    print("getting chapter")
+    if not (authenticate_book(book_id)):
+        return render_template("accessdenied.html")
     with get_db_cursor() as cursor:
         cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (book_id, chapter_id))
         chapter_content = cursor.fetchone()
@@ -313,6 +310,8 @@ def editChapter(book_id, chapter_id):
 
 @app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
 def deleteStory(book_id):
+    if not (authenticate_book(book_id)):
+        return render_template("accessdenied.html")
     book_details = get_book_details(book_id)
     with get_db_cursor() as cursor: 
         cursor.execute("DELETE * FROM books WHERE book_id = %s", (book_details))
@@ -321,6 +320,8 @@ def deleteStory(book_id):
 # APIs for story overview and writing page
 @app.route("/myworks/api/newbook/<int:user_id>", methods=["POST"])
 def create_new_book(user_id):
+    if not authenticate_user(user_id):
+        return render_template("accessdenied.html")
     default_title = 'Untitled Story'
     default_image_url = 'https://thumbs.dreamstime.com/b/paper-texture-smooth-pastel-pink-color-perfect-background-uniform-pure-minimal-photo-trendy-149575202.jpg'
     with get_db_cursor() as cursor:
@@ -344,6 +345,8 @@ def create_new_book(user_id):
         
 @app.route("/myworks/api/<book_id>/<chapter_id>/updatechapter", methods=["POST"])
 def updatechapter(book_id, chapter_id):
+    if not (authenticate_book(book_id)):
+        return render_template("accessdenied.html")
     updated_content = request.form.get('chapter_content')
     with get_db_cursor() as cursor:
         cursor.execute("SELECT * FROM chapters WHERE book_id = %s AND chapter_id = %s", (book_id, chapter_id))
@@ -423,6 +426,8 @@ def adduser():
 @app.route("/api/userlibrary/<string:current_user>")
 def userlibrary(current_user):
     # current_user_email = currentuser()['email'] #assuming current users returns a JSON
+    if not authenticate_user(current_user):
+        return render_template("accessdenied.html")
     with get_db_cursor() as cursor:
         cursor.execute("SELECT user_id FROM users WHERE username = %s", (current_user,))
         current_user_id = cursor.fetchone()
