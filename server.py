@@ -220,9 +220,15 @@ def getStory(storyId, chapterNum):
         cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (storyId,))
         num_chapters = cursor.fetchone()
 
+        cursor.execute("SELECT user_id FROM books WHERE book_id = %s", (storyId,))
+        author_id = cursor.fetchone()
+
+        cursor.execute("SELECT username FROM users WHERE user_id = %s", (author_id))
+        author_name = cursor.fetchone()
+
     current_user = get_current_user()
     print(current_user)
-    return render_template("story.html", storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters, current_user=current_user)
+    return render_template("story.html", author_id = author_id, author_name = author_name, storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters, current_user=current_user)
 
 
 @app.route("/story/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE - USER (NOT AUTHOR) ACESSS )
