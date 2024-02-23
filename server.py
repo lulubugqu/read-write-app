@@ -75,10 +75,19 @@ def callback():
     #  this is when you finish a login/registration, do more work here
     #  if new user add to database, is login, add
     session["user"] = token
-    print(token)
-    # check the data, the precence of the token represents a user we just dont jknow what kind
-    # 
-    return redirect("/")   
+    user_email = token.get("userinfo").get("name")
+
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT email, username FROM users WHERE email = %s", (user_email,))
+        user_data = cursor.fetchall()
+
+    if len(user_data) == 1:
+        user_name = user_data[0][1]
+        return redirect(f"/home/{user_name}")
+    else:
+        # add user to database
+        return render_template("first-login.html", email=user_email)
+
 
 
 # clears the user session in your app and redirects to the Auth0 logout endpoint 
@@ -134,7 +143,7 @@ def home():
         case 10:
             genre = "Comedy"
     top_5_genre = top5genre(genre)
-    return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, genre=genre)
+    return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, genre=genre, current_user=current_user)
 
 @app.route("/story/<int:storyId>/<int:chapterNum>/")
 def getStory(storyId, chapterNum):
@@ -182,19 +191,21 @@ def getUser(username):
     user_id = user_info[0]
     pfp_url = user_info[3]
     bio = user_info[4]
-    published_books =  (user_info[7].split(", "))
-    library_books = (user_info[8].split(", "))
+    published_books =  user_info[7].split(", ")
+    library_books = user_info[8].split(", ")
 
     published_books_info = []
     library_books_info = []
 
-    for book_id in published_books:
-        book_info = get_book_details(book_id)
-        published_books_info.append(book_info)
+    if published_books[0] != '':
+        for book_id in published_books:
+            book_info = get_book_details(book_id)
+            published_books_info.append(book_info)
 
-    for book_id in library_books:
-        book_info = get_book_details(book_id)
-        library_books_info.append(book_info)
+    if library_books[0] != '':
+        for book_id in library_books:
+            book_info = get_book_details(book_id)
+            library_books_info.append(book_info)
 
     return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, pfp_url = pfp_url, bio = bio, published_books = published_books_info, library_books = library_books_info)
 
@@ -215,15 +226,19 @@ def getUser(username):
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
 def storyoverview(book_id): 
     book_details = get_book_details(book_id)    
-    print(book_details)
-    return render_template("storylaunch.html", book_details = book_details)
+    return render_template("storydetail.html", book_details = book_details)
 
-@app.route("/myworks/<int:book_id>", methods=["POST"])
+@app.route("/myworks/api/updatebook/<int:book_id>", methods=["POST"])
 def updateOverview(book_id):
+    print("updating book")
     book_title = request.form.get('book_title')
     genre = request.form.get('genre')
+    tags = request.form.get('tags')
     summary = request.form.get('summary')
-    return storyoverview(book_id)
+    image = request.form.get('book_image')
+    with get_db_cursor() as cursor:
+        cursor.execute("UPDATE books SET title = %s, genre = %s, tags = %s, summary = %s, picture_url = %s WHERE book_id = %s", (book_title, genre, tags, summary, image, book_id))
+    return redirect(url_for('storyoverview', book_id=book_id))
 
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
 def editChapter(book_id, chapter_id):
@@ -240,53 +255,39 @@ def editChapter(book_id, chapter_id):
         num_chapters = cursor.fetchone()
     
     return render_template("saveChapter.html", book_id = book_id, chapterNum = chapter_id, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters)
-    # CODE OUTLINE
-    # get current chapter content, chapter number, book title, (maybe) book_id from database
-    # render an HTML page, returning this info
-    # the HTML page should a be simple for with one text box, where the user can edit the 
-    # content of the chapter. 
-    # there will be a save page where users can save their edits.
-    # the save page calls the api "/myworks/api/<book_id>/<chapter_id>/updatechapter"
     
 
 
-
 @app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
-def deleteStory():
-    print("deletes story, deletes entry in DB")
-    # return render_template("deleteStory.html")
+def deleteStory(book_id):
+    book_details = get_book_details(book_id)
+    with get_db_cursor() as cursor: 
+        cursor.execute("DELETE * FROM books WHERE book_id = %s", (book_details))
 
 
 # APIs for story overview and writing page
 @app.route("/myworks/api/newbook/<int:user_id>", methods=["POST"])
-
-# this API is called whe user clicks "NEW STORY"
-# story is initialied with empty string for everything we don't have data for
-# defualt image URL IS: https://thumbs.dreamstime.com/b/paper-texture-smooth-pastel-pink-color-perfect-background-uniform-pure-minimal-photo-trendy-149575202.jpg
-# story title is intialized as "Untitled Story"
-# chpater 1 should be made, with empty content
-
-
-@app.route("/myworks/api/<int:book_id>/updatebook", methods=["PUT"])
-# updates the details of the book. Called when the user clicks "save" on the /myworks/<book_id> page. 
-
-
-@app.route("/myworks/api/<int:book_id>/createchapter", methods=["POST"])
-def createchapter(book_id):
+def create_new_book(user_id):
+    default_title = 'Untitled Story'
+    default_image_url = 'https://thumbs.dreamstime.com/b/paper-texture-smooth-pastel-pink-color-perfect-background-uniform-pure-minimal-photo-trendy-149575202.jpg'
     with get_db_cursor() as cursor:
-        cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (book_id,))
-        book = cursor.fetchone()
-        if not book:
-            return jsonify({"message": "Book not found"}), 404
-        num_chapters = book[0]
-        print(num_chapters)
-
-        cursor.execute("INSERT INTO chapters (chapter_id, book_id, content) VALUES (%s, %s, %s)", (num_chapters + 1, book_id, ''))
-
-        if cursor.rowcount > 0:
-            return jsonify({"message": "Chapter added successfully"}), 200
+        cursor.execute("INSERT INTO books (user_id, title, picture_url, num_chapters, genre, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s)", (user_id, default_title, default_image_url,1, '', '{}', ''))
+        cursor.execute("SELECT LASTVAL()")
+        new_book_id = cursor.fetchone()[0]
+        cursor.execute("INSERT INTO chapters (chapter_id, book_id, content) VALUES (%s, %s, %s)", (1, new_book_id, ''))
+        
+        cursor.execute("SELECT published_books FROM users WHERE user_id = %s", (user_id,))
+        published_books = cursor.fetchone()[0]
+        if published_books != '':
+            published_books += f", {new_book_id}"
         else:
-            return jsonify({"message": "Failed to add chapter"}), 500
+            published_books = str(new_book_id)
+
+        cursor.execute("UPDATE users SET published_books = %s WHERE user_id = %s", (published_books, user_id))
+    
+    return redirect(url_for('storyoverview', book_id=new_book_id))
+
+
         
 @app.route("/myworks/api/<book_id>/<chapter_id>/updatechapter", methods=["POST"])
 def updatechapter(book_id, chapter_id):
@@ -310,6 +311,11 @@ def updatechapter(book_id, chapter_id):
 # this can be done last, we don't need it. 
 # book chapter is deleted from database. 
 # called when "delete" chpater is clicked from the story detail page. 
+def deleteChapter(book_id, chapter_id):
+    chapter_details = get_chapter_details(chapter_id)
+    book_details = get_book_details(book_id)
+    with get_db_cursor() as cursor: 
+        cursor.execute("DELETE * FROM chapters WHERE chapter_id = %s AND book_id = %s", (chapter_details, book_details))
 
 
 ## HOME PAGE APIs
@@ -342,18 +348,30 @@ def search():
 
 
 # USER RELATED APIs
-@app.route("/api/currentuser")
-def currentuser():
-    # find current user with session ID
-    return 0
+@app.route("/api/adduser", methods=["POST"])
+def adduser():
+    username = request.form.get('stacked-name')
+    bio = request.form.get('stacked-bio')
+    email = request.form.get('email')
 
+    # Print or do something with the data
+    print(f"Username: {username}, Bio: {bio}, Emai: {email}")
+
+    with get_db_cursor() as cursor:
+        cursor.execute("""
+            INSERT INTO users 
+            (username, bio, email, pass, pfp_url, birthday, published_books, library_books) 
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+        """, (username, bio, email, "", "", None, '', ''))
+
+    return redirect(f"/home/{username}")
     
 
-@app.route("/api/userlibrary")
-def userlibrary():
-    current_user_email = currentuser()['email'] #assuming current users returns a JSON
+@app.route("/api/userlibrary/<string:current_user>")
+def userlibrary(current_user):
+    # current_user_email = currentuser()['email'] #assuming current users returns a JSON
     with get_db_cursor() as cursor:
-        cursor.execute("SELECT user_id FROM users WHERE email = %s", (current_user_email,))
+        cursor.execute("SELECT user_id FROM users WHERE username = %s", (current_user,))
         current_user_id = cursor.fetchone()
         cursor.execute("SELECT * FROM books WHERE user_id = %s", (current_user_id,))
         library = cursor.fetchall()
