@@ -892,9 +892,8 @@ a:hover {
 .books-genre-spotlight .book-tag-container {
   position: relative;
   z-index: 1000;
-  margin-bottom: -68px;
-  /* width: 134px; */
-  width: 84%;
+  margin-bottom: -50px;
+  height: 100%;
 }
 
 .home .book1details a {
@@ -919,14 +918,13 @@ a:hover {
 }
 
 .home .book-image {
-  width: 150px; /* Set the width of the image */
-  height: auto; /* Maintain aspect ratio */
-  display: block; /* Ensure it behaves like a block element */
-  margin: 0 auto 5% 0; /* Center the image horizontally */
+  width: 100%; 
+  height: auto;
+  display: block; 
+  margin: 0 auto 5% 0; 
   object-fit:fill;
   border-radius: 15px;
   position: relative;
-  
 }
 
 .book-number {
@@ -951,12 +949,12 @@ a:hover {
 
 .book-tag-container {
   background-color: rgba(58, 55, 55, 0.8);
-  width: 90%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 5px;
-  padding: 5%;
+  padding: 5% 0 5% 0;
+  /* padding: 5%; */
 }
 
 .launch-tag-container {
@@ -1189,11 +1187,11 @@ a:hover {
 }
 
 /* Story CSS*/
-
 .navbarStory {
   background-color: #9dc183;
   overflow: hidden;
 }
+
 .navbarStory a {
   float: left;
   display: block;
@@ -1202,14 +1200,17 @@ a:hover {
   padding: 14px 20px;
   text-decoration: none;
 }
+
 .navbarStory a:hover {
   background-color: #ddd;
   color: black;
 }
+
 .dropdownStory {
   float: left;
   overflow: hidden;
 }
+
 .dropdownStory .dropbtnStory {
   font-size: 16px;
   border: none;
@@ -1220,9 +1221,11 @@ a:hover {
   font-family: inherit;
   margin: 0;
 }
+
 .navbarStory a, .dropdownStory .dropbtnStory {
   display: inline-block;
 }
+
 .dropdown-contentStory {
   display: none;
   position: absolute;
@@ -1231,6 +1234,7 @@ a:hover {
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
 }
+
 .dropdown-contentStory a {
   float: none;
   color: black;
@@ -1239,6 +1243,7 @@ a:hover {
   display: block;
   text-align: left;
 }
+
 .dropdown-contentStory a:hover {
   background-color: #ddd;
 }
@@ -1249,9 +1254,9 @@ a:hover {
 .storyContent {
   text-align: center;
   padding: 0 4% 0 4%;
-  /* background-color: #dde9d5; */
 }
 
+/* hr for chapter */
 .separator {
   text-align: center;
   height: 0.5em;
@@ -1291,13 +1296,10 @@ a:hover {
   padding: 0;
 }
 
-/* .story .pure-button {
-  padding: 0;
-} */
-
 .story-story-info {
   margin: 3% 0 2% 0;
 }
+
 .author-link {
   color: black;
   text-decoration: none;
@@ -1310,7 +1312,7 @@ a:hover {
   color: darkgrey; 
 }
 
-.book-section a{
+.book-section a {
   color: white;
   text-decoration: none; 
 }
