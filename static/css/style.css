@@ -13,6 +13,7 @@
   /* margin-left:auto;
   margin-right:auto;
   width:960px; */
+  border-radius: 15px;
 }
 
 .launch {
@@ -1072,7 +1073,7 @@ a:hover {
   width: 163px; 
   height: 260px; 
   object-fit: cover;
-  border-radius: 10px;;
+  border-radius: 15px;
 }
 
 .book-number {
