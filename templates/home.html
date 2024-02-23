@@ -19,7 +19,7 @@ border-bottom: 3px solid #507337;">
             <div class="book">
                 <div class="book1details">
                     <div class="book-number">#{{loop.index}}</div>
-                    <img src={{ x['picture_url'] }} alt="{{ x['title'] }} Cover" class="book-image">
+                    <img src={{ x['picture_url'] }} alt="{{ x['title'] }} Cover" class="book-image" id="resized-image">
                     <!-- CHANGE TO TABLE OF CONTENTS -->
                     <a href="/story/{{ x['book_id'] }}/1" class="book-link"></a>
                 </div>
@@ -51,7 +51,7 @@ border-bottom: 3px solid #507337;">
                         <div class="book-tag"><p>Mystery</p></div>
                         <div class="book-tag"><p>Young Adult</p></div>
                     </div>
-                    <img src={{ x['picture_url'] }} alt="{{ x['title'] }} Cover" class="book-image">
+                    <img src={{ x['picture_url'] }} alt="{{ x['title'] }} Cover" class="book-image" id="resized-image">
                     <!-- CHANGE TO TABLE OF CONTENTS/STORY DETAIL -->
                     <a href="/story/{{ x['book_id'] }}/1" class="book-link"></a>
                 </div>
