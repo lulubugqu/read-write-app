@@ -276,7 +276,8 @@ def getUser(username):
             book_info = get_book_details(book_id)
             library_books_info.append(book_info)
 
-    return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info, current_user=username)
+    current_user = get_current_user()
+    return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info, current_user=current_user)
 
 
 
