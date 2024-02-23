@@ -62,6 +62,30 @@ def initialize():
     setup()
 
 
+def authenticate_user(requested_user):
+    ## AUTHENTICATE USER
+    if (requested_user == "guest"):
+        return True
+
+    # first, see if any user is logged in
+    # if not, return access denied
+    try: 
+        current_user_session = session["user"]
+    except:
+        return False
+    
+    # then, check if its the correct user
+    current_user_email = current_user_session.get("userinfo").get("name")
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT username FROM users WHERE email = %s", (current_user_email,))
+        current_username = cursor.fetchone()
+
+    if (requested_user != current_username[0]):
+        return False
+    
+    return True
+
+
 @app.route("/login")
 def login():
     return oauth.auth0.authorize_redirect(
@@ -117,6 +141,10 @@ def firstLogin():
 
 @app.route("/home/<string:current_user>")
 def home(current_user):
+    ## AUTHENTICATE USER
+    if not authenticate_user(current_user):
+        return render_template("accessdenied.html")
+
     top_5_books = top5()
     rand_genre = random.randint(0, 10)
     match rand_genre:
@@ -377,3 +405,4 @@ def userlibrary(current_user):
 
 
     return jsonify(library)
+
