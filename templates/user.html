@@ -61,9 +61,9 @@
                             <h3>{{book[2]}}</h3>
                         </a>
                         -->
-                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1680726063i/125378265.jpg" alt="Book Cover" class="book-image" id="resized-image">
+                    <img src={{book[3]}} alt="Book Cover" class="book-image" id="resized-image">
                         <!-- CHANGE TO TABLE OF CONTENTS -->
-                        <a href="/story/1/1" class="book-link"></a>
+                        <a href="/story/{{book[0]}}/1" class="book-link"></a>
                     </div>
                     <div class="details">
                         <div class="book-details-container">
@@ -72,15 +72,15 @@
                         </div>
                         <div class="book-details-bottom">
                             <div class="book-tag-container">
+                                <!--
                                 {% set tag_list = book[7][1:-1].split(", ") %}
                                 {% for tag in tag_list%}
-                                <div class="book-tag"><p>{{ tag }}</p></div>
+                                    <div class="book-tag"><p>{{ tag }}</p></div>
                                 {% endfor %}
+                                -->
                             </div>
 
                             <div class="continue-writing-container">
-                                <!-- <a href="/myworks/{{ book[0] }}"><button class="button-editStory pure-button" id="button-extra">Continue Writing...</button></a>
-                                -->
                                 <a href="/myworks/{{ book[0] }}">
                                     <i class="fa-solid fa-pen-to-square fa-lg"></i>
                                 </a>
