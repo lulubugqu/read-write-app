@@ -37,7 +37,7 @@
                             <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
                         </div>
                         <div id="plus_box_words">         
-                            <button type="submit" class="button-editUser pure-button">Create a new Story</button>
+                            <h2 id="words">Create a new Story</h2>
                         </div>
                     </div>
                 </a>
@@ -75,7 +75,11 @@
                         </div>
                     </div>
                     <div class="continue-writing-container">
-                        <a href="/myworks/{{ book[0] }}"><button class="button-editStory pure-button" id="button-extra">Continue Writing...</button></a>
+                        <!-- <a href="/myworks/{{ book[0] }}"><button class="button-editStory pure-button" id="button-extra">Continue Writing...</button></a>
+                         -->
+                        <a href="/myworks/{{ book[0] }}">
+                            <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                        </a>
                     </div>
                 </div>
                 {% endfor %}

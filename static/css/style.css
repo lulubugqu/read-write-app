@@ -641,9 +641,6 @@ width: 100%;
 
 
 /* User Page */
-.user {
-  font-family: din-round,sans-serif;
-}
 #bar_user_stats h3 {
   margin-bottom: 0;
 }
@@ -717,6 +714,7 @@ width: 100%;
   display: flex;
   flex-direction: column;
 }
+
 #story {
   border-radius: 15px;
   border: 1px solid #a9a9a9;
@@ -741,7 +739,11 @@ width: 100%;
   border-radius: 15px;
   margin-bottom: 2%;
   display: flex;
-  
+}
+
+.user a:hover {
+  cursor: pointer;
+  text-decoration: none;
 }
 
 #plus_box {
@@ -764,14 +766,14 @@ width: 100%;
   margin-top: 42%;
 }
 
-.user a{
+.new_story a{
   text-decoration: none;
 }
 
 #plus_box_words, #plus_box {
   padding-left: 2%;
   text-align: center;
-  color: #9DC183;
+  color: #9DC183;  
 }
 
 .fa-plus {
@@ -1023,7 +1025,7 @@ a:hover {
 
 .bookdetails .book {
   background-color: #7a9d60;
-  font-family: 'DM Sans', sans-serif;
+  /* font-family: 'DM Sans', sans-serif; */
   width: 50%;
   height: 215px;
   margin: 15px;
@@ -1035,12 +1037,12 @@ a:hover {
 }
 
 .details {
-  font-family: 'DM Sans', sans-serif;
   margin: 10px;
   color: black;
 }
 
 .details p {
+  font-family: "Nunito", sans-serif;
   margin-right: 5px;
 }
 
@@ -1064,9 +1066,9 @@ a:hover {
 }
 
 /* Book type 2 ON USER PAGE */
-.user {
+/* .user {
   font-family: 'DM Sans', sans-serif;
-}
+} */
 
 
 .user .user_books {
@@ -1088,7 +1090,7 @@ a:hover {
 
 .user .bookdetails .book {
   background-color: #7a9d60;
-  font-family: 'DM Sans', sans-serif;
+  /* font-family: 'DM Sans', sans-serif; */
   /* width: 20%; */
   flex: 18%;
   height: 90%;
@@ -1113,7 +1115,6 @@ a:hover {
 }
 
 .user .details {
-  font-family: 'DM Sans', sans-serif;
   flex: 80%;
   margin: 10px;
   color: black;
