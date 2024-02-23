@@ -265,7 +265,6 @@ def deleteStory(book_id):
         cursor.execute("DELETE * FROM books WHERE book_id = %s", (book_details))
 
 
-
 # APIs for story overview and writing page
 @app.route("/myworks/api/newbook/<int:user_id>", methods=["POST"])
 def create_new_book(user_id):
@@ -312,10 +311,11 @@ def updatechapter(book_id, chapter_id):
 # this can be done last, we don't need it. 
 # book chapter is deleted from database. 
 # called when "delete" chpater is clicked from the story detail page. 
-def deleteChapter(chapter_id):
+def deleteChapter(book_id, chapter_id):
     chapter_details = get_chapter_details(chapter_id)
+    book_details = get_book_details(book_id)
     with get_db_cursor() as cursor: 
-        cursor.execute("DELETE * FROM chapters WHERE chapter_id = %s", (chapter_details))
+        cursor.execute("DELETE * FROM chapters WHERE chapter_id = %s AND book_id = %s", (chapter_details, book_details))
 
 
 ## HOME PAGE APIs
