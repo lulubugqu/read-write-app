@@ -14,7 +14,7 @@
     <div class="search-container"> 
         <div class="search-left-side"> 
             <div class="search-filter">
-
+            <form id="save_search_filters" action="" method="POST">
                 <div class="filters"> 
 
                     <div class="filter-title">
@@ -65,57 +65,50 @@
                         </div> 
                     </div>  
                 </div>
-                <div class="filters">
-                    <div class="filter-title">
-                        Length
-                    </div>
-                    <div class="length_filter">
-                        <label for="chapterRange"> Length of Chapter: </label>
-                        <input type="range" min="1" max="100" value="50" name="chapterRange"
-                        oninput="rangeValue.innerText = this.value">
-                        <span id="rangeValue">100</span>   
+                    <div class="filters">
+                        <div class="filter-title">
+                            Length
+                        </div>
+                        <div class="length_filter">
+                            <label for="chapterRange"> Length of Chapter: </label>
+                            <input type="range" min="1" max="100" value="50" name="chapterRange"
+                            oninput="rangeValue.innerText = this.value">
+                            <span id="rangeValue">100</span>   
 
+                        </div>
                     </div>
-                </div>
-                <div class="filters">
-                    <div class="filter-title">
-                        Likes
-                    </div>
-                    <div class="like_filter">
-                        <!-- <p>Number of Likes:</p> -->
-                        <label for="range"> Number of Likes: </label>
-                        <input type="range" min="1" max="100" value="50" name="range"
-                        oninput="likeValue.innerText = this.value">
-                        <span id="likeValue">100</span>   
+                    <div class="filters">
+                        <div class="filter-title">
+                            Likes
+                        </div>
+                        
+                        
+                        
+                        
+                        <div class="like_filter">
+                            <!-- <p>Number of Likes:</p> -->
+                            <label for="range"> Number of Likes: </label>
+                            <input type="range" min="1" max="100" value="50" name="range"
+                            oninput="likeValue.innerText = this.value">
+                            <span id="likeValue">100</span>   
 
+                        </div>
                     </div>
-                </div>
-                <div class="filters">
-                    <div class="filter-title">
-                        Tags
-                    </div>
-                    <div class="tags">
-                        <span class="tag-content">
-                            <input type="checkbox" id="ActionTag" name="ActionTag" value="ActionTag">
-                            <label class="filter-checkbox" for="ActionTag"> + Action </label>
-                        </span>
+                    <div class="filters">
+                        <div class="filter-title">
+                            Tags
+                        </div>
+                        
 
-                        <span class="tag-content">
-                            <input type="checkbox" id="MysteryTag" name="MysteryTag" value="MysteryTag">
-                            <label class="filter-checkbox" for="MysteryTag"> + Mystery </label>
-                        </span>
+                            <div class="tags">
+                                <input type="text" id="tags" name="tags" placeholder= "romance,young adult"/>
+                            </div>
 
-                        <span class="tag-content">
-                            <input type="checkbox" id="RomanceTag" name="RomanceTag" value="RomanceTag">
-                            <label class="filter-checkbox" for="RomanceTag"> + Romance </label>
-                        </span>
-                        <span class="tag-content">
-                            <input type="checkbox" id="DramaTag" name="DramaTag" value="DramaTag">
-                            <label class="filter-checkbox" for="DramaTag"> + Drama </label>
-                        </span>
+                        <!-- </div>  -->
+                    </div>   
 
-                    </div>
-                </div>   
+                    <input class="button-editStory pure-button" type="submit" value="Save " />
+                </form>
 
             </div>
 
