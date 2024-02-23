@@ -34,16 +34,17 @@
     <div class="user_page_top">
         <div id="profile_left">
             {% if logged_in == True %}
-                <form action="/myworks/api/newbook/{{user_id}}" method="POST">
+                <form id="new_story_form" action="/myworks/api/newbook/{{user_id}}" method="POST"></form>
+                <a id="new_story" onclick="document.getElementById('new_story_form').submit();">
                     <div id="new_story_div"> 
                         <div id="plus_box">
                             <i class="fa fa-plus fa-5x" aria-hidden="true"></i>
                         </div>
                         <div id="plus_box_words">         
-                            <button type="submit" id = "words">Create a new Story</button>
+                            <h2 id="words">Create a new Story</h2>
                         </div>
                     </div>
-                </form>
+                </a>
                 <div id="user_bio">
                     <p id="user_bio_text"> {{ bio }}</p>
                 </div>
