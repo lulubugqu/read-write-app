@@ -276,6 +276,13 @@ def storyoverview(book_id):
     book_details = get_book_details(book_id)    
     return render_template("storylaunch.html", book_details = book_details)
 
+@app.route("/books/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE)
+# this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
+def storydetail(book_id): 
+    book_details = get_book_details(book_id)    
+    print(book_details)
+    return render_template("storydetail2.html", book_details = book_details, book_id = book_id)
+
 @app.route("/myworks/api/updatebook/<int:book_id>", methods=["POST"])
 def updateOverview(book_id):
     if not (authenticate_book(book_id)):
