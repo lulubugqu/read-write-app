@@ -1,14 +1,12 @@
 CREATE TABLE users (
     user_id SERIAL PRIMARY KEY,
     username VARCHAR(50),
-    pass VARCHAR(50),
-    pfp_url TEXT,
     bio TEXT,
     email TEXT,
-    birthday DATE,
     published_books TEXT,
     library_books TEXT
 )
+
 
 CREATE TABLE books (
     book_id SERIAL PRIMARY KEY,

@@ -115,8 +115,8 @@ def launch():
 def firstLogin():
     return render_template("first-login.html")
 
-@app.route("/home")
-def home():
+@app.route("/home/<string:current_user>")
+def home(current_user):
     top_5_books = top5()
     rand_genre = random.randint(0, 10)
     match rand_genre:
@@ -189,10 +189,9 @@ def getUser(username):
         cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
         user_info = cursor.fetchone()
     user_id = user_info[0]
-    pfp_url = user_info[3]
-    bio = user_info[4]
-    published_books =  user_info[7].split(", ")
-    library_books = user_info[8].split(", ")
+    bio = user_info[2]
+    published_books =  user_info[4].split(", ")
+    library_books = user_info[5].split(", ")
 
     published_books_info = []
     library_books_info = []
@@ -207,7 +206,7 @@ def getUser(username):
             book_info = get_book_details(book_id)
             library_books_info.append(book_info)
 
-    return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, pfp_url = pfp_url, bio = bio, published_books = published_books_info, library_books = library_books_info)
+    return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info)
 
 
 
@@ -360,9 +359,9 @@ def adduser():
     with get_db_cursor() as cursor:
         cursor.execute("""
             INSERT INTO users 
-            (username, bio, email, pass, pfp_url, birthday, published_books, library_books) 
-            VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
-        """, (username, bio, email, "", "", None, '', ''))
+            (username, bio, email, published_books, library_books) 
+            VALUES (%s, %s, %s, %s, %s)
+        """, (username, bio, email, '', ''))
 
     return redirect(f"/home/{username}")
     
