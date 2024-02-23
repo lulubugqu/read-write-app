@@ -9,19 +9,19 @@
     <img src="{{url_for('static', filename='/images/logo.png')}}" alt="Turtle Tales Logo" width="700"/>
 {% endblock %}
 {% block page_content %}
-<div class="buttonDiv">
-    <div id=launch_button>
-        <a href="/login">
-        <button class="pure-button" id="button-extra">Login or Sign Up</button>
-        </a>
-    </div>
+    <div class="buttonDiv">
+        <div id=launch_button>
+            <a href="/login">
+            <button class="pure-button" id="button-extra">Login or Sign Up</button>
+            </a>
+        </div>
 
-    <div id=launch_button>
-        <a href="/home/guest">
-            <button class="pure-button" id="button-extra">Continue As Guest</button>
-        </a>
+        <div id=launch_button>
+            <a href="/home/guest">
+                <button class="pure-button" id="button-extra">Continue As Guest</button>
+            </a>
+        </div>
     </div>
-</div>
 {% endblock %}
 {% block footer %}{% endblock %}
 {% block page_script %}{% endblock %}
