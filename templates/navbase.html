@@ -16,7 +16,7 @@
 {% endblock %}
 <nav class="nav_wrap">
     <div class="logo_wrap"> 
-        <a href="/home"><img src="{{url_for('static', filename='/images/turtle.png')}}" alt="Turtle Tales Logo"width="75"></a>
+        <a href="/home/{{current_user}}"><img src="{{url_for('static', filename='/images/turtle.png')}}" alt="Turtle Tales Logo"width="75"></a>
     </div>
 
     <div class="search_wrap">
@@ -27,7 +27,7 @@
             </button>
         </div>
     </div>
-    {% if logged_in == True %}
+    {% if current_user != "guest" %}
         <div class="loggedin-log-wrap">
             <div id=out_button>
                 <a href="/launch">
@@ -37,7 +37,7 @@
         </div>
         <div class="profile_wrap">
             <div id=profile_button>
-                <a href="/user">
+                <a href="/user/{{current_user}}">
                     <button class="pure-button" id="nav-button">Profile</button>
                 </a>
             </div>
