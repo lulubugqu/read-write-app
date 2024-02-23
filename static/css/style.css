@@ -1328,7 +1328,7 @@ a:hover {
   position: relative;
 }
 
-.book1 .book-link {
+.book1 .book-link, .book .book-link {
   position: absolute;
   top: 0;
   left: 0;
