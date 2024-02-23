@@ -110,14 +110,11 @@ def authenticate_book(requested_book):
     return False
 
 def get_current_user():
-    try:
-        user_email = session["user"].get("userinfo").get("name")
-    except:
-        return "guest"
+    user_email = session["user"].get("userinfo").get("name")
     with get_db_cursor() as cursor:
         cursor.execute("SELECT username FROM users WHERE email = %s", (user_email,))
         current_username = cursor.fetchone()[0]
-    return current_username
+        return current_username
 
 
 @app.route("/login")
@@ -250,7 +247,7 @@ def getUser(username):
     ## AUTHENTICATE USER
     if not authenticate_user(username):
         logged_in = False
-    logged_in = True
+    else: logged_in = True
     print("getting user")
     with get_db_cursor() as cursor:
         cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
@@ -403,16 +400,16 @@ def deleteChapter(book_id, chapter_id):
 ## HOME PAGE APIs
 @app.route("/api/top5", methods=["GET"])
 def top5():
-    "SELECT * FROM books ORDER BY num_saved DESC LIMIT 5"
+    "SELECT * FROM books ORDER BY num_likes DESC LIMIT 5"
     with get_db_cursor() as cursor:
-        cursor.execute( "SELECT * FROM books ORDER BY num_saved DESC LIMIT 5")
+        cursor.execute( "SELECT * FROM books ORDER BY num_likes DESC LIMIT 5")
         top_5 = cursor.fetchall()
     return top_5
 
 @app.route("/api/top5/<string:genre>", methods=["GET"])
 def top5genre(genre):
     with get_db_cursor() as cursor:
-        cursor.execute("SELECT * FROM books WHERE LOWER(genre) = LOWER(%s) ORDER BY num_saved DESC LIMIT 5", (genre,))
+        cursor.execute("SELECT * FROM books WHERE LOWER(genre) = LOWER(%s) ORDER BY num_likes DESC LIMIT 5", (genre,))
         top_5 = cursor.fetchall()
     return top_5
 
