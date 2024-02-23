@@ -226,7 +226,7 @@ def getUser(username):
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
 def storyoverview(book_id): 
     book_details = get_book_details(book_id)    
-    return render_template("storydetail.html", book_details = book_details)
+    return render_template("storylaunch.html", book_details = book_details)
 
 @app.route("/myworks/api/updatebook/<int:book_id>", methods=["POST"])
 def updateOverview(book_id):
