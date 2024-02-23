@@ -13,7 +13,6 @@ CREATE TABLE books (
     user_id INT,
     title TEXT,
     picture_url TEXT,
-    num_likes INT DEFAULT 0,
     num_saved INT DEFAULT 0,
     genre TEXT,
     tags TEXT,
