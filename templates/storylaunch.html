@@ -5,8 +5,8 @@
     <body class="storylaunch">
 {% endblock %}
 {% block page_content %}
-<div class="launch-container">
-    <div class="launch-left-side">
+<div class="detail-container">
+    <div class="detail-left-side">
 
         <!-- <div class="create-book"> -->
 
@@ -18,16 +18,17 @@
         <!-- </div> -->
 
     </div>
-    <div class="launch-right-side">
+    <div class="detail-right-side">
         <div class="new-story-details">
             <div class="story-details">
                 Story Details
             </div>
-            <form class="pure-form">
+            <form class="pure-form pure-form-aligned" action="/myworks/api/updatebook/{{ book_details[0] }}" method="POST" id="story_form">
+
                 <div class="new-story-title">
                     <label for="title">Title:</label>
                     <div class="text-input">
-                        <input type="text" id="title" name="title" placeholder="Untitled" class="pure-input-1">
+                        <input type="text" id="book_title" name="title" placeholder="Untitled" class="pure-input-1" value="{{ book_details[2] }}">
                     </div>
 
 
@@ -36,7 +37,7 @@
                     <label for="describtion">Story Describtion:</label>
                     <!-- <input type="describtion" id="describtion" name="describtion" placeholder="stroy describtion"> -->
                     <div class="text-input">
-                        <textarea class="pure-input-1" placeholder="Story describtion goes here"></textarea>
+                        <textarea class="pure-input-1" id="summary" placeholder="Story describtion goes here"> {{ book_details[9] }}</textarea>
 
                     </div>
 
@@ -45,28 +46,61 @@
                 </div>
                 <div class="select-box">
 
-                    <label for="genre-select">Choose genre:</label>
+                    <label for="genre" >Choose genre:</label>
 
-                    <select name="genre" id="genre-select" required>
-                        <option value="">--Please choose an option--</option>
-                        <option value="Action">Action</option> Adventure</option>
-                        <option value="Fantasy">Fantasy</option>
-                        <option value="Romance">Romance</option>
-                        <option value="Mystery">Mystery</option>
-                        <option value="Historical">Historical</option>
-                    </select>
+                    <select name="genre" id="genre">
+                    <option value="Fantasy" {% if book_details[6] == 'Fantasy' %} selected {% endif %}>Fantasy</option>
+                    <option value="Action" {% if book_details[6] == 'Action' %} selected {% endif %}>Action</option>
+                    <option value="Romance" {% if book_details[6] == 'Romance' %} selected {% endif %}>Romance</option>
+                    <option value="Comtemporary" {% if book_details[6] == 'Contemporary' %} selected {% endif %}>Contemporary</option>
+                    <option value="Horror" {% if book_details[6] == 'Horror' %} selected {% endif %}>Horror</option>
+                    <option value="Comedy" {% if book_details[6] == 'Comedy' %} selected {% endif %}>Comedy</option>
+                    <option value="Sci-Fi" {% if book_details[6] == 'Contemporary' %} selected {% endif %}>Sci-Fi</option>		
+                </select>
                 </div>
+
+                <div class="tags">
+                    <p> Please select your Tags: </p>
+                    <span class="tag-content">
+                        <input type="checkbox" id="ActionTag" name="ActionTag" value="ActionTag">
+                        <label class="filter-checkbox" for="ActionTag"> + Action </label>
+                    </span>
+
+                    <span class="tag-content">
+                        <input type="checkbox" id="MysteryTag" name="MysteryTag" value="MysteryTag">
+                        <label class="filter-checkbox" for="MysteryTag"> + Mystery </label>
+                    </span>
+
+                    <span class="tag-content">
+                        <input type="checkbox" id="Romance" name="RomanceTag" value="RomanceTag">
+                        <label class="filter-checkbox" for="RomanceTag"> + Romance </label>
+                    </span>
+                    <span class="tag-content">
+                        <input type="checkbox" id="DramaTag" name="DramaTag" value="DramaTag">
+                        <label class="filter-checkbox" for="DramaTag"> + Drama </label>
+                    </span>
+
+                </div>
+
+                <div class="new-story-image">
+                    <label for="book_image">Image URL: </label>
+                    <input type="text" id="book_image" name="book_image" class="pure-input-1" value="{{ book_details[3] }}" />
+
+
+                </div>
+
+                <input class="button-editStory pure-button" type="submit" value="Save Changes" />
                 
             </form>
 
-            <a class="pure-button pure-button-active" href="/myworks/<int:storyId>/create"> Next </a>
+            <!-- <a class="pure-button pure-button-active" href="/myworks/<int:storyId>/create"> Next </a> -->
 
             
 
 
         </div>
-        <div class="chapter-lst">
-            <div class="table-of-content">
+        <div class="table-of-content">
+            <div class="story-details">
                 Table of Content
             </div>
             
@@ -82,18 +116,9 @@
             <div class="chapters">
                 <a href="/myworks/{{book_id}}/{{ book_details[8] + 1 }}">Add a New Chapter </a>
 
-            {% for chapter in range(1, book_details[8] + 1) %}
-            <div class="chapters">
-                <a href="/myworks/{{book_details[0]}}/{{ chapter }}">Chapter {{chapter}}</a>
-                <span class="bttn">
-                    <a href="/survey" class="pure-button"> Edit </a>
-                    <a href="/survey" class="pure-button"> Delete </a>
-                </span>
-            </div>
-        
-                  
-            {% endfor %}
+            <div class="chapter-lst">
 
+<<<<<<< HEAD
             <div class="chapters">
                 <a href="/myworks/{{book_details[0]}}/{{ book_details[8] + 1 }}">Add a New Chapter </a>
             </div>
@@ -110,14 +135,28 @@
                     <a href="/survey" class="pure-button"> Edit </a>
                     <a href="/survey" class="pure-button"> Delete </a>
                 </span>
+=======
+            
+                {% for chapter in range(1, book_details[8] + 1) %}
+                <div class="chapters">
+                    <a href="/myworks/{{book_details[0]}}/{{ chapter }}">Chapter {{chapter}}</a>
+                    <span class="bttn">
+                        <a href="/myworks/{{book_details[0]}}/{{ chapter }}" class="pure-button"> Edit </a>
+                        <a href="/survey" class="pure-button"> Delete </a>
+                    </span>
+                </div>
+            
+                    
+                {% endfor %}
+
+                <div class="">
+                    <!-- <i class="fa-solid fa-square-plus"></i> -->
+                    <a href="/myworks/{{book_details[0]}}/{{ book_details[8] + 1 }}" class="pure-button">
+                        <i class="fa-solid fa-square-plus"></i> Add a New Chapter </a>
+                </div>
+>>>>>>> a35d36bad296d2592d2d39af376898face12fe44
             </div>
-            <div class="chapters">
-                <a href="#"> Chapter 3 </a>
-                <span class="bttn">
-                    <a href="/survey" class="pure-button"> Edit </a>
-                    <a href="/survey" class="pure-button"> Delete </a>
-                </span>
-            </div> -->
+        
                 
         </div>
 
