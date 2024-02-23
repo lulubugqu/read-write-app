@@ -21,7 +21,7 @@ border-bottom: 3px solid #507337;">
                     <div class="book-number">#{{loop.index}}</div>
                     <img src={{ x['picture_url'] }} alt="{{ x['title'] }} Cover" class="book-image" id="resized-image">
                     <!-- CHANGE TO TABLE OF CONTENTS -->
-                    <a href="/story/{{ x['book_id'] }}/1" class="book-link"></a>
+                    <a href="/story/{{ x['book_id'] }}" class="book-link"></a>
                 </div>
             </div>
         {% endfor %}
