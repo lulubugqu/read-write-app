@@ -1,0 +1,80 @@
+{# templates/storylaunch.html #}
+{% extends "navbase.html" %}
+{% block title %}Story Launch{% endblock %}
+{% block body %}
+    <body class="storydetail2">
+{% endblock %}
+{% block page_content %}
+<div class="overview-container">
+    <div class="overview-top-half">
+
+        <div class="overview-left-side">
+            <div class="create-book" >
+            
+                <img src="{{ book_details[3] }}" alt="Book Cover">
+            </div>
+
+        </div>
+
+        <div class="overview-right-side">
+
+            <div class="story-overview">
+                    
+                <div class="story-details">
+                    Story Details
+                </div>
+
+                    <div class="story-title">
+                        Title: {{ book_details[2] }}
+                        <!-- <label for="title">Title:</label>
+                        <div class="text-input">
+                            <input type="text" id="book_title" name="title" placeholder="Untitled" class="pure-input-1" value="{{ book_details[2] }}">
+                        </div> -->
+                    </div>
+
+                    <div class="story-describtion">
+                        <p> Story Describtion: </p>
+
+                        <div class="summary">
+                            {{ book_details[9] }}
+                            <!-- <textarea class="pure-input-1" id="summary" placeholder="Story describtion goes here"> {{ book_details[9] }}</textarea> -->
+                        </div>
+                    </div>
+                    
+            </div>
+        </div>
+    </div>
+
+
+    <div class="overview-bottom-half">
+        <div class="table-of-content">
+            <div class="story-details">
+                Table of Content
+            </div>
+
+            <div class="chapter-lst">
+
+            
+                {% for chapter in range(1, book_details[8] + 1) %}
+                <div class="chapters">
+                    <!-- <a href="/myworks/{{book_details[0]}}/{{ chapter }}">Chapter {{chapter}}</a> -->
+                    <a href="/story/{{ book_id }}/{{ chapter }}" >Chapter {{ chapter }}</a> 
+
+        
+                </div>
+                            
+                {% endfor %}
+
+            </div>
+        
+                
+        </div>
+    </div>
+
+
+</div>
+
+
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block page_script %}{% endblock %}

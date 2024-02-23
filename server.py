@@ -274,7 +274,7 @@ def storyoverview(book_id):
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
     book_details = get_book_details(book_id)    
-    return render_template("storydetail.html", book_details = book_details)
+    return render_template("storylaunch.html", book_details = book_details)
 
 @app.route("/myworks/api/updatebook/<int:book_id>", methods=["POST"])
 def updateOverview(book_id):

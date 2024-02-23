@@ -20,14 +20,23 @@
 </div>
 
 <div style="padding:20px;" class="storyContent">
-  <h1>{{ book_title[0] }}</h1>
-  <h2>Chapter {{ chapterNum }}</h2>
-  <form action="/myworks/api/{{ book_id }}/{{chapterNum}}/updatechapter" method="POST" id="chapter_form">
-      <label for="chapter_content">Edit Chapter Content:</label><br>
-      <textarea id="chapter_content" name="chapter_content" rows="10" cols="80">{{ chapter_content[0] }}</textarea><br>
-      <input type="submit" class = "submitButton" value="Save">
-  </form>
+  <div class="story-story-info"> 
+    <h1>{{ book_title[0] }}</h1>
+    <a href="/authorProfile" class="author-link">by Author's Name </a>
+  </div>
+  <div class="separator"> 
+    Chapter {{ chapterNum }}
+  </div>
+  <form class="pure-form pure-form-aligned" action="/myworks/api/{{ book_id }}/{{chapterNum}}/updatechapter" method="POST" id="chapter_form">
+      <label for="chapter_content">Edit Chapter Content:</label>
+      <div class="text-input"> 
+        <textarea class="pure-input-1" id="chapter_content" name="chapter_content" >{{ chapter_content[0] }}</textarea>
+      </div>
+      <!-- <textarea id="chapter_content" name="chapter_content" rows="10" cols="80">{{ chapter_content[0] }}</textarea> -->
+              
 
+      <input class="button-editStory pure-button" type="submit" value="Save Changes" />
+  </form>
 
 </div>
 
