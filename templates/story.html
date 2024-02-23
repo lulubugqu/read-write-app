@@ -31,13 +31,13 @@
     <div class="story-content" style="text-align:left;">
       {{ chapter_content[0] | safe }} </div>
         {% if chapterNum == 1 %}
-          <button class="chapter-button pure-button" id="button-extra" disabled>Previous Chapter</button>
+          <button class="chapter-button pure-button" id="button-extra">Previous Chapter</button>
         {% else %}
           <a href="/story/{{ storyId }}/{{ chapterNum - 1 }}"><button class="chapter-button pure-button" id="button-extra">Previous Chapter</button></a>
         {% endif %}
 
         {% if chapterNum == num_chapters[0] %}
-          <button class="chapter-button pure-button" id="button-extra" disabled>Next Chapter</button>
+          <button class="chapter-button pure-button" id="button-extra">Next Chapter</button>
         {% else %}
           <a href="/story/{{ storyId }}/{{ chapterNum + 1 }}"><button class="chapter-button pure-button" id="button-extra">Next Chapter</button></a>
         {% endif %} 
