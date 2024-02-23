@@ -308,7 +308,7 @@ def editChapter(book_id, chapter_id):
     
 
 
-@app.route("/myworks/<int:storyId>/delete", methods=["DELETE"])
+@app.route("/myworks/api/<int:book_id>/delete", methods=["DELETE"])
 def deleteStory(book_id):
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
@@ -363,7 +363,7 @@ def updatechapter(book_id, chapter_id):
     return storyoverview(book_id)
     
 
-@app.route("/myworks/api/<int:book_id>/delete", methods=["DELETE"])
+# @app.route("/myworks/api/<int:book_id>/delete", methods=["DELETE"])
 # book is deleted from database. 
 # called when "delete" is clicked on the story detail page. 
 
