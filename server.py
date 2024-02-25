@@ -229,7 +229,7 @@ def getStory(storyId, chapterNum):
 def storydetail(book_id): 
     book_details = get_book_details(book_id)    
     print(book_details)
-    return render_template("storydetail2.html", book_details = book_details, book_id = book_id)
+    return render_template("storydetail.html", book_details = book_details, book_id = book_id)
 
 def get_book_details(book_id):
     with get_db_cursor() as cursor:

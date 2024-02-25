@@ -14,7 +14,7 @@
     <div class="search-container"> 
         <div class="search-left-side"> 
             <div class="search-filter">
-            <form id="save_search_filters" action="" method="POST">
+            <form class="pure-form pure-form-aligned" id="save_search_filters" action="" method="POST">
                 <div class="filters"> 
 
                     <div class="filter-title">
@@ -79,7 +79,7 @@
                     </div>
                     <div class="filters">
                         <div class="filter-title">
-                            Likes
+                            Saves
                         </div>
                         
                         
@@ -87,7 +87,7 @@
                         
                         <div class="like_filter">
                             <!-- <p>Number of Likes:</p> -->
-                            <label for="range"> Number of Likes: </label>
+                            <label for="range"> Number of Saves to Library: </label>
                             <input type="range" min="1" max="100" value="50" name="range"
                             oninput="likeValue.innerText = this.value">
                             <span id="likeValue">100</span>   
@@ -119,9 +119,11 @@
             <div class="search-results">
                 <div class="bookdetails">
                     <div class="book">
-                        <a href="/story/1" class="book-link">
-                            <h3>Book Name</h3>
-                        </a>
+                        <!-- <a href="/story/1" class="book-link"> -->
+                            <!-- <h3>Book Name</h3> -->
+                            <img src=https://thumbs.dreamstime.com/b/paper-texture-smooth-pastel-pink-color-perfect-background-uniform-pure-minimal-photo-trendy-149575202.jpg alt="Book Cover" class="book-image" id="resized-image">
+                            <a href="#" class="book-link"></a>
+                        <!-- </a> -->
                     </div>
                     <div class="details">
                         <div class="book-details-container">

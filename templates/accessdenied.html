@@ -1,1 +1,34 @@
-<p>Access denied. Please log in. </p>
+{# templates/newchapter.html #}
+{% extends "base.html" %}
+{% block title %} Access Denied{% endblock %}
+{% block body %}
+    <body class="accessdenied">
+{% endblock %}
+
+{% block page_content %}
+<div class="accessdenied-container">
+    <div class="message">
+        <p>Access Denied. Please log in. </p>
+
+
+    </div>
+
+    <div class="buttonDiv">
+        <div id=launch_button>
+            <a href="/login">
+            <button class="pure-button" id="button-extra">Login or Sign Up</button>
+            </a>
+        </div>
+
+        <div id=launch_button>
+            <a href="/home/guest">
+                <button class="pure-button" id="button-extra">Continue As Guest</button>
+            </a>
+        </div>
+    </div>
+  </div>
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block page_script %}{% endblock %}
+
+
