@@ -39,11 +39,17 @@
 
             </div>
         </div>
+        {% if logged_in %}
         <form id="save_to_library" action="{{ url_for('save_book', book_id=book_details[0]) }}" method="POST">
             <a id="save_to_library" onclick="document.getElementById('save_to_library').submit();">
+                {% if is_in_library %}
                 <i class="fa-solid fa-bookmark"></i>
+                {% else %}
+                <i class="far fa-bookmark"></i>
+                {% endif %}
             </a>
         </form>
+        {% endif %}
     </div>
 
     <div class="overview-bottom-half">

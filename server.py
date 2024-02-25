@@ -227,9 +227,16 @@ def getStory(storyId, chapterNum):
 @app.route("/story/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE - USER (NOT AUTHOR) ACESSS )
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
 def storydetail(book_id): 
-    book_details = get_book_details(book_id)    
-    print(book_details)
-    return render_template("storydetail2.html", book_details = book_details, book_id = book_id)
+    current_user = get_current_user()
+    logged_in = authenticate_user(current_user)
+    book_details = get_book_details(book_id) 
+    if logged_in: 
+        with get_db_cursor() as cursor:
+            cursor.execute("SELECT library_books FROM users WHERE username = %s", (current_user,))
+            library_books = cursor.fetchone()[0]
+            library_books = library_books.split(", ")
+            is_in_library = str(book_id) in library_books
+    return render_template("storydetail2.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library)
 
 def get_book_details(book_id):
     with get_db_cursor() as cursor:
