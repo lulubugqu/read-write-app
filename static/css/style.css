@@ -5,7 +5,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,600;1,600&display=swap');
 
 /* FOR ALL PAGES */
-.base, .navbase, .launch, .profile, .home, .search_page, .first-login, .story, .user .storylaunch .edit-chapter {
+.base, .navbase, .launch, .profile, .home, .search_page, .first-login, .user , .storylaunch, .story, .storydetail2, .new-chapter, .edit-chapter, .acc {
   font-family: "Overpass", sans-serif;
   margin: 0px;
   /* background-color: #ece0da; */
@@ -269,8 +269,6 @@
   border-radius: 4px;
   width: 100%;
   resize: none;
-  
-  /* padding: 10px; */
 }
 
 .first-login #button-extra {
@@ -316,7 +314,7 @@
     /* border-bottom: 1px black; */
 
 }
-.filter-title{
+.filter-title {
   margin: 6px;
   font-family: "Overpass", sans-serif;
   line-height: 24px;
@@ -1091,6 +1089,13 @@ a:hover {
 #resized-image {
   width: 163px; 
   height: 260px; 
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+#storyDetail-resized-image {
+  width: 230px; 
+  height: 365.7px; 
   object-fit: cover;
   border-radius: 15px;
 }
