@@ -370,8 +370,8 @@ def create_new_book(user_id):
 
 @app.route("/story/<book_id>/save" , methods=["POST"])
 def save_book(book_id):
+    current_user = get_current_user()
     with get_db_cursor() as cursor:
-        current_user = get_current_user()
         cursor.execute("SELECT library_books FROM users WHERE username = %s", (current_user,))
         library_books = cursor.fetchone()[0]
         if library_books != '':
