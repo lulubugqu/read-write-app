@@ -419,15 +419,19 @@ def updatechapter(book_id, chapter_id):
 # book is deleted from database. 
 # called when "delete" is clicked on the story detail page. 
 
-@app.route("/myworks/api/<book_id>/<chapter_id>/delete", methods=["DELETE"])
+@app.route("/myworks/api/<book_id>/<chapter_id>/delete", methods=["GET"])
 # this can be done last, we don't need it. 
 # book chapter is deleted from database. 
 # called when "delete" chpater is clicked from the story detail page. 
 def deleteChapter(book_id, chapter_id):
-    chapter_details = get_chapter_details(chapter_id)
-    book_details = get_book_details(book_id)
+    print("deleting chapter")
     with get_db_cursor() as cursor: 
-        cursor.execute("DELETE * FROM chapters WHERE chapter_id = %s AND book_id = %s", (chapter_details, book_details))
+        cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (book_id,))
+        num_chapters = cursor.fetchone()[0]
+        cursor.execute("DELETE FROM chapters WHERE chapter_id = %s AND book_id = %s", (chapter_id, book_id))
+        num_chapters -= 1
+        cursor.execute("UPDATE books SET num_chapters = %s WHERE book_id = %s", (num_chapters, book_id))
+    return storyoverview(book_id = book_id)
 
 
 ## HOME PAGE APIs
