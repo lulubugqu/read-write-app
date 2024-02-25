@@ -1031,11 +1031,30 @@ a:hover {
   position: relative;
 }
 
-.books .book-tag-container {
+.home .books .book-tag-container {
   position: relative;
   z-index: 1000;
-  margin-bottom: -50px;
+  margin-top: 3%;
+  margin-bottom: -31.3px;
+  min-height: 15px;
   height: 100%;
+  background-color: rgba(0,0,0,.3);
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  color: #fff;
+}
+
+.home .book-tag {
+  background-color: #eee;
+  color: #505050;
+  text-align: center;
+  padding: 1% 1.5%;
+  border-radius: 5px;
+  font-size: x-small;
+}
+
+.home .book-tag p {
+  margin: 0;
 }
 
 .home .book1details a {
@@ -1088,8 +1107,6 @@ a:hover {
   width: 25%;
   float: left;
   position: relative;
-  left: 0px;
-  top: 0px;
   z-index: 1000;
   margin-bottom: -40px;
 }
@@ -1103,7 +1120,6 @@ a:hover {
   justify-content: center;
   gap: 5px;
   padding: 5% 0 5% 0;
-  /* padding: 5%; */
 }
 
 .launch-tag-container {
@@ -1135,27 +1151,6 @@ a:hover {
 .book-tag p {
   margin: 0;
 }
-
-.home .book-tag-container {
-  background-color: rgba(0,0,0,.3);
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  color: #fff;
-}
-
-.home .book-tag {
-  background-color: #eee;
-  color: #505050;
-  text-align: center;
-  padding: 1% 1.5%;
-  border-radius: 5px;
-  font-size: x-small;
-}
-
-.home .book-tag p {
-  margin: 0;
-}
-
 /* Book Type 2 */
 .bookdetails {
   background-color: #cce3bb;
