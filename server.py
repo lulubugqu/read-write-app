@@ -227,9 +227,22 @@ def getStory(storyId, chapterNum):
 @app.route("/story/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE - USER (NOT AUTHOR) ACESSS )
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
 def storydetail(book_id): 
+<<<<<<< HEAD
     book_details = get_book_details(book_id)    
     print(book_details)
     return render_template("storydetail.html", book_details = book_details, book_id = book_id)
+=======
+    current_user = get_current_user()
+    logged_in = authenticate_user(current_user)
+    book_details = get_book_details(book_id) 
+    if logged_in: 
+        with get_db_cursor() as cursor:
+            cursor.execute("SELECT library_books FROM users WHERE username = %s", (current_user,))
+            library_books = cursor.fetchone()[0]
+            library_books = library_books.split(", ")
+            is_in_library = str(book_id) in library_books
+    return render_template("storydetail2.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library)
+>>>>>>> main
 
 def get_book_details(book_id):
     with get_db_cursor() as cursor:
@@ -271,7 +284,7 @@ def getUser(username):
         for book_id in library_books:
             book_info = get_book_details(book_id)
             library_books_info.append(book_info)
-    
+
     current_user = get_current_user()
     return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info, current_user=current_user)
 
@@ -372,15 +385,23 @@ def create_new_book(user_id):
 def save_book(book_id):
     current_user = get_current_user()
     with get_db_cursor() as cursor:
-        print("adding book to library")
+        cursor.execute("SELECT num_saved FROM books WHERE book_id = %s", (book_id,))
+        num_saved = cursor.fetchone()[0]
+
         cursor.execute("SELECT library_books FROM users WHERE username = %s", (current_user,))
         library_books = cursor.fetchone()[0]
-        if library_books != '':
-            library_books += f", {book_id}"
+        library_books_list = library_books.split(",") if library_books else []
+        if book_id in library_books_list:
+            library_books_list.remove(book_id)
+            num_saved -= 1
+            print("Removing book from library")
         else:
-            library_books = str(book_id)
-        print(library_books)
-        cursor.execute("UPDATE users SET library_books = %s WHERE username = %s", (library_books, current_user))
+            print("adding book to library")
+            library_books_list.append(book_id)
+            num_saved += 1
+        updated_library_books = ", ".join(library_books_list)
+        cursor.execute("UPDATE users SET library_books = %s WHERE username = %s", (updated_library_books, current_user))
+        cursor.execute("UPDATE books SET num_saved = %s WHERE book_id = %s", (num_saved, book_id))
     return storydetail(book_id = book_id)
 
         
@@ -404,15 +425,19 @@ def updatechapter(book_id, chapter_id):
 # book is deleted from database. 
 # called when "delete" is clicked on the story detail page. 
 
-@app.route("/myworks/api/<book_id>/<chapter_id>/delete", methods=["DELETE"])
+@app.route("/myworks/api/<book_id>/<chapter_id>/delete", methods=["GET"])
 # this can be done last, we don't need it. 
 # book chapter is deleted from database. 
 # called when "delete" chpater is clicked from the story detail page. 
 def deleteChapter(book_id, chapter_id):
-    chapter_details = get_chapter_details(chapter_id)
-    book_details = get_book_details(book_id)
+    print("deleting chapter")
     with get_db_cursor() as cursor: 
-        cursor.execute("DELETE * FROM chapters WHERE chapter_id = %s AND book_id = %s", (chapter_details, book_details))
+        cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (book_id,))
+        num_chapters = cursor.fetchone()[0]
+        cursor.execute("DELETE FROM chapters WHERE chapter_id = %s AND book_id = %s", (chapter_id, book_id))
+        num_chapters -= 1
+        cursor.execute("UPDATE books SET num_chapters = %s WHERE book_id = %s", (num_chapters, book_id))
+    return storyoverview(book_id = book_id)
 
 
 ## HOME PAGE APIs
