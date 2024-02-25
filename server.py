@@ -271,7 +271,7 @@ def getUser(username):
         for book_id in library_books:
             book_info = get_book_details(book_id)
             library_books_info.append(book_info)
-    
+
     current_user = get_current_user()
     return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info, current_user=current_user)
 
@@ -375,12 +375,14 @@ def save_book(book_id):
         print("adding book to library")
         cursor.execute("SELECT library_books FROM users WHERE username = %s", (current_user,))
         library_books = cursor.fetchone()[0]
-        if library_books != '':
-            library_books += f", {book_id}"
+        library_books_list = library_books.split(",") if library_books else []
+        if book_id in library_books_list:
+            library_books_list.remove(book_id)
+            print("Removing book from library")
         else:
-            library_books = str(book_id)
-        print(library_books)
-        cursor.execute("UPDATE users SET library_books = %s WHERE username = %s", (library_books, current_user))
+            library_books_list.append(book_id)
+        updated_library_books = ", ".join(library_books_list)
+        cursor.execute("UPDATE users SET library_books = %s WHERE username = %s", (updated_library_books, current_user))
     return storydetail(book_id = book_id)
 
         
