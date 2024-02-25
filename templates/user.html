@@ -17,11 +17,6 @@
             <h2>@{{ username }}</h2>
         </div>
         <div id="bar_interaction">
-            {% if logged_in == True %}
-                <a href="/editUser">
-                    <button class="button-editUser pure-button" id="button-extra">Edit Profile</button>
-                </a>
-            {% endif %}
         </div>     
     </div>
 {% endblock %}
@@ -57,13 +52,8 @@
                 {% for book in published_books %}
                 <div class="bookdetails">
                     <div class="book">
-                        <!-- <a href="/story/{{book[0]}}/1/" class="book-link">
-                            <h3>{{book[2]}}</h3>
-                        </a>
-                        -->
-                    <img src={{book[3]}} alt="Book Cover" class="book-image" id="resized-image">
-                        <!-- CHANGE TO TABLE OF CONTENTS -->
-                        <a href="/story/{{book[0]}}/1" class="book-link"></a>
+                        <img src={{book[3]}} alt="Book Cover" class="book-image" id="resized-image">
+                        <a href="/story/{{book[0]}}" class="book-link"></a>
                     </div>
                     <div class="details">
                         <div class="book-details-container">
@@ -72,19 +62,18 @@
                         </div>
                         <div class="book-details-bottom">
                             <div class="book-tag-container">
-                                <!--
                                 {% set tag_list = book[7][1:-1].split(", ") %}
                                 {% for tag in tag_list%}
                                     <div class="book-tag"><p>{{ tag }}</p></div>
                                 {% endfor %}
-                                -->
                             </div>
-
-                            <div class="continue-writing-container">
-                                <a href="/myworks/{{ book[0] }}">
-                                    <i class="fa-solid fa-pen-to-square fa-lg"></i>
-                                </a>
-                            </div>
+                            {% if logged_in == True %}
+                                <div class="continue-writing-container">
+                                    <a href="/myworks/{{ book[0] }}">
+                                        <i class="fa-solid fa-pen-to-square fa-lg"></i>
+                                    </a>
+                                </div>
+                            {% endif %}
                         </div>
                     </div>
                     

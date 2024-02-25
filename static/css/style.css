@@ -1241,7 +1241,8 @@ a:hover {
   display: flex;
   color: #ffffff;
   width: 97%; 
-  height: 40vh;
+  min-height: 40vh;
+  height: auto;
   margin-bottom: 2%;
 }
 
