@@ -35,7 +35,7 @@ pool = None
 
 def setup():
     global pool
-    DATABASE_URL = env.get("DATABASE_URL")
+    DATABASE_URL = os.getenv("DATABASE_URL")
     pool = ThreadedConnectionPool(1, 100, dsn=DATABASE_URL, sslmode='require')
 
 
