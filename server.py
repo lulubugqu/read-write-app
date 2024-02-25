@@ -379,17 +379,23 @@ def create_new_book(user_id):
 def save_book(book_id):
     current_user = get_current_user()
     with get_db_cursor() as cursor:
+        cursor.execute("SELECT num_saved FROM books WHERE book_id = %s", (book_id,))
+        num_saved = cursor.fetchone()[0]
+
         print("adding book to library")
         cursor.execute("SELECT library_books FROM users WHERE username = %s", (current_user,))
         library_books = cursor.fetchone()[0]
         library_books_list = library_books.split(",") if library_books else []
         if book_id in library_books_list:
             library_books_list.remove(book_id)
+            num_saved -= 1
             print("Removing book from library")
         else:
             library_books_list.append(book_id)
+            num_saved += 1
         updated_library_books = ", ".join(library_books_list)
         cursor.execute("UPDATE users SET library_books = %s WHERE username = %s", (updated_library_books, current_user))
+        cursor.execute("UPDATE books SET num_saved = %s WHERE book_id = %s", (num_saved, book_id))
     return storydetail(book_id = book_id)
 
         
