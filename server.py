@@ -177,30 +177,22 @@ def home(current_user):
         return render_template("accessdenied.html")
 
     top_5_books = top5()
-    rand_genre = random.randint(0, 10)
+    rand_genre = random.randint(0, 7)
     match rand_genre:
         case 0:
             genre = "Action"
         case 1: 
-            genre = "Adventure"
+            genre = "Action"
         case 2:
-            genre = "Fantasy"
-        case 3: 
             genre = "Romance"
+        case 3: 
+            genre = "Contemporary"
         case 4:
-            genre = "Mystery"
-        case 5: 
-            genre = "Crime"
-        case 6:
-            genre = "Historical"
-        case 7: 
-            genre = "SciFi"
-        case 8:
             genre = "Horror"
-        case 9: 
-            genre = "Poetry"
-        case 10:
+        case 5: 
             genre = "Comedy"
+        case 6:
+            genre = "SciFi"
     top_5_genre = top5genre(genre)
     user_library = userlibrary(current_user)
     return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, user_library=user_library, genre=genre, current_user=current_user)
