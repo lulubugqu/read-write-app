@@ -31,6 +31,8 @@ oauth.register(
     server_metadata_url=f'https://{env.get("AUTH0_DOMAIN")}/.well-known/openid-configuration'
 )
 
+pool = None
+
 def setup():
     global pool
     DATABASE_URL = env.get("DATABASE_URL")
