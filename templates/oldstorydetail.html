@@ -1,0 +1,70 @@
+{# templates/storydetail.html #}
+{% extends "navbase.html" %}
+{% block title %}Story Detail{% endblock %}
+{% block body %}
+    <body class="storydetail">
+{% endblock %}
+{% block page_content %}
+
+<div class="launch-container">
+    <div class="launch-left-side">
+        <div class="create-book">
+            <img src="{{ book_details[3] }}" alt="Book Cover">
+        </div>
+        <form class="pure-form pure-form-aligned" action="/myworks/api/updatebook/{{ book_details[0] }}" method="POST" id="story_form">
+            <div>
+                <label for="book_title">Book Title</label>
+                <input type="text" id="book_title" name="book_title" value="{{ book_details[2] }}" />
+            </div> <br>
+            <div>
+                <label for="genre">Genre</label>
+                <select name="genre" id="genre">
+                    <option value="Fantasy" {% if book_details[6] == 'Fantasy' %} selected {% endif %}>Fantasy</option>
+                    <option value="Action" {% if book_details[6] == 'Action' %} selected {% endif %}>Action</option>
+                    <option value="Romance" {% if book_details[6] == 'Romance' %} selected {% endif %}>Romance</option>
+                    <option value="Comtemporary" {% if book_details[6] == 'Contemporary' %} selected {% endif %}>Contemporary</option>
+                    <option value="Horror" {% if book_details[6] == 'Horror' %} selected {% endif %}>Horror</option>
+                    <option value="Comedy" {% if book_details[6] == 'Comedy' %} selected {% endif %}>Comedy</option>
+                    <option value="Sci-Fi" {% if book_details[6] == 'Contemporary' %} selected {% endif %}>Sci-Fi</option>		
+                </select>
+            </div> <br>
+            <div>
+                <label for="summary">Summary</label>
+                <textarea id="summary" name="summary" rows="5" cols="40">{{ book_details[9] }}</textarea>
+            </div> <br>
+            <div>
+                <label for="book_image">Image URL</label>
+                <input type="text" id="book_image" name="book_image" value="{{ book_details[3] }}" />
+            </div> <br>
+            <div>
+                <label for="tags">Tags</label>
+                <input type="text" id="tags" name="tags" value="{{ book_details[7] }}" />
+            </div> <br>
+            <div>
+                <input class="button-editStory pure-button" type="submit" value="Save Changes" />
+            </div> <br>
+        </form>
+    </div>
+    <div class="launch-right-side">
+        <div class="new-story-details">
+            <div class="story-details">
+                <h2>Table of Contents</h2>
+            </div>
+            <div class="table-of-content">
+                    {% for chapter in range(1, book_details[8] + 1) %}
+                        <div class="chapters">
+                            <h4>Chapter {{chapter}}</h4>
+                            <a href="/myworks/{{book_details[0]}}/{{ chapter }}" class="pure-button"> Edit </a>
+                            <a href="/myworks/api/<book_id>/<chapter_id>/delete" class="pure-button"> Delete </a>
+                        </div>
+                    {% endfor %}
+                        <div class="chapters">
+                            <p><a href="/myworks/{{book_details[0]}}/{{ book_details[8] + 1 }}">Add a New Chapter </a></p>
+                        </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+{% block footer %}{% endblock %}
+{% block page_script %}{% endblock %}
