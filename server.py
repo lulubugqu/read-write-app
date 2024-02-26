@@ -337,7 +337,7 @@ def editChapter(book_id, chapter_id):
     
 
 
-@app.route("/myworks/api/<int:book_id>/delete", methods=["DELETE"])
+@app.route("/myworks/api/<int:book_id>/delete", methods=["GET"])
 def deleteStory(book_id, chapter_id, user_id):
     print("deleting story")
     if not (authenticate_book(book_id)):
@@ -346,14 +346,17 @@ def deleteStory(book_id, chapter_id, user_id):
     book_details = get_book_details(book_id)
     chapter_details = get_chapter_details(chapter_id)
     with get_db_cursor() as cursor: 
-        cursor.execute("DELETE * FROM books WHERE book_id = %s AND chapter_id = %s", (book_details, chapter_details))
+        cursor.execute("SELECT * FROM books WHERE book_id = %s AND chapter_id = %s", (book_details, chapter_details))
+        existing_chapter = cursor.fetchnone()
+        if existing_chapter:
+            cursor.execute("DELETE * FROM books WHERE book_id = %s AND chapter_id = %s", (book_details, chapter_details))
         cursor.execute("SELECT published_books FROM users WHERE user_id = %s", (current_user))
         published_library = cursor.fetchone()[0]
         if published_library != '':
             published_library -= f", {book_details}"
         cursor.execute("UPDATE users SET published_books = %s WHERE user_id = %s", (published_library, current_user))
         
-    return redirect(url_for('storyoverview', book_details=book_details, current_user=current_user))
+    return redirect(url_for('getUser', current_user=current_user))
 
 
 

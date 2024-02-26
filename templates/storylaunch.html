@@ -81,7 +81,7 @@
                 <input class="button-editStory pure-button" type="submit" value="Save Changes" />
 
                 <div>
-                    <a href="/myworks/api/<int:book_id>/delete" class="pure-button"> Delete Story </a>
+                    <a href="/myworks/api/{{ book_details[0] }}/delete" class="pure-button" method="GET"> Delete Story </a>
                 </div>
                 
             </form>
