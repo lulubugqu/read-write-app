@@ -349,7 +349,7 @@ def editChapter(book_id, chapter_id):
     
 
 
-@app.route("/myworks/api/<int:book_id>/delete", methods=["GET"])
+@app.route("/myworks/api/<int:book_id>/delete", methods=["GET", "DELETE"])
 def deleteStory(book_id):
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
