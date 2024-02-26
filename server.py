@@ -173,9 +173,10 @@ def firstLogin():
 
 @app.route("/home/<string:current_user>")
 def home(current_user):
-    # Don't authenticate, because anyone can access home
-    # if not authenticate_user(current_user):
-    #     return render_template("accessdenied.html")
+    
+    if not authenticate_user(current_user):
+        logged_in = True
+    else: logged_in = False
 
     top_5_books = top5()
     rand_genre = random.randint(0, 7)
@@ -195,8 +196,11 @@ def home(current_user):
         case 6:
             genre = "SciFi"
     top_5_genre = top5genre(genre)
-    user_library = userlibrary(current_user)
-    return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, user_library=user_library, genre=genre, current_user=current_user)
+    if logged_in:
+        user_library = userlibrary(current_user)
+    else:
+        user_library = []
+    return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, user_library=user_library, genre=genre, current_user=current_user, logged_in=logged_in)
 
 @app.route("/story/<int:storyId>/<int:chapterNum>/")
 def getStory(storyId, chapterNum):
@@ -280,14 +284,6 @@ def getUser(username):
 
     current_user = get_current_user()
     return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info, current_user=current_user)
-
-
-
-# FOR ONCE ACCOUNTS ARE ESTABLISHED
-# @app.route("/user/<string:username>")
-# def getUser(username):
-#     print("getting user profile")
-#     return render_template("profile.html")
 
 
 
