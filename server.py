@@ -349,7 +349,7 @@ def editChapter(book_id, chapter_id):
     
 
 
-@app.route("/myworks/api/<int:book_id>/delete", methods=["GET"])
+@app.route("/myworks/api/<int:book_id>/delete", methods=["GET", "DELETE"])
 def deleteStory(book_id):
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
@@ -491,13 +491,103 @@ def top5genre(genre):
 @app.route("/search", methods=["GET"])
 def search():
     logged_in = (get_current_user() != "guest")
-    print("search")
-    print(request.query_string)
-    search = request.args.get('query')
+    search_query = request.args.get('query')
     print(search)
 
+    book_query_results = get_book_id_results(search_query)
+    book_results = []
+
+    if book_query_results != [] and book_query_results[0] != '':
+        for book_id in book_query_results:
+            book_info = get_book_details(book_id)
+            book_results.append(book_info)
+    
+    user_query_results = get_user_id_results(search_query)
+    print(user_query_results)
+    user_results = []
+
+    if user_query_results != [] and user_query_results[0] != '':
+        for user_id in user_query_results:
+            user_info = get_user_details(user_id)
+            user_results.append(user_info)
+
+    print("book results")
+    print(book_results)
+
+    print("user results")
+    print(user_results)
+
     current_user = get_current_user()
-    return render_template("search.html", search=search, current_user=current_user, logged_in=logged_in)
+    return render_template("search.html", search=search_query, current_user=current_user, logged_in=logged_in, book_results=book_results, user_results=user_results)
+
+def get_book_id_results(search_query):
+    
+    results = []
+
+    # Search in chapters database and return book_ids
+    with get_db_cursor() as cursor:
+        chapters_query = """
+            SELECT DISTINCT book_id FROM chapters
+            WHERE to_tsvector('english', content) @@ plainto_tsquery('english', %s)
+        """
+        cursor.execute(chapters_query, (search_query,))
+        results.extend([row[0] for row in cursor.fetchall()])
+
+        # Search in book descriptions and return book_ids
+        book_descriptions_query = """
+            SELECT book_id FROM books
+            WHERE to_tsvector('english', summary) @@ plainto_tsquery('english', %s)
+        """
+        cursor.execute(book_descriptions_query, (search_query,))
+        results.extend([row[0] for row in cursor.fetchall()])
+
+        # Search in book titles and return book_ids
+        book_titles_query = """
+            SELECT book_id FROM books
+            WHERE to_tsvector('english', title) @@ plainto_tsquery('english', %s)
+        """
+        cursor.execute(book_titles_query, (search_query,))
+        results.extend([row[0] for row in cursor.fetchall()])
+
+        # Search for books written by the specified user
+        user_books_query = """
+            SELECT book_id FROM books
+            WHERE user_id IN (SELECT user_id FROM users WHERE to_tsvector('english', username) @@ plainto_tsquery('english', %s))
+        """
+        cursor.execute(user_books_query, (search_query,))
+        results.extend([row[0] for row in cursor.fetchall()])
+    
+    # gets rid of duplicate results, but sorts by most common result
+    counts = {x: results.count(x) for x in results}
+    unique_sorted_results = sorted(counts.keys(), key=lambda x: counts[x], reverse=True)
+
+    return unique_sorted_results
+
+def get_user_id_results(search_query):
+
+    results = []
+
+    # Search in users database and return user_ids
+    with get_db_cursor() as cursor:
+        user_query = """
+            SELECT user_id FROM users
+            WHERE to_tsvector('english', username) @@ plainto_tsquery('english', %s)
+        """
+        cursor.execute(user_query, (search_query,))
+        results.extend([row[0] for row in cursor.fetchall()])
+
+    # gets rid of duplicate results, but sorts by most common result
+    counts = {x: results.count(x) for x in results}
+    unique_sorted_results = sorted(counts.keys(), key=lambda x: counts[x], reverse=True)
+    return unique_sorted_results
+
+
+def get_user_details(user_id):
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT * FROM users WHERE user_id = %s", (user_id,))
+        user_details = cursor.fetchone()
+    return user_details
+
 
 @app.route("/search/filter/", methods=["GET"])
 @app.route("/search/filter", methods=["GET"])
@@ -544,7 +634,6 @@ def userlibrary(current_user):
         for book_id in library_books:
             book_info = get_book_details(book_id)
             library_books_info.append(book_info)
-
 
     return library_books_info
 
