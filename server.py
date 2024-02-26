@@ -244,11 +244,19 @@ def storydetail(book_id):
             library_books = cursor.fetchone()[0]
             library_books = library_books.split(", ")
             is_in_library = str(book_id) in library_books
+            
+            author_id = book_details[1]
+            print("author_id", author_id)
+            cursor.execute("SELECT username FROM users WHERE user_id = %s", (author_id,))
+            author_name = cursor.fetchone()
+            print("book details", book_details)
+
+            print("author", author_name)
     else:
         library_books = []
         is_in_library = False
     current_user=get_current_user()
-    return render_template("storydetail2.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library, current_user=current_user)
+    return render_template("storydetail.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library, current_user=current_user, author_name=author_name)
 
 def get_book_details(book_id):
     with get_db_cursor() as cursor:
@@ -342,26 +350,36 @@ def editChapter(book_id, chapter_id):
 
 
 @app.route("/myworks/api/<int:book_id>/delete", methods=["GET"])
-def deleteStory(book_id, chapter_id, user_id):
-    print("deleting story")
+def deleteStory(book_id):
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
-    current_user = get_current_user(user_id)
-    book_details = get_book_details(book_id)
-    chapter_details = get_chapter_details(chapter_id)
+    current_user = get_current_user()
     with get_db_cursor() as cursor: 
-        cursor.execute("SELECT * FROM books WHERE book_id = %s AND chapter_id = %s", (book_details, chapter_details))
-        existing_chapter = cursor.fetchnone()
-        if existing_chapter:
-            cursor.execute("DELETE * FROM books WHERE book_id = %s AND chapter_id = %s", (book_details, chapter_details))
-        cursor.execute("SELECT published_books FROM users WHERE user_id = %s", (current_user))
+        cursor.execute("DELETE FROM books where book_id = %s", (book_id,))
+        cursor.execute("DELETE FROM chapters where book_id = %s", (book_id,))
+        cursor.execute("SELECT published_books FROM users WHERE username = %s", (current_user,))
         published_library = cursor.fetchone()[0]
-        if published_library != '':
-            published_library -= f", {book_details}"
-        cursor.execute("UPDATE users SET published_books = %s WHERE user_id = %s", (published_library, current_user))
+        published_library_books = published_library.split(", ") if published_library else []
+        if str(book_id) in published_library_books:
+            published_library_books.remove(str(book_id))
+            print("Deleting published book from library")
         
-    return redirect(url_for('getUser', current_user=current_user))
+        updated_list = ", ".join(published_library_books)
+        cursor.execute("UPDATE users SET published_books = %s WHERE username = %s", (updated_list, current_user))
+        
+        cursor.execute("SELECT username FROM users WHERE library_books LIKE %s", ('%' + str(book_id) + '%',))
+        users_with_book = cursor.fetchall()
+        for user in users_with_book:
+            username = user[0]
+            cursor.execute("SELECT library_books FROM users WHERE username = %s", (username,))
+            library = cursor.fetchone()[0]
+            library_books = library.split(", ") if library else []
+            if str(book_id) in library_books:
+                library_books.remove(str(book_id))
+                updated_library = ", ".join(map(str, library_books))
+                cursor.execute("UPDATE users SET library_books = %s WHERE username = %s", (updated_library, username))
 
+    return redirect(url_for('getUser', username=current_user))
 
 
 # APIs for story overview and writing page
