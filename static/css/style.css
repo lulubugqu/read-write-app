@@ -754,6 +754,7 @@ margin-bottom: 1em;
 
 .storydetail .bookmark {
   cursor: pointer;
+  margin-left: 40em;
 }
 /* .storydetail .bookmark .bookmark-bttn {
   display: block;
