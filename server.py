@@ -65,8 +65,6 @@ def initialize():
 
 
 def authenticate_user(requested_user):
-    # if (requested_user == "guest"):
-    #     return True
 
     # first, see if any user is logged in
     # if not, return access denied
@@ -249,7 +247,8 @@ def storydetail(book_id):
     else:
         library_books = []
         is_in_library = False
-    return render_template("storydetail2.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library)
+    current_user=get_current_user()
+    return render_template("storydetail2.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library, current_user=current_user)
 
 def get_book_details(book_id):
     with get_db_cursor() as cursor:

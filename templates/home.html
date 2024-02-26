@@ -52,126 +52,19 @@
 
     {% if logged_in %}
     <div id="user_library"> 
-        <h2>Your Library</h2>
+        <h2> @{{ username }}'s Library</h2>
         <div class="user_library">
+            {% for book in library_books %}
             <div class="book1">
                 <div class="book1details">
-                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1680726063i/125378265.jpg" alt="Book Cover" class="book-image" id="resized-image">
-                    <a href="/story/1/1" class="book-link"></a>
-                </div>
-                <div class="book1author">
-                    <a href="/user" class="author-link">
-                        <h6>Author</h6>
+                    <a href="/story/{{ book[0] }}/1/" class="book-link">
+                        <img src={{book[3]}} alt="Book Cover" class="book-image" id="resized-image">
+                        <h3>{{book[2]}}</h3>
                     </a>
                 </div>
             </div>
-
-            <div class="book1">
-                <div class="book1details">
-                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1680726063i/125378265.jpg" alt="Book Cover" class="book-image" id="resized-image">
-                    <a href="/story/1/1" class="book-link"></a>
-                </div>
-                <div class="book1author">
-                    <a href="/user" class="author-link">
-                        <h6>Author</h6>
-                    </a>
-                </div>
-            </div>
-
-            <div class="book1">
-                <div class="book1details">
-                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1680726063i/125378265.jpg" alt="Book Cover" class="book-image" id="resized-image">
-                    <a href="/story/1/1" class="book-link"></a>
-                </div>
-                <div class="book1author">
-                    <a href="/user" class="author-link">
-                        <h6>Author</h6>
-                    </a>
-                </div>
-            </div>
-
-            <div class="book1">
-                <div class="book1details">
-                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1680726063i/125378265.jpg" alt="Book Cover" class="book-image" id="resized-image">
-                    <a href="/story/1/1" class="book-link"></a>
-                </div>
-                <div class="book1author">
-                    <a href="/user" class="author-link">
-                        <h6>Author</h6>
-                    </a>
-                </div>
-            </div>
-
-            <div class="book1">
-                <div class="book1details">
-                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1680726063i/125378265.jpg" alt="Book Cover" class="book-image" id="resized-image">
-                    <a href="/story/1/1" class="book-link"></a>
-                </div>
-                <div class="book1author">
-                    <a href="/user" class="author-link">
-                        <h6>Author</h6>
-                    </a>
-                </div>
-            </div>
-
-            <div class="book1">
-                <div class="book1details">
-                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1680726063i/125378265.jpg" alt="Book Cover" class="book-image" id="resized-image">
-                    <a href="/story/1/1" class="book-link"></a>
-                </div>
-                <div class="book1author">
-                    <a href="/user" class="author-link">
-                        <h6>Author</h6>
-                    </a>
-                </div>
-            </div>
-
-            <div class="book1">
-                <div class="book1details">
-                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1680726063i/125378265.jpg" alt="Book Cover" class="book-image" id="resized-image">
-                    <a href="/story/1/1" class="book-link"></a>
-                </div>
-                <div class="book1author">
-                    <a href="/user" class="author-link">
-                        <h6>Author</h6>
-                    </a>
-                </div>
-            </div>
-
-            <div class="book1">
-                <div class="book1details">
-                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1680726063i/125378265.jpg" alt="Book Cover" class="book-image" id="resized-image">
-                    <a href="/story/1/1" class="book-link"></a>
-                </div>
-                <div class="book1author">
-                    <a href="/user" class="author-link">
-                        <h6>Author</h6>
-                    </a>
-                </div>
-            </div>
-
-            <div class="book1">
-                <div class="book1details">
-                    <img src="https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1680726063i/125378265.jpg" alt="Book Cover" class="book-image" id="resized-image">
-                    <a href="/story/1/1" class="book-link"></a>
-                </div>
-                <div class="book1author">
-                    <a href="/user" class="author-link">
-                        <h6>Author</h6>
-                    </a>
-                </div>
-            </div>
-
-            
-
-
-
-
-
-
-
+            {% endfor %}
         </div>
-        
     </div>
     {% endif %}
     
