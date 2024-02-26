@@ -65,9 +65,8 @@ def initialize():
 
 
 def authenticate_user(requested_user):
-    ## AUTHENTICATE USER
-    if (requested_user == "guest"):
-        return True
+    # if (requested_user == "guest"):
+    #     return True
 
     # first, see if any user is logged in
     # if not, return access denied
@@ -174,9 +173,9 @@ def firstLogin():
 
 @app.route("/home/<string:current_user>")
 def home(current_user):
-    ## AUTHENTICATE USER
-    if not authenticate_user(current_user):
-        return render_template("accessdenied.html")
+    # Don't authenticate, because anyone can access home
+    # if not authenticate_user(current_user):
+    #     return render_template("accessdenied.html")
 
     top_5_books = top5()
     rand_genre = random.randint(0, 7)
