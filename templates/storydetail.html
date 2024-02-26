@@ -39,15 +39,23 @@
 
             </div>
         </div>
+        
+        {% if logged_in %}
         <div class="bookmark">
+
             <form id="save_to_library" action="{{ url_for('save_book', book_id=book_details[0]) }}" method="POST">
                 <a id="save_to_library" onclick="document.getElementById('save_to_library').submit();" alt="save to library">
-                    <span class="bookmark-bttn">
-                        <i class="fa-solid fa-bookmark fa-xl"></i>
-                    </span>
+                    {% if is_in_library %}
+                    <i class="fa-solid fa-bookmark fa-xl"></i>
+                    {% else %}
+                    <i class="far fa-bookmark fa-xl"></i>
+                    {% endif %}
                 </a>
             </form>
         </div>
+        {% endif %}
+
+
     </div>
 
 
@@ -61,13 +69,7 @@
 
             
                 {% for chapter in range(1, book_details[8] + 1) %}
-                 <!-- <div class="chapters">
-                     <a href="/myworks/{{book_details[0]}}/{{ chapter }}">Chapter {{chapter}}</a>
-                    <a href="/story/{{ book_id }}/{{ chapter }}" >Chapter {{ chapter }}</a> 
-
-        
-                </div> -->
-                
+                 
                 <a href="/story/{{ book_id }}/{{ chapter }}" >
                     <div class="chapters">
                         Chapter {{ chapter }}
