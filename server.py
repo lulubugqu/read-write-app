@@ -366,6 +366,18 @@ def deleteStory(book_id):
         
         updated_list = ", ".join(published_library_books)
         cursor.execute("UPDATE users SET published_books = %s WHERE username = %s", (updated_list, current_user))
+        
+        cursor.execute("SELECT username FROM users WHERE library_books LIKE %s", ('%' + str(book_id) + '%',))
+        users_with_book = cursor.fetchall()
+        for user in users_with_book:
+            username = user[0]
+            cursor.execute("SELECT library_books FROM users WHERE username = %s", (username,))
+            library = cursor.fetchone()[0]
+            library_books = library.split(", ") if library else []
+            if str(book_id) in library_books:
+                library_books.remove(str(book_id))
+                updated_library = ", ".join(map(str, library_books))
+                cursor.execute("UPDATE users SET library_books = %s WHERE username = %s", (updated_library, username))
 
     return redirect(url_for('getUser', username=current_user))
 
