@@ -65,9 +65,6 @@ def initialize():
 
 
 def authenticate_user(requested_user):
-    ## AUTHENTICATE USER
-    if (requested_user == "guest"):
-        return True
 
     # first, see if any user is logged in
     # if not, return access denied
@@ -75,6 +72,7 @@ def authenticate_user(requested_user):
         current_user_session = session["user"]
     except:
         return False
+    
     
     # then, check if its the correct user
     current_user_email = current_user_session.get("userinfo").get("name")
@@ -112,11 +110,14 @@ def authenticate_book(requested_book):
     return False
 
 def get_current_user():
-    user_email = session["user"].get("userinfo").get("name")
-    with get_db_cursor() as cursor:
-        cursor.execute("SELECT username FROM users WHERE email = %s", (user_email,))
-        current_username = cursor.fetchone()[0]
-        return current_username
+    try:
+        user_email = session["user"].get("userinfo").get("name")
+        with get_db_cursor() as cursor:
+            cursor.execute("SELECT username FROM users WHERE email = %s", (user_email,))
+            current_username = cursor.fetchone()[0]
+            return current_username
+    except:
+        return "guest"
 
 
 @app.route("/login")
@@ -174,12 +175,14 @@ def firstLogin():
 
 @app.route("/home/<string:current_user>")
 def home(current_user):
-    ## AUTHENTICATE USER
-    if not authenticate_user(current_user):
-        return render_template("accessdenied.html")
+    
+    logged_in =  authenticate_user(current_user)
+
+    print(logged_in)
 
     top_5_books = top5()
     rand_genre = random.randint(0, 7)
+    genre = ""
     match rand_genre:
         case 0:
             genre = "Action"
@@ -196,8 +199,12 @@ def home(current_user):
         case 6:
             genre = "SciFi"
     top_5_genre = top5genre(genre)
-    user_library = userlibrary(current_user)
-    return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, user_library=user_library, genre=genre, current_user=current_user)
+    if logged_in:
+        print(current_user)
+        user_library = userlibrary(current_user)
+    else:
+        user_library = []
+    return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, user_library=user_library, genre=genre, current_user=current_user, logged_in=logged_in)
 
 @app.route("/story/<int:storyId>/<int:chapterNum>/")
 def getStory(storyId, chapterNum):
@@ -220,7 +227,6 @@ def getStory(storyId, chapterNum):
         author_name = cursor.fetchone()
 
     current_user = get_current_user()
-    print(current_user)
     return render_template("story.html", author_id = author_id, author_name = author_name, storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters, current_user=current_user)
 
 
@@ -228,7 +234,9 @@ def getStory(storyId, chapterNum):
 # this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
 def storydetail(book_id): 
     current_user = get_current_user()
+    print(current_user)
     logged_in = authenticate_user(current_user)
+    print(logged_in)
     book_details = get_book_details(book_id) 
     if logged_in: 
         with get_db_cursor() as cursor:
@@ -244,8 +252,11 @@ def storydetail(book_id):
             print("book details", book_details)
 
             print("author", author_name)
-
-    return render_template("storydetail.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library,author_name=author_name)
+    else:
+        library_books = []
+        is_in_library = False
+    current_user=get_current_user()
+    return render_template("storydetail.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library, current_user=current_user, author_name=author_name)
 
 def get_book_details(book_id):
     with get_db_cursor() as cursor:
@@ -290,14 +301,6 @@ def getUser(username):
 
     current_user = get_current_user()
     return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info, current_user=current_user)
-
-
-
-# FOR ONCE ACCOUNTS ARE ESTABLISHED
-# @app.route("/user/<string:username>")
-# def getUser(username):
-#     print("getting user profile")
-#     return render_template("profile.html")
 
 
 
@@ -346,14 +349,27 @@ def editChapter(book_id, chapter_id):
     
 
 
-@app.route("/myworks/api/<int:book_id>/delete", methods=["DELETE"])
-def deleteStory(book_id, chapter_id):
+@app.route("/myworks/api/<int:book_id>/delete", methods=["GET"])
+def deleteStory(book_id, chapter_id, user_id):
+    print("deleting story")
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
+    current_user = get_current_user(user_id)
     book_details = get_book_details(book_id)
     chapter_details = get_chapter_details(chapter_id)
     with get_db_cursor() as cursor: 
-        cursor.execute("DELETE * FROM books WHERE book_id = %s AND chapter_id = %s", (book_details, chapter_details))
+        cursor.execute("SELECT * FROM books WHERE book_id = %s AND chapter_id = %s", (book_details, chapter_details))
+        existing_chapter = cursor.fetchnone()
+        if existing_chapter:
+            cursor.execute("DELETE * FROM books WHERE book_id = %s AND chapter_id = %s", (book_details, chapter_details))
+        cursor.execute("SELECT published_books FROM users WHERE user_id = %s", (current_user))
+        published_library = cursor.fetchone()[0]
+        if published_library != '':
+            published_library -= f", {book_details}"
+        cursor.execute("UPDATE users SET published_books = %s WHERE user_id = %s", (published_library, current_user))
+        
+    return redirect(url_for('getUser', current_user=current_user))
+
 
 
 # APIs for story overview and writing page
@@ -464,13 +480,14 @@ def top5genre(genre):
 @app.route("/search/", methods=["GET"])
 @app.route("/search", methods=["GET"])
 def search():
+    logged_in = (get_current_user() != "guest")
     print("search")
     print(request.query_string)
     search = request.args.get('query')
     print(search)
 
     current_user = get_current_user()
-    return render_template("search.html", search=search, current_user=current_user)
+    return render_template("search.html", search=search, current_user=current_user, logged_in=logged_in)
 
 @app.route("/search/filter/", methods=["GET"])
 @app.route("/search/filter", methods=["GET"])
@@ -506,11 +523,18 @@ def userlibrary(current_user):
     if not authenticate_user(current_user):
         return render_template("accessdenied.html")
     with get_db_cursor() as cursor:
-        cursor.execute("SELECT user_id FROM users WHERE username = %s", (current_user,))
-        current_user_id = cursor.fetchone()
-        cursor.execute("SELECT * FROM books WHERE user_id = %s", (current_user_id[0],))
-        library = cursor.fetchall()
+        cursor.execute("SELECT library_books FROM users WHERE username = %s", (current_user,))
+        library_books = cursor.fetchone()[0]
+
+    library_books = library_books.split(", ")
+
+    library_books_info = []
+
+    if library_books[0] != '':
+        for book_id in library_books:
+            book_info = get_book_details(book_id)
+            library_books_info.append(book_info)
 
 
-    return jsonify(library)
+    return library_books_info
 
