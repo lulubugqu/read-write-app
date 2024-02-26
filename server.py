@@ -350,25 +350,25 @@ def editChapter(book_id, chapter_id):
 
 
 @app.route("/myworks/api/<int:book_id>/delete", methods=["GET"])
-def deleteStory(book_id, username):
+def deleteStory(book_id):
     print("deleting story")
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
+    current_user = get_current_user()
     with get_db_cursor() as cursor: 
         cursor.execute("DELETE FROM books where book_id = %s", (book_id,))
         cursor.execute("DELETE FROM chapters where book_id = %s", (book_id,))
-        cursor.execute("SELECT published_books FROM users WHERE username = %s", (username,))
+        cursor.execute("SELECT published_books FROM users WHERE username = %s", (current_user,))
         published_library = cursor.fetchone()[0]
-        published_library_books = published_library.split(",") if published_library else []
-        if book_id in published_library_books:
-            published_library_books.remove(book_id)
+        published_library_books = published_library.split(", ") if published_library else []
+        if str(book_id) in published_library_books:
+            published_library_books.remove(str(book_id))
             print("Deleting published book from library")
         
-        cursor.execute("DELETE published_books FROM users WHERE username = %s", (username,))
         updated_list = ", ".join(published_library_books)
-        cursor.execute("UPDATE users SET published_books = %s WHERE username = %s", (updated_list, username))
+        cursor.execute("UPDATE users SET published_books = %s WHERE username = %s", (updated_list, current_user))
 
-    return redirect(url_for('getUser', username=username))
+    return redirect(url_for('getUser', username=current_user))
 
 
 # APIs for story overview and writing page
