@@ -78,7 +78,10 @@
 
                 </div>
 
-                <input class="button-editStory pure-button" type="submit" value="Save Changes" />
+                <span class="bttn">
+                    <input class="button-editStory pure-button" type="submit" value="Save Changes" />
+                    <a href="/myworks/api/{{ book_details[0] }}/delete" class="pure-button" method="GET"> Delete Story </a>
+                </span>
                 
             </form>
 
@@ -107,7 +110,7 @@
                     
                 {% endfor %}
 
-                <div class="">
+                <div class="new-chapter">
                     <a href="/myworks/{{book_details[0]}}/{{ book_details[8] + 1 }}" class="pure-button">
                         <i class="fa-solid fa-square-plus"></i> Add a New Chapter </a>
                 </div>

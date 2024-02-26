@@ -510,16 +510,17 @@
   color: white;
   cursor: pointer;
 
-
-  /*   margin-top: 1em;
-  width: 20%;
-  margin-left: 27em;
-  background-color: #9DC183;
-  color: #ffffff;
-  font-family: sans-serif;
-   */
+}
+.new-story-details .bttn .pure-button {
+  margin-left: 2em;
 
 }
+.new-story-details .bttn {
+    margin-left: 9em;
+
+}
+
+
 
 .story-details{
     border-bottom: 5px solid #9DC183;
@@ -579,12 +580,7 @@ margin-bottom: 1em;
 }
 .new-story-details .tag-content {
   margin-top: 2em;
-  /* border: 1px solid green;
-  margin-right: 1em;
-  background-color: #dedcdc;
-  padding: 5px; */
-  
-
+ 
 }
 .tag-content input[type="checkbox"] {
   display: none;
