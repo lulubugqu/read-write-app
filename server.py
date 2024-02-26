@@ -496,14 +496,14 @@ def search():
     book_query_results = get_book_id_results(search_query)
     book_results = []
 
-    if book_query_results != [] and book_query_results[0] != '':
-        for book_id in book_query_results:
-            book_info = get_book_details(book_id)
-            with get_db_cursor() as cursor:
+    with get_db_cursor() as cursor:
+        if book_query_results != [] and book_query_results[0] != '':
+            for book_id in book_query_results:
+                book_info = get_book_details(book_id)
                 cursor.execute("SELECT username FROM users WHERE user_id = %s", (book_info[1],))
                 username = cursor.fetchone()[0]
-            book_info.append(username)
-            book_results.append(book_info)
+                book_info.append(username)
+                book_results.append(book_info)
     
     print(book_results)
 

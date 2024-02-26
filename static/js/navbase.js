@@ -8,11 +8,11 @@ if (searchButton != null) {
             event.preventDefault(); // Prevent default form submission behavior
             document.querySelector('.searchButton').click(); // Simulate click on the search button
         }
-        searchButton.addEventListener("click", async function() {
-                // Get form data
-                search(searchTerm.value);
-        });
     })
+    searchButton.addEventListener("click", async function() {
+        // Get form data
+        search(searchTerm.value);
+    });
 }
 
 async function search(searchTerm) {
