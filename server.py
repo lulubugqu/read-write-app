@@ -244,11 +244,19 @@ def storydetail(book_id):
             library_books = cursor.fetchone()[0]
             library_books = library_books.split(", ")
             is_in_library = str(book_id) in library_books
+            
+            author_id = book_details[1]
+            print("author_id", author_id)
+            cursor.execute("SELECT username FROM users WHERE user_id = %s", (author_id,))
+            author_name = cursor.fetchone()
+            print("book details", book_details)
+
+            print("author", author_name)
     else:
         library_books = []
         is_in_library = False
     current_user=get_current_user()
-    return render_template("storydetail2.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library, current_user=current_user)
+    return render_template("storydetail.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library, current_user=current_user, author_name=author_name)
 
 def get_book_details(book_id):
     with get_db_cursor() as cursor:

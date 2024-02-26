@@ -44,28 +44,7 @@
                     <option value="Sci-Fi" {% if book_details[6] == 'Contemporary' %} selected {% endif %}>Sci-Fi</option>		
                 </select>
                 </div>
-                <!-- <div class="tags">
-                    <p> Please select your Tags: </p>
-                    <span class="tag-content">
-                        <input type="checkbox" id="ActionTag" name="ActionTag" value="ActionTag">
-                        <label class="filter-checkbox" for="ActionTag"> + Action </label>
-                    </span>
-
-                    <span class="tag-content">
-                        <input type="checkbox" id="MysteryTag" name="MysteryTag" value="MysteryTag">
-                        <label class="filter-checkbox" for="MysteryTag"> + Mystery </label>
-                    </span>
-
-                    <span class="tag-content">
-                        <input type="checkbox" id="Romance" name="RomanceTag" value="RomanceTag">
-                        <label class="filter-checkbox" for="RomanceTag"> + Romance </label>
-                    </span>
-                    <span class="tag-content">
-                        <input type="checkbox" id="DramaTag" name="DramaTag" value="DramaTag">
-                        <label class="filter-checkbox" for="DramaTag"> + Drama </label>
-                    </span>
-
-                </div> -->
+                
                 <div class="tags">
                     <label for="tags">Tags</label>
                     <input type="text" id="tags" name="tags" placeholder= "romance,young adult" value="{{ book_details[7] }}" />
@@ -78,11 +57,10 @@
 
                 </div>
 
-                <input class="button-editStory pure-button" type="submit" value="Save Changes" />
-
-                <div>
+                <span class="bttn">
+                    <input class="button-editStory pure-button" type="submit" value="Save Changes" />
                     <a href="/myworks/api/{{ book_details[0] }}/delete" class="pure-button" method="GET"> Delete Story </a>
-                </div>
+                </span>
                 
             </form>
 
@@ -111,7 +89,7 @@
                     
                 {% endfor %}
 
-                <div class="">
+                <div class="new-chapter">
                     <a href="/myworks/{{book_details[0]}}/{{ book_details[8] + 1 }}" class="pure-button">
                         <i class="fa-solid fa-square-plus"></i> Add a New Chapter </a>
                 </div>
