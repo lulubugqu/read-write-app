@@ -492,7 +492,6 @@ def top5genre(genre):
 def search():
     logged_in = (get_current_user() != "guest")
     search_query = request.args.get('query')
-    print(search)
 
     book_query_results = get_book_id_results(search_query)
     book_results = []
@@ -500,22 +499,21 @@ def search():
     if book_query_results != [] and book_query_results[0] != '':
         for book_id in book_query_results:
             book_info = get_book_details(book_id)
+            with get_db_cursor() as cursor:
+                cursor.execute("SELECT username FROM users WHERE user_id = %s", (book_info[1],))
+                username = cursor.fetchone()[0]
+            book_info.append(username)
             book_results.append(book_info)
     
+    print(book_results)
+
     user_query_results = get_user_id_results(search_query)
-    print(user_query_results)
     user_results = []
 
     if user_query_results != [] and user_query_results[0] != '':
         for user_id in user_query_results:
             user_info = get_user_details(user_id)
             user_results.append(user_info)
-
-    print("book results")
-    print(book_results)
-
-    print("user results")
-    print(user_results)
 
     current_user = get_current_user()
     return render_template("search.html", search=search_query, current_user=current_user, logged_in=logged_in, book_results=book_results, user_results=user_results)
@@ -593,7 +591,21 @@ def get_user_details(user_id):
 @app.route("/search/filter", methods=["GET"])
 def filter_search():
     print("filtering search")
+    logged_in = (get_current_user() != "guest")
+
+    search_query = ""
+
+    search_query = request.args.get("chapterRange")
+    print(search_query)
+
     print(request)
+
+    user_results = []
+
+    book_results = []
+
+    current_user = get_current_user()
+    return render_template("search.html", search=search_query, current_user=current_user, logged_in=logged_in, book_results=book_results, user_results=user_results)
 
 
 
