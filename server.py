@@ -350,26 +350,25 @@ def editChapter(book_id, chapter_id):
 
 
 @app.route("/myworks/api/<int:book_id>/delete", methods=["GET"])
-def deleteStory(book_id, chapter_id, user_id):
+def deleteStory(book_id, username):
     print("deleting story")
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
-    current_user = get_current_user(user_id)
-    book_details = get_book_details(book_id)
-    chapter_details = get_chapter_details(chapter_id)
     with get_db_cursor() as cursor: 
-        cursor.execute("SELECT * FROM books WHERE book_id = %s AND chapter_id = %s", (book_details, chapter_details))
-        existing_chapter = cursor.fetchnone()
-        if existing_chapter:
-            cursor.execute("DELETE * FROM books WHERE book_id = %s AND chapter_id = %s", (book_details, chapter_details))
-        cursor.execute("SELECT published_books FROM users WHERE user_id = %s", (current_user))
+        cursor.execute("DELETE FROM books where book_id = %s", (book_id,))
+        cursor.execute("DELETE FROM chapters where book_id = %s", (book_id,))
+        cursor.execute("SELECT published_books FROM users WHERE username = %s", (username,))
         published_library = cursor.fetchone()[0]
-        if published_library != '':
-            published_library -= f", {book_details}"
-        cursor.execute("UPDATE users SET published_books = %s WHERE user_id = %s", (published_library, current_user))
+        published_library_books = published_library.split(",") if published_library else []
+        if book_id in published_library_books:
+            published_library_books.remove(book_id)
+            print("Deleting published book from library")
         
-    return redirect(url_for('getUser', current_user=current_user))
+        cursor.execute("DELETE published_books FROM users WHERE username = %s", (username,))
+        updated_list = ", ".join(published_library_books)
+        cursor.execute("UPDATE users SET published_books = %s WHERE username = %s", (updated_list, username))
 
+    return redirect(url_for('getUser', username=username))
 
 
 # APIs for story overview and writing page
