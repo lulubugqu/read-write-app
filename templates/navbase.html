@@ -28,7 +28,7 @@
             </button>
         </div>
     </div>
-    {% if current_user != "guest" %}
+    {% if logged_in %}
         <div class="loggedin-log-wrap">
             <div id=out_button>
                 <a href="/logout">
