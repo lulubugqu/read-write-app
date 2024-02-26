@@ -1039,7 +1039,6 @@ a:hover {
 .home .books .book-tag-container {
   position: relative;
   z-index: 1000;
-  margin-top: 3%;
   margin-bottom: -31.3px;
   min-height: 15px;
   height: 100%;
@@ -1055,7 +1054,7 @@ a:hover {
   text-align: center;
   padding: 1% 1.5%;
   border-radius: 5px;
-  font-size: x-small;
+  font-size: 14px;
 }
 
 .home .book-tag p {
@@ -1209,7 +1208,6 @@ a:hover {
 
 .user .book-tag-container {
   background-color: transparent;
-  /* width: 60%; */
   flex: 85%;
   display: flex;
   flex-wrap: wrap;
@@ -1229,12 +1227,7 @@ a:hover {
 }
 
 
-/* Book type 2 ON USER PAGE */
-/* .user {
-  font-family: 'DM Sans', sans-serif;
-} */
-
-
+/* Book type 2 on User Page */
 .user .user_books {
   display: flex;
   flex-wrap: wrap;
