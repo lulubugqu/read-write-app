@@ -200,6 +200,7 @@ def home(current_user):
             genre = "SciFi"
     top_5_genre = top5genre(genre)
     if logged_in:
+        print(current_user)
         user_library = userlibrary(current_user)
     else:
         user_library = []
@@ -226,7 +227,6 @@ def getStory(storyId, chapterNum):
         author_name = cursor.fetchone()
 
     current_user = get_current_user()
-    print(current_user)
     return render_template("story.html", author_id = author_id, author_name = author_name, storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters, current_user=current_user)
 
 
@@ -472,7 +472,7 @@ def top5genre(genre):
 @app.route("/search/", methods=["GET"])
 @app.route("/search", methods=["GET"])
 def search():
-    logged_in = authenticate_user()
+    logged_in = (get_current_user() != "guest")
     print("search")
     print(request.query_string)
     search = request.args.get('query')
@@ -515,11 +515,18 @@ def userlibrary(current_user):
     if not authenticate_user(current_user):
         return render_template("accessdenied.html")
     with get_db_cursor() as cursor:
-        cursor.execute("SELECT user_id FROM users WHERE username = %s", (current_user,))
-        current_user_id = cursor.fetchone()
-        cursor.execute("SELECT * FROM books WHERE user_id = %s", (current_user_id[0],))
-        library = cursor.fetchall()
+        cursor.execute("SELECT library_books FROM users WHERE username = %s", (current_user,))
+        library_books = cursor.fetchone()[0]
+
+    library_books = library_books.split(", ")
+
+    library_books_info = []
+
+    if library_books[0] != '':
+        for book_id in library_books:
+            book_info = get_book_details(book_id)
+            library_books_info.append(book_info)
 
 
-    return jsonify(library)
+    return library_books_info
 
