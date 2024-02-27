@@ -325,9 +325,13 @@ def updateOverview(book_id):
     tags = request.form.get('tags')
     summary = request.form.get('summary')
     image = request.form.get('book_image')
-    with get_db_cursor() as cursor:
-        cursor.execute("UPDATE books SET title = %s, genre = %s, tags = %s, summary = %s, picture_url = %s WHERE book_id = %s", (book_title, genre, tags, summary, image, book_id))
-    return redirect(url_for('storyoverview', book_id=book_id))
+    current_user = get_current_user()
+    logged_in = authenticate_user(current_user)
+    print(logged_in)
+    if logged_in:
+        with get_db_cursor() as cursor:
+            cursor.execute("UPDATE books SET title = %s, genre = %s, tags = %s, summary = %s, picture_url = %s WHERE book_id = %s", (book_title, genre, tags, summary, image, book_id))
+    return redirect(url_for('getUser', username=current_user))
 
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
 def editChapter(book_id, chapter_id):
