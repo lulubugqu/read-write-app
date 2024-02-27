@@ -23,12 +23,12 @@
                     </div>
                     <div class="filter-container">
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Action" name="Action" value="Action">
+                            <input type="checkbox" id="Action" name="Action" value="On">
                             <label class="filter-checkbox" for="Action"> Action </label>
                         </div>
 
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Adventure" name="Adventure" value="Adventure">
+                            <input type="checkbox" id="Adventure" name="Adventure" value="On">
                             <label class="filter-checkbox" for="Adventure">Adventure</label>
 
                         </div>
@@ -36,32 +36,32 @@
                         
                         <div class="checkbox_content">
 
-                            <input type="checkbox" id="Fantasy" name="Fantasy" value="Fantasy">
+                            <input type="checkbox" id="Fantasy" name="Fantasy" value="On">
                             <label class="filter-checkbox" for="Fantasy">Fantasy</label>
                         </div>
 
                         <div class="checkbox_content">
             
-                            <input type="checkbox" id="Romance" name="Romance" value="Romance">
+                            <input type="checkbox" id="Romance" name="Romance" value="On">
                             <label class="filter-checkbox" for="Romance">Romance</label>
                         </div>
 
                         <div class="checkbox_content">
 
-                            <input type="checkbox" id="Mystery" name="Mystery" value="Mystery">
+                            <input type="checkbox" id="Mystery" name="Mystery" value="On">
                             <label class="filter-checkbox" for="Mystery">Mystery</label>
                         </div>  
 
                         <div class="checkbox_content">
 
 
-                            <input type="checkbox" id="Action" name="Crime" value="Crime">
+                            <input type="checkbox" id="Action" name="Crime" value="On">
                             <label class="filter-checkbox" for="Crime">Crime</label>
                         </div>  
                         
                         <div class="checkbox_content">
 
-                            <input type="checkbox" id="Historical" name="Historical" value="Historical">
+                            <input type="checkbox" id="Historical" name="Historical" value="On">
                             <label class="filter-checkbox" for="Historical">Historical</label>
                         </div> 
                     </div>  
@@ -151,4 +151,4 @@
     </div>
 {% endblock %}
 {% block footer %}{% endblock %}
-{% block page_script %}{% endblock %}
+{% block page_script %}<script src="{{url_for('static', filename='js/search.js')}}" defer></script>{% endblock %}
