@@ -32,17 +32,17 @@
             {% for x in top_5_genre %}
                 <div class="book">
                     <div class="book1details">
-                        <div class="book-tag-container">
-                            {% set tag_list = x['tags'].split(", ") %}
-                            {% if tag_list[0] == "" %}
-                            {% else %}
-                                {% for tag in tag_list[0:1] %}
-                                    <div class="book-tag"><p>{{ tag }}</p></div>
-                                {% endfor %}
-                            {% endif %}
-                        </div>
                         <img src={{ x['picture_url'] }} alt="{{ x['title'] }} Cover" class="book-image" id="resized-image">
                         <a href="/story/{{ x['book_id'] }}" class="book-link"></a>
+                    </div>
+                    <div class="book-tag-container">
+                        {% set tag_list = x['tags'].split(", ") %}
+                        {% if tag_list[0] == "" %}
+                        {% else %}
+                            {% for tag in tag_list[0:1] %}
+                                <div class="book-tag"><p>{{ tag }}</p></div>
+                            {% endfor %}
+                        {% endif %}
                     </div>
                 </div>
             {% endfor %}

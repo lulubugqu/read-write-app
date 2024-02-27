@@ -450,7 +450,7 @@ p {
 
 .search_page .book-tag-container {
   background-color: transparent;
-  /* width: 60%; */
+  width: 60%;
   flex: 85%;
   display: flex;
   flex-wrap: wrap;
@@ -1073,31 +1073,35 @@ a {
 }
 
 .home .books .book-tag-container {
-  position: relative;
-  z-index: 1000;
-  margin-bottom: -37.8px;
-  overflow: hidden;
-  background-color: rgba(0,0,0,.3);
-  border-top-left-radius: 15px;
-  border-top-right-radius: 15px;
-  color: #fff;
+  background-color: transparent;
+  width: 60%;
+  flex: 85%;
   display: flex;
-  justify-content: center;
+  flex-wrap: wrap;
+  justify-content: left;
   gap: 5px;
-  padding: 5% 0 5% 0;
+  padding: 0%;
 }
 
 .home .book-tag {
-  height: min-content;
+  background-color: #dcdcdc;
+  color: black;
+  text-align: center;
+  padding: 1% 1.5%;
+  border-radius: 15px;
+  height: auto;
+  padding-right: 10px;
+  padding-left: 3px;
 }
 
 .home .book-tag p {
   margin: 0;
-  color: #505050;
-  text-align: center;
-  padding: 1% 1%;
+  color: #343232;
+  text-align: left;
+  padding: 5%;
   border-radius: 5px;
-  font: 11px;
+  font: 14px;
+  white-space: nowrap;
 }
 
 .home .book1details a {
@@ -1163,14 +1167,13 @@ a {
 
 /* BOOK TAG CONTAINER ORIGINAL */
 
-.book-tag-container {
-  background-color: rgba(58, 55, 55, 0.8);
+/* .book-tag-container {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 5px;
   padding: 5% 0 5% 0;
-}
+} */
 
 .launch-tag-container {
   display: flex;
@@ -1294,7 +1297,6 @@ a {
 
 .user .details .book-tag-container {
   background-color: transparent;
-  width: 60%;
   flex: 85%;
   display: flex;
   flex-wrap: wrap;
