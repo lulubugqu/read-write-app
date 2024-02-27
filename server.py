@@ -197,7 +197,7 @@ def home(current_user):
         case 5: 
             genre = "Comedy"
         case 6:
-            genre = "SciFi"
+            genre = "Sci-Fi"
     top_5_genre = top5genre(genre)
     if logged_in:
         print(current_user)
