@@ -517,8 +517,6 @@ def search():
     if user_query_results != [] and user_query_results[0] != '':
         for user_id in user_query_results:
             user_info = get_user_details(user_id)
-            # published_books =  user_info[4].split(", ")
-            # library_books = user_info[5].split(", ")
             user_results.append(user_info)
         
 
@@ -605,9 +603,6 @@ def filter_search():
     tags = request.args.get("tags")
     print(tags)
 
-    form_default = []
-
-
     default_genres = ["Action", "Horror", "Fantasy", "Romance", "Comedy", "Sci-Fi", "Contemporary"]
     chosen_genres = ["none"]
     for genre in default_genres:
@@ -616,7 +611,7 @@ def filter_search():
 
     print(request)
 
-    book_results = get_book_id_results(search_query)
+    current_books = get_book_id_results(search_query)
 
     # get a list of books where the book_id is in the book_results list
     # AND the genre of the book is in the chosen_genres list
@@ -630,16 +625,28 @@ def filter_search():
             AND (b.num_saved < %s)
             AND b.book_id IN %s
         """
-        cursor.execute(query, (chapterRange, tuple(chosen_genres), savedRange, tuple(book_results)))
+        cursor.execute(query, (chapterRange, tuple(chosen_genres), savedRange, tuple(current_books)))
         filtered_book_results = [row[0] for row in cursor.fetchall()]
 
-    print(filtered_book_results)
+    book_results = []
 
-    user_results = get_user_id_results(search_query)
+    with get_db_cursor() as cursor:
+        if filtered_book_results != [] and filtered_book_results[0] != '':
+            for book_id in filtered_book_results:
+                book_info = get_book_details(book_id)
+                cursor.execute("SELECT username FROM users WHERE user_id = %s", (book_info[1],))
+                username = cursor.fetchone()[0]
+                book_info.append(username)
+                book_results.append(book_info)
+
+    user_query_results = get_user_id_results(search_query)
+    user_results = []
+    if user_query_results != [] and user_query_results[0] != '':
+        for user_id in user_query_results:
+            user_info = get_user_details(user_id)
+            user_results.append(user_info)
 
     current_user = get_current_user()
-
-
     return render_template("search.html", search=search_query, current_user=current_user, logged_in=logged_in, book_results=book_results, user_results=user_results)
 
 
