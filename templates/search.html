@@ -156,11 +156,7 @@
 
                                  
                                 <div class="book-tag-container">
-<<<<<<< HEAD
-                                    {% set tag_list = books[7][1:-1].split(",") %}
-=======
                                     {% set tag_list = books[7].split(", ") %}
->>>>>>> main
                                         {% for tag in tag_list%}
                                             <div class="book-tag"><p>{{ tag }}</p></div>
                                     {% endfor %} 
