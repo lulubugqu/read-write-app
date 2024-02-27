@@ -23,7 +23,7 @@
                     </div>
                     <div class="filter-container">
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Action" name="Action" value="Action">
+                            <input type="checkbox" id="Action" name="Action" value="On">
                             <label class="filter-checkbox" for="Action"> Action </label>
                         </div>
 
@@ -176,4 +176,4 @@
     </div>
 {% endblock %}
 {% block footer %}{% endblock %}
-{% block page_script %}{% endblock %}
+{% block page_script %}<script src="{{url_for('static', filename='js/search.js')}}" defer></script>{% endblock %}

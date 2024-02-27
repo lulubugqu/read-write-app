@@ -597,21 +597,48 @@ def get_user_details(user_id):
 @app.route("/search/filter/", methods=["GET"])
 @app.route("/search/filter", methods=["GET"])
 def filter_search():
-    print("filtering search")
     logged_in = (get_current_user() != "guest")
 
-    search_query = ""
+    search_query = request.args.get("search_query")
+    chapterRange = request.args.get("chapterRange")
+    savedRange = request.args.get("range")
+    tags = request.args.get("tags")
 
-    search_query = request.args.get("chapterRange")
-    print(search_query)
+    form_default = []
+
+
+    default_genres = ["Action", "Adventure", "Fantasy", "Romance", "Crime", "Historical"]
+    chosen_genres = ["none"]
+    for genre in default_genres:
+        if request.args.get(genre) == "On":
+            chosen_genres.append(genre)
 
     print(request)
 
-    user_results = []
+    book_results = get_book_id_results(search_query)
 
-    book_results = []
+    # get a list of books where the book_id is in the book_results list
+    # AND the genre of the book is in the chosen_genres list
+    with get_db_cursor() as cursor:
+        query = """
+            SELECT DISTINCT b.book_id
+            FROM books b
+            JOIN chapters c ON b.book_id = c.book_id
+            WHERE (b.num_chapters <= %s)
+            AND (b.genre IN %s)
+            AND (b.num_saved < %s)
+            AND b.book_id IN %s
+        """
+        cursor.execute(query, (chapterRange, tuple(chosen_genres), savedRange, tuple(book_results)))
+        filtered_book_results = [row[0] for row in cursor.fetchall()]
+
+    print(filtered_book_results)
+
+    user_results = get_user_id_results(search_query)
 
     current_user = get_current_user()
+
+
     return render_template("search.html", search=search_query, current_user=current_user, logged_in=logged_in, book_results=book_results, user_results=user_results)
 
 
