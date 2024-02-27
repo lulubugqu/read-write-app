@@ -33,7 +33,7 @@
                 <div class="book">
                     <div class="book1details">
                         <div class="book-tag-container">
-                            {% set tag_list = x['tags'][1:-1].split(", ") %}
+                            {% set tag_list = x['tags'].split(", ") %}
                             {% if tag_list[0] == "" %}
                             {% else %}
                                 {% for tag in tag_list[0:3] %}

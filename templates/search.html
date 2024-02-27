@@ -155,7 +155,7 @@
                                         <a href="/user/{{books[10]}}" class="author-link">by {{books[10]}} </a>
                                     </div>
                                 <div class="book-tag-container">
-                                    {% set tag_list = books[7][1:-1].split(", ") %}
+                                    {% set tag_list = books[7].split(", ") %}
                                         {% for tag in tag_list%}
                                             <div class="book-tag"><p>{{ tag }}</p></div>
                                     {% endfor %} 
