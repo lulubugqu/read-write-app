@@ -91,8 +91,6 @@
                         <div class="filter-title">
                             Tags
                         </div>
-                        
-
                             <div class="tags">
                                 <input type="text" id="tags" name="tags" placeholder= "romance,young adult"/>
                             </div>
@@ -144,18 +142,25 @@
                             </div>
                             <div class="details">
                                 <div class="book-details-container">
-                                    <h3> {{ books[2] }} </h3>
-                                    <!-- <p> By {{ books[10] }} </p> -->
-                                
+                                    <div class="book-name"> 
+                                        <h3> {{ books[2] }} </h3>
+                                    </div>
+                                    <div class="author-name">
+                                        <a href="/user/{{books[10]}}" class="author-link-search">by {{books[10]}} </a>
+                                    </div>
+                                    
                                     <!-- Book Summary Limit of 410 Char -->
                                     <p> {{ books[9] }} </p>
 
                                 </div>
-                                 <div class="name"> 
-                                        <a href="/user/{{books[10]}}" class="author-link">by {{books[10]}} </a>
-                                    </div>
+
+                                 
                                 <div class="book-tag-container">
+<<<<<<< HEAD
+                                    {% set tag_list = books[7][1:-1].split(",") %}
+=======
                                     {% set tag_list = books[7].split(", ") %}
+>>>>>>> main
                                         {% for tag in tag_list%}
                                             <div class="book-tag"><p>{{ tag }}</p></div>
                                     {% endfor %} 
