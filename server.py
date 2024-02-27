@@ -255,6 +255,7 @@ def storydetail(book_id):
     else:
         library_books = []
         is_in_library = False
+        author_name = ""
     current_user=get_current_user()
     return render_template("storydetail.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library, current_user=current_user, author_name=author_name)
 
@@ -274,9 +275,10 @@ def get_chapter_details(book_id, chapter_id):
 @app.route("/user/<string:username>")
 def getUser(username):
     ## AUTHENTICATE USER
-    if not authenticate_user(username):
-        logged_in = False
-    else: logged_in = True
+    logged_in = authenticate_user(username)
+
+    nav_logged_in = (get_current_user() != "guest")
+
     print("getting user")
     with get_db_cursor() as cursor:
         cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
@@ -300,7 +302,7 @@ def getUser(username):
             library_books_info.append(book_info)
 
     current_user = get_current_user()
-    return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info, current_user=current_user)
+    return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info, current_user=current_user, nav_logged_in=nav_logged_in)
 
 
 
