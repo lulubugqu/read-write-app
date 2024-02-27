@@ -603,6 +603,7 @@ def filter_search():
     chapterRange = request.args.get("chapterRange")
     savedRange = request.args.get("range")
     tags = request.args.get("tags")
+    print(tags)
 
     form_default = []
 
