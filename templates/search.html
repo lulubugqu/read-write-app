@@ -23,37 +23,37 @@
                     </div>
                     <div class="filter-container">
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Action" name="Action" value="On">
+                            <input type="checkbox" id="Action" name="Action" value="On" checked>
                             <label class="filter-checkbox" for="Action"> Action </label>
                         </div>
 
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Horrow" name="Horror" value="On">
+                            <input type="checkbox" id="Horrow" name="Horror" value="On" checked>
                             <label class="filter-checkbox" for="Horrow">Horror</label>
                         </div>
 
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Fantasy" name="Fantasy" value="On">
+                            <input type="checkbox" id="Fantasy" name="Fantasy" value="On" checked>
                             <label class="filter-checkbox" for="Fantasy">Fantasy</label>
                         </div>
 
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Romance" name="Romance" value="On">
+                            <input type="checkbox" id="Romance" name="Romance" value="On" checked>
                             <label class="filter-checkbox" for="Romance">Romance</label>
                         </div>
 
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Comedy" name="Comedy" value="On">
+                            <input type="checkbox" id="Comedy" name="Comedy" value="On" checked>
                             <label class="filter-checkbox" for="Comedy">Comedy</label>
                         </div>  
 
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Sci-Fi" name="Sci-Fi" value="On">
+                            <input type="checkbox" id="Sci-Fi" name="Sci-Fi" value="On" checked>
                             <label class="filter-checkbox" for="Sci-Fi">Sci-Fi</label>
                         </div>  
                         
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Contemporary" name="Contemporary" value="On">
+                            <input type="checkbox" id="Contemporary" name="Contemporary" value="On" checked>
                             <label class="filter-checkbox" for="Contemporary">Contemporary</label>
                         </div> 
                     </div>  
@@ -155,7 +155,7 @@
                                         <a href="/user/{{books[10]}}" class="author-link">by {{books[10]}} </a>
                                     </div>
                                 <div class="book-tag-container">
-                                    {% set tag_list = books[7][1:-1].split(", ") %}
+                                    {% set tag_list = books[7][1:-1].split(",") %}
                                         {% for tag in tag_list%}
                                             <div class="book-tag"><p>{{ tag }}</p></div>
                                     {% endfor %} 
