@@ -255,6 +255,7 @@ def storydetail(book_id):
     else:
         library_books = []
         is_in_library = False
+        author_name = ""
     current_user=get_current_user()
     return render_template("storydetail.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library, current_user=current_user, author_name=author_name)
 
@@ -274,9 +275,10 @@ def get_chapter_details(book_id, chapter_id):
 @app.route("/user/<string:username>")
 def getUser(username):
     ## AUTHENTICATE USER
-    if not authenticate_user(username):
-        logged_in = False
-    else: logged_in = True
+    logged_in = authenticate_user(username)
+
+    nav_logged_in = (get_current_user() != "guest")
+
     print("getting user")
     with get_db_cursor() as cursor:
         cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
@@ -300,7 +302,7 @@ def getUser(username):
             library_books_info.append(book_info)
 
     current_user = get_current_user()
-    return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info, current_user=current_user)
+    return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info, current_user=current_user, nav_logged_in=nav_logged_in)
 
 
 
@@ -325,9 +327,13 @@ def updateOverview(book_id):
     tags = request.form.get('tags')
     summary = request.form.get('summary')
     image = request.form.get('book_image')
-    with get_db_cursor() as cursor:
-        cursor.execute("UPDATE books SET title = %s, genre = %s, tags = %s, summary = %s, picture_url = %s WHERE book_id = %s", (book_title, genre, tags, summary, image, book_id))
-    return redirect(url_for('storyoverview', book_id=book_id))
+    current_user = get_current_user()
+    logged_in = authenticate_user(current_user)
+    print(logged_in)
+    if logged_in:
+        with get_db_cursor() as cursor:
+            cursor.execute("UPDATE books SET title = %s, genre = %s, tags = %s, summary = %s, picture_url = %s WHERE book_id = %s", (book_title, genre, tags, summary, image, book_id))
+    return redirect(url_for('getUser', username=current_user))
 
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
 def editChapter(book_id, chapter_id):
@@ -394,7 +400,7 @@ def create_new_book(user_id):
     default_title = 'Untitled Story'
     default_image_url = 'https://thumbs.dreamstime.com/b/paper-texture-smooth-pastel-pink-color-perfect-background-uniform-pure-minimal-photo-trendy-149575202.jpg'
     with get_db_cursor() as cursor:
-        cursor.execute("INSERT INTO books (user_id, title, picture_url, num_chapters, genre, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s)", (user_id, default_title, default_image_url,1, '', '{}', ''))
+        cursor.execute("INSERT INTO books (user_id, title, picture_url, num_chapters, genre, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s)", (user_id, default_title, default_image_url,1, '', '', ''))
         cursor.execute("SELECT LASTVAL()")
         new_book_id = cursor.fetchone()[0]
         cursor.execute("INSERT INTO chapters (chapter_id, book_id, content) VALUES (%s, %s, %s)", (1, new_book_id, ''))
@@ -472,16 +478,15 @@ def deleteChapter(book_id, chapter_id):
 ## HOME PAGE APIs
 @app.route("/api/top5", methods=["GET"])
 def top5():
-    "SELECT * FROM books ORDER BY num_likes DESC LIMIT 5"
     with get_db_cursor() as cursor:
-        cursor.execute( "SELECT * FROM books ORDER BY num_likes DESC LIMIT 5")
+        cursor.execute( "SELECT * FROM books ORDER BY num_saved DESC LIMIT 5")
         top_5 = cursor.fetchall()
     return top_5
 
 @app.route("/api/top5/<string:genre>", methods=["GET"])
 def top5genre(genre):
     with get_db_cursor() as cursor:
-        cursor.execute("SELECT * FROM books WHERE LOWER(genre) = LOWER(%s) ORDER BY num_likes DESC LIMIT 5", (genre,))
+        cursor.execute("SELECT * FROM books WHERE LOWER(genre) = LOWER(%s) ORDER BY num_saved DESC LIMIT 5", (genre,))
         top_5 = cursor.fetchall()
     return top_5
 
@@ -505,16 +510,12 @@ def search():
                 book_info.append(username)
                 book_results.append(book_info)
     
-    print(book_results)
-
     user_query_results = get_user_id_results(search_query)
     user_results = []
 
     if user_query_results != [] and user_query_results[0] != '':
         for user_id in user_query_results:
             user_info = get_user_details(user_id)
-            # published_books =  user_info[4].split(", ")
-            # library_books = user_info[5].split(", ")
             user_results.append(user_info)
         
 
@@ -593,19 +594,71 @@ def get_user_details(user_id):
 @app.route("/search/filter/", methods=["GET"])
 @app.route("/search/filter", methods=["GET"])
 def filter_search():
-    print("filtering search")
     logged_in = (get_current_user() != "guest")
 
-    search_query = ""
+    search_query = request.args.get("search_query")
+    chapterRange = request.args.get("chapterRange")
+    savedRange = request.args.get("range")
+    tags = request.args.get("tags").split(", ")
+    print(tags)
 
-    search_query = request.args.get("chapterRange")
-    print(search_query)
+    default_genres = ["Action", "Horror", "Fantasy", "Romance", "Comedy", "Sci-Fi", "Contemporary"]
+    chosen_genres = ["none"]
+    for genre in default_genres:
+        if request.args.get(genre) == "On":
+            chosen_genres.append(genre)
 
-    print(request)
+    current_books = get_book_id_results(search_query)
 
-    user_results = []
+    # get a list of books where the book_id is in the book_results list
+    # AND the genre of the book is in the chosen_genres list
+    with get_db_cursor() as cursor:
+        # query for everything but tags 
+        query = """
+            SELECT b.book_id
+            FROM books b
+            JOIN chapters c ON b.book_id = c.book_id
+            WHERE (b.num_chapters <= %s)
+            AND (b.genre IN %s)
+            AND (b.num_saved < %s)
+            AND b.book_id IN %s
+        """
+        cursor.execute(query, (chapterRange, tuple(chosen_genres), savedRange, tuple(current_books)))
+        filtered_book_results = [row[0] for row in cursor.fetchall()]
 
+        # query for tags
+        query = """
+            SELECT book_id
+            FROM books
+            WHERE (
+                SELECT COUNT(*)
+                FROM unnest(string_to_array(tags, ', ')) AS book_tag
+                WHERE book_tag = ANY(%s)
+            ) > 0
+            AND genre IN %s
+        """
+
+        cursor.execute(query, (tags, tuple(chosen_genres)))
+        filtered_book_results = [row[0] for row in cursor.fetchall()]
+
+    print(filtered_book_results)
     book_results = []
+
+    with get_db_cursor() as cursor:
+        if filtered_book_results != [] and filtered_book_results[0] != '':
+            for book_id in filtered_book_results:
+                book_info = get_book_details(book_id)
+                cursor.execute("SELECT username FROM users WHERE user_id = %s", (book_info[1],))
+                username = cursor.fetchone()[0]
+                book_info.append(username)
+                book_results.append(book_info)
+
+    user_query_results = get_user_id_results(search_query)
+    user_results = []
+    if user_query_results != [] and user_query_results[0] != '':
+        for user_id in user_query_results:
+            user_info = get_user_details(user_id)
+            user_results.append(user_info)
 
     current_user = get_current_user()
     return render_template("search.html", search=search_query, current_user=current_user, logged_in=logged_in, book_results=book_results, user_results=user_results)

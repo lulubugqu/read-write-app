@@ -8,7 +8,7 @@
 {% block header %}{% endblock %}
 {% block page_content %}
     <div class="main-text">
-        <h3> search results for {{ search }} </h3>
+        <h3> search results for <em>{{ search }}</em> </h3>
 
     </div>
     <div class="search-container"> 
@@ -23,37 +23,37 @@
                     </div>
                     <div class="filter-container">
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Action" name="Action" value="Action">
+                            <input type="checkbox" id="Action" name="Action" value="On" checked>
                             <label class="filter-checkbox" for="Action"> Action </label>
                         </div>
 
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Horrow" name="Horror" value="Horror">
+                            <input type="checkbox" id="Horrow" name="Horror" value="On" checked>
                             <label class="filter-checkbox" for="Horrow">Horror</label>
                         </div>
 
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Fantasy" name="Fantasy" value="Fantasy">
+                            <input type="checkbox" id="Fantasy" name="Fantasy" value="On" checked>
                             <label class="filter-checkbox" for="Fantasy">Fantasy</label>
                         </div>
 
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Romance" name="Romance" value="Romance">
+                            <input type="checkbox" id="Romance" name="Romance" value="On" checked>
                             <label class="filter-checkbox" for="Romance">Romance</label>
                         </div>
 
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Comedy" name="Comedy" value="Comedy">
+                            <input type="checkbox" id="Comedy" name="Comedy" value="On" checked>
                             <label class="filter-checkbox" for="Comedy">Comedy</label>
                         </div>  
 
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Sci-Fi" name="Sci-Fi" value="Sci-Fi">
+                            <input type="checkbox" id="Sci-Fi" name="Sci-Fi" value="On" checked>
                             <label class="filter-checkbox" for="Sci-Fi">Sci-Fi</label>
                         </div>  
                         
                         <div class="checkbox_content">
-                            <input type="checkbox" id="Contemporary" name="Contemporary" value="Contemporary">
+                            <input type="checkbox" id="Contemporary" name="Contemporary" value="On" checked>
                             <label class="filter-checkbox" for="Contemporary">Contemporary</label>
                         </div> 
                     </div>  
@@ -156,7 +156,11 @@
 
                                  
                                 <div class="book-tag-container">
+<<<<<<< HEAD
                                     {% set tag_list = books[7][1:-1].split(",") %}
+=======
+                                    {% set tag_list = books[7].split(", ") %}
+>>>>>>> main
                                         {% for tag in tag_list%}
                                             <div class="book-tag"><p>{{ tag }}</p></div>
                                     {% endfor %} 
@@ -177,4 +181,4 @@
     </div>
 {% endblock %}
 {% block footer %}{% endblock %}
-{% block page_script %}{% endblock %}
+{% block page_script %}<script src="{{url_for('static', filename='js/search.js')}}" defer></script>{% endblock %}

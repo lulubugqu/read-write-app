@@ -1016,6 +1016,7 @@ a {
 
 .welcome-header-text {
   margin: 3% 0 0 4%;
+  text-transform: capitalize;
 }
 
 .home .bookdetails {
