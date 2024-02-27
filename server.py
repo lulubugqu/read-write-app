@@ -398,7 +398,7 @@ def create_new_book(user_id):
     default_title = 'Untitled Story'
     default_image_url = 'https://thumbs.dreamstime.com/b/paper-texture-smooth-pastel-pink-color-perfect-background-uniform-pure-minimal-photo-trendy-149575202.jpg'
     with get_db_cursor() as cursor:
-        cursor.execute("INSERT INTO books (user_id, title, picture_url, num_chapters, genre, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s)", (user_id, default_title, default_image_url,1, '', '{}', ''))
+        cursor.execute("INSERT INTO books (user_id, title, picture_url, num_chapters, genre, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s)", (user_id, default_title, default_image_url,1, '', '', ''))
         cursor.execute("SELECT LASTVAL()")
         new_book_id = cursor.fetchone()[0]
         cursor.execute("INSERT INTO chapters (chapter_id, book_id, content) VALUES (%s, %s, %s)", (1, new_book_id, ''))

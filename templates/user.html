@@ -63,7 +63,7 @@
                         </div>
                         <div class="book-details-bottom">
                             <div class="book-tag-container">
-                                {% set tag_list = book[7][1:-1].split(",") %}
+                                {% set tag_list = book[7].split(", ") %}
                                 {% for tag in tag_list%}
                                     <div class="book-tag"><p>{{ tag }}</p></div>
                                 {% endfor %}
