@@ -476,16 +476,15 @@ def deleteChapter(book_id, chapter_id):
 ## HOME PAGE APIs
 @app.route("/api/top5", methods=["GET"])
 def top5():
-    "SELECT * FROM books ORDER BY num_likes DESC LIMIT 5"
     with get_db_cursor() as cursor:
-        cursor.execute( "SELECT * FROM books ORDER BY num_likes DESC LIMIT 5")
+        cursor.execute( "SELECT * FROM books ORDER BY num_saved DESC LIMIT 5")
         top_5 = cursor.fetchall()
     return top_5
 
 @app.route("/api/top5/<string:genre>", methods=["GET"])
 def top5genre(genre):
     with get_db_cursor() as cursor:
-        cursor.execute("SELECT * FROM books WHERE LOWER(genre) = LOWER(%s) ORDER BY num_likes DESC LIMIT 5", (genre,))
+        cursor.execute("SELECT * FROM books WHERE LOWER(genre) = LOWER(%s) ORDER BY num_saved DESC LIMIT 5", (genre,))
         top_5 = cursor.fetchall()
     return top_5
 
