@@ -513,10 +513,13 @@ def search():
     if user_query_results != [] and user_query_results[0] != '':
         for user_id in user_query_results:
             user_info = get_user_details(user_id)
+            published_books =  user_info[4].split(", ")
+            library_books = user_info[5].split(", ")
             user_results.append(user_info)
+        
 
     current_user = get_current_user()
-    return render_template("search.html", search=search_query, current_user=current_user, logged_in=logged_in, book_results=book_results, user_results=user_results)
+    return render_template("search.html", search=search_query, current_user=current_user, logged_in=logged_in, book_results=book_results, user_results=user_results,published_books = published_books,library_books=library_books)
 
 def get_book_id_results(search_query):
     

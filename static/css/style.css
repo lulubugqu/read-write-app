@@ -419,6 +419,9 @@ p {
 
 
 }
+.search_page a {
+  cursor: pointer;
+}
 .search_page .bookdetails .book img {
     margin: 5% 0 10% 10%;
     /* margin-top: 6%;
@@ -432,6 +435,9 @@ p {
 }
 .search_page .book-details-container {
   min-height: 75%;
+}
+.search_page .book-details-container .names{
+  margin-left: 10em;
 }
 
 .search_page .book-details-bottom {
@@ -448,20 +454,32 @@ p {
   gap: 5px;
   padding: 0%;
 }
+.search_page .authors-search {
+  display: flex;
+  flex-direction: column;
+  margin-top: 2em;
+  padding: 2em;
+  border-radius: 15px;
+  width: 90%;
+  margin-left: 10px;
+
+  box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 
 
+}
+.search_page .authors-search .authors-name{
+  min-height: 50%;
+  margin: 0 auto;
+  font-family: "Overpass", sans-serif;
+  font-weight: 800;
+  margin-bottom: 1em;
+}
+.search_page .authors-search .stories-written {
+  display: flex;
+  justify-content: space-around;
+}
 
-.custom-restricted-width {
-        /* To limit the menu width to the content of the menu: */
-        display: inline-block;
-        /* Or set the width explicitly: */
-        width: 70%;
-        margin-left: 6em;
-          box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
-          border-radius: 15px;
 
-
-  }
 
 .main-text{
   border-bottom: 1px solid #f2f2f2;
