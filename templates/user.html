@@ -52,8 +52,9 @@
                 {% for book in published_books %}
                 <div class="bookdetails">
                     <div class="book">
-                        <img src={{book[3]}} alt="Book Cover" class="book-image" id="resized-image">
-                        <a href="/story/{{book[0]}}" class="book-link"></a>
+                        <a href="/story/{{book[0]}}" class="book-link">
+                            <img src={{book[3]}} alt="Book Cover" class="book-image" id="resized-image">
+                        </a>
                     </div>
                     <div class="details">
                         <div class="book-details-container">

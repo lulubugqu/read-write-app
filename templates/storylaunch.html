@@ -38,10 +38,10 @@
                     <option value="Fantasy" {% if book_details[6] == 'Fantasy' %} selected {% endif %}>Fantasy</option>
                     <option value="Action" {% if book_details[6] == 'Action' %} selected {% endif %}>Action</option>
                     <option value="Romance" {% if book_details[6] == 'Romance' %} selected {% endif %}>Romance</option>
-                    <option value="Comtemporary" {% if book_details[6] == 'Contemporary' %} selected {% endif %}>Contemporary</option>
+                    <option value="Contemporary" {% if book_details[6] == 'Contemporary' %} selected {% endif %}>Contemporary</option>
                     <option value="Horror" {% if book_details[6] == 'Horror' %} selected {% endif %}>Horror</option>
                     <option value="Comedy" {% if book_details[6] == 'Comedy' %} selected {% endif %}>Comedy</option>
-                    <option value="Sci-Fi" {% if book_details[6] == 'Contemporary' %} selected {% endif %}>Sci-Fi</option>		
+                    <option value="Sci-Fi" {% if book_details[6] == 'Sci-Fi' %} selected {% endif %}>Sci-Fi</option>		
                 </select>
                 </div>
                 
@@ -59,7 +59,7 @@
 
                 <span class="bttn">
                     <input class="button-editStory pure-button" type="submit" value="Save Changes" />
-                    <a href="/myworks/api/{{ book_details[0] }}/delete" class="pure-button" method="GET"> Delete Story </a>
+                    <a href="/myworks/api/{{ book_details[0] }}/delete" class="pure-button" method="GET" method="DELETE"> Delete Story </a>
                 </span>
                 
             </form>

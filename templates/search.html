@@ -14,9 +14,10 @@
     <div class="search-container"> 
         <div class="search-left-side"> 
             <div class="search-filter">
-            <form class="pure-form pure-form-aligned" id="save_search_filters" action="" method="POST">
+            <form class="pure-form pure-form-aligned" id="save_search_filters" action="/search/filter" method="GET">
+                <input type="hidden" name="search_query" value={{search}}>
                 <div class="filters"> 
-
+                    
                     <div class="filter-title">
                         Genre
                     </div>
