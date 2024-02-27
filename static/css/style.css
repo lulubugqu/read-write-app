@@ -8,12 +8,31 @@
 .base, .navbase, .launch, .profile, .home, .search_page, .first-login, .user , .storylaunch, .story, .storydetail, .new-chapter, .edit-chapter, .accessdenied {
   font-family: "Overpass", sans-serif;
   margin: 0px;
-  /* background-color: #ece0da; */
-  /* overflow: auto; */
-  /* margin-left:auto;
-  margin-right:auto;
-  width:960px; */
   border-radius: 15px;
+}
+/* font size for all pages */
+h1 {
+  font-size: 32px;
+}
+h2 {
+  font-size: 28px;
+}
+h3 {
+  font-size: 25px;
+}
+h4 {
+  font-size: 20px;
+}
+p {
+  font-size: 18px;
+}
+
+/* for book tag, specific to each page */
+.home p {
+  font-size: 11px;
+}
+.book-tag p {
+  font-size: 14px;
 }
 
 .launch {
@@ -138,7 +157,6 @@
 }
 .logo_wrap {
   flex: 5%;
-  /* width: auto; */
 }
 .profile_wrap {
   flex: 10%;
@@ -149,7 +167,6 @@
   flex: 10%;
   width: 60%; 
   margin-left: 2%;
-  /* margin-right: 1%; */
 }
 .logout {
   margin-left: 3%;
@@ -158,8 +175,8 @@
   flex: 5%;
   width: 60%; 
   margin-left: 3%;
-  /* margin-right: 1%; */
 }
+
 #out_button {
   margin-top: 0;
 }
@@ -182,7 +199,7 @@
 }
 
 .searchTerm {
-  font-family: 'Din Next Rounded LT', sans-serif;
+  /* font-family: 'Din Next Rounded LT', sans-serif; */
   width: 100%;
   border: 3px solid #9dc183;
   border-right: none;
@@ -450,6 +467,9 @@
   border-bottom: 1px solid #f2f2f2;
   margin-bottom: 1em;
 }
+.main-text h3 {
+  margin-left: 3%;
+}
 
 /*story launch */
 
@@ -498,15 +518,12 @@
   margin-top: 1em;
   width: 30%;
   margin-left: 24em;
-  /* background-color: #9DC183; */
   color: white;
   font-family: "Overpass", sans-serif;
   font-weight: 500;
-
   background-color: #88ad6d;
   border-radius: 10px;
   border: 0;
-  /* font-size: 100%; */
   color: white;
   cursor: pointer;
 
@@ -522,15 +539,31 @@
 
 
 
-.story-details{
+.story-details {
     border-bottom: 5px solid #9DC183;
     font-family: "Overpass", sans-serif;
     font-weight: 900;
     padding-bottom: 8px;
 }
-/* .create-book h3{
-  text-align: center;
-} */
+
+.story-details h4 {
+  margin: 2% 0 0 0;
+}
+.story-title h3 {
+  margin: 0;
+}
+.authors-name h4 {
+  margin: 2% 0 0 2%;
+}
+.story-description p {
+  font-size: 23px;
+  font-weight: 600;
+  margin: 2% 0 0 0;
+}
+.summary {
+  margin: 1% 0 0 2%;
+}
+
 .pure-form{
   padding: 2% 5%;
 
@@ -563,7 +596,7 @@ margin-bottom: 1em;
 .new-story-title label, .new-story-describtion label {
   display: block;
   font-family: "Overpass", sans-serif;
-    font-weight: 400;
+  /* font-weight: 400; */
 }
 .new-story-describtion textarea {
     width: 100%;
@@ -575,9 +608,8 @@ margin-bottom: 1em;
 .new-story-details .tags {
   margin-top: 2em;
   margin-bottom: 3em;
-
-
 }
+
 .new-story-details .tag-content {
   margin-top: 2em;
  
@@ -791,7 +823,7 @@ margin-bottom: 1em;
   margin-top: 1%;
 }
 #bar_username h2 {
-  margin-top: 3%;
+  margin-top: 4%;
 }
 /* User Bar */
 .info_bar {
@@ -950,10 +982,6 @@ a {
   text-decoration: none; 
 }
 
-a:hover {
-  text-decoration: underline; 
-}
-
 /* Home Page */
 
 .welcome-header {
@@ -965,29 +993,17 @@ a:hover {
   margin: 3% 0 0 4%;
 }
 
-.home .book-spotlight {
-  width: 75%;
-}
-
 .home .bookdetails {
   margin-top: 0 0 10% 5%;
 }
 
 .book-section1 h1 {
   font-size: 2em;
-  /* text-align: center; */
-  /* margin: 1%; */
   text-align: left;
   margin: 3% 0 0 6%;
 }
 
-
-.genre-spotlight:hover {
-  color: #7a9d60;
-}
-
 .home h3 {
-  /* font-size: 2em; */
   text-align: center;
   margin: 5%;
   font-weight: bold;
@@ -996,9 +1012,6 @@ a:hover {
 .book-section1 {
   height: auto;
   min-height: 55vh;
-  /* border-top: 3px solid #507337;
-  border-bottom: 3px solid #507337; */
-  /* background-color:#def0d2; */
 }
 
 .book-section {
@@ -1036,26 +1049,30 @@ a:hover {
 .home .books .book-tag-container {
   position: relative;
   z-index: 1000;
-  margin-bottom: -31.3px;
-  min-height: 15px;
-  height: 100%;
+  margin-bottom: -35.8px;
+  overflow: hidden;
+  min-height: 20px;
   background-color: rgba(0,0,0,.3);
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
   color: #fff;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  padding: 5% 0 5% 0;
 }
 
 .home .book-tag {
-  background-color: #eee;
-  color: #505050;
-  text-align: center;
-  padding: 1% 1.5%;
-  border-radius: 5px;
-  font-size: 14px;
+  height: min-content;
 }
 
 .home .book-tag p {
   margin: 0;
+  color: #505050;
+  text-align: center;
+  padding: 1% 1%;
+  border-radius: 5px;
+  font: 10px;
 }
 
 .home .book1details a {
@@ -1139,7 +1156,7 @@ a:hover {
 }
 
 /* .launch-book-tag {
-  background-color: green
+  background-color: green;
   color: black;
   text-align: center;
   padding: 1% 1.5%;
@@ -1153,7 +1170,7 @@ a:hover {
   text-align: center;
   padding: 1% 1.5%;
   border-radius: 5px;
-  font-size: x-small;
+  height: auto;
 }
 
 .book-tag p {
@@ -1168,21 +1185,8 @@ a:hover {
   color: #ffffff;
   margin-top: 20px;
   width: 30%; 
-  /* height: 250px; */
   margin-left: 10px;
 }
-
-/* .bookdetails .book {
-  background-color: #7a9d60;
-  width: 50%;
-  height: 215px;
-  margin: 15px;
-  border-radius: 10px;
-} */
-
-/* .bookdetails .book h3 {
-  margin-top: 20px;
-} */
 
 .details {
   margin: 10px;
@@ -1203,19 +1207,9 @@ a:hover {
   display: flex;
 }
 
-.user .book-tag-container {
-  background-color: transparent;
-  flex: 85%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: left;
-  gap: 5px;
-  padding: 0%;
-}
-
 .user .continue-writing-container {
-  flex: 7%;
-  margin-left: 20%;
+  flex: 10%;
+  margin: 1% 0 0 20%;
   color: #507337;
 }
 
@@ -1270,12 +1264,13 @@ a:hover {
 }
 
 .user .book-details-container {
-  min-height: 75%;
+  min-height: 68%;
 }
 
 .user .details .book-tag-container {
   background-color: transparent;
   width: 60%;
+  flex: 85%;
   display: flex;
   flex-wrap: wrap;
   justify-content: left;

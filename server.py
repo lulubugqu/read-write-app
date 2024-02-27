@@ -181,11 +181,11 @@ def home(current_user):
     print(logged_in)
 
     top_5_books = top5()
-    rand_genre = random.randint(0, 7)
+    rand_genre = random.randint(0, 6)
     genre = ""
     match rand_genre:
         case 0:
-            genre = "Action"
+            genre = "Fantasy"
         case 1: 
             genre = "Action"
         case 2:
