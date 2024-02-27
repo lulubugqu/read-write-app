@@ -181,11 +181,11 @@ def home(current_user):
     print(logged_in)
 
     top_5_books = top5()
-    rand_genre = random.randint(0, 7)
+    rand_genre = random.randint(0, 6)
     genre = ""
     match rand_genre:
         case 0:
-            genre = "Action"
+            genre = "Fantasy"
         case 1: 
             genre = "Action"
         case 2:
@@ -197,7 +197,7 @@ def home(current_user):
         case 5: 
             genre = "Comedy"
         case 6:
-            genre = "SciFi"
+            genre = "Sci-Fi"
     top_5_genre = top5genre(genre)
     if logged_in:
         print(current_user)
@@ -325,9 +325,13 @@ def updateOverview(book_id):
     tags = request.form.get('tags')
     summary = request.form.get('summary')
     image = request.form.get('book_image')
-    with get_db_cursor() as cursor:
-        cursor.execute("UPDATE books SET title = %s, genre = %s, tags = %s, summary = %s, picture_url = %s WHERE book_id = %s", (book_title, genre, tags, summary, image, book_id))
-    return redirect(url_for('storyoverview', book_id=book_id))
+    current_user = get_current_user()
+    logged_in = authenticate_user(current_user)
+    print(logged_in)
+    if logged_in:
+        with get_db_cursor() as cursor:
+            cursor.execute("UPDATE books SET title = %s, genre = %s, tags = %s, summary = %s, picture_url = %s WHERE book_id = %s", (book_title, genre, tags, summary, image, book_id))
+    return redirect(url_for('getUser', username=current_user))
 
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
 def editChapter(book_id, chapter_id):
@@ -513,7 +517,10 @@ def search():
     if user_query_results != [] and user_query_results[0] != '':
         for user_id in user_query_results:
             user_info = get_user_details(user_id)
+            # published_books =  user_info[4].split(", ")
+            # library_books = user_info[5].split(", ")
             user_results.append(user_info)
+        
 
     current_user = get_current_user()
     return render_template("search.html", search=search_query, current_user=current_user, logged_in=logged_in, book_results=book_results, user_results=user_results)
