@@ -607,7 +607,7 @@ def filter_search():
     form_default = []
 
 
-    default_genres = ["Action", "Adventure", "Fantasy", "Romance", "Crime", "Historical"]
+    default_genres = ["Action", "Horror", "Fantasy", "Romance", "Comedy", "Sci-Fi", "Contemporary"]
     chosen_genres = ["none"]
     for genre in default_genres:
         if request.args.get(genre) == "On":
