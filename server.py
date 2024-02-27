@@ -1,26 +1,25 @@
 # server.py
 
+# Import statements
+from flask import Flask, render_template, request, url_for, flash, redirect, session
 from flask import jsonify
-import random
-from os import environ as env
-from urllib.parse import quote_plus, urlencode
-
 from authlib.integrations.flask_client import OAuth
 from functools import wraps
-
-import psycopg2, os
+from os import environ as env
+from urllib.parse import quote_plus, urlencode
+import psycopg2
+import random
+import os
 from psycopg2.pool import ThreadedConnectionPool
 from psycopg2.extras import DictCursor
 from contextlib import contextmanager
 
-from flask import Flask, render_template, request, url_for, flash, redirect, session
-
-app = Flask(__name__)
+# Initialize Flask app
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = env.get("FLASK_SECRET")
 
+# Initialize OAuth for authentication
 oauth = OAuth(app)
-
 oauth.register(
     "auth0",
     client_id=env.get("AUTH0_CLIENT_ID"),
@@ -38,7 +37,6 @@ def setup():
     DATABASE_URL = os.getenv("DATABASE_URL")
     pool = ThreadedConnectionPool(1, 100, dsn=DATABASE_URL, sslmode='require')
 
-
 @contextmanager
 def get_db_connection():
     try:
@@ -46,7 +44,6 @@ def get_db_connection():
         yield connection
     finally:
         pool.putconn(connection)
-
 
 @contextmanager
 def get_db_cursor(commit=True):
@@ -63,37 +60,23 @@ def get_db_cursor(commit=True):
 def initialize():
     setup()
 
-
+# Authentication Functions
 def authenticate_user(requested_user):
-
-    # first, see if any user is logged in
-    # if not, return access denied
     try: 
         current_user_session = session["user"]
     except:
         return False
-    
-    
-    # then, check if its the correct user
     current_user_email = current_user_session.get("userinfo").get("name")
     with get_db_cursor() as cursor:
         cursor.execute("SELECT username FROM users WHERE email = %s", (current_user_email,))
         current_username = cursor.fetchone()
-
-    if (requested_user != current_username[0]):
-        return False
-    
-    return True
+    return (requested_user == current_username[0])
 
 def authenticate_book(requested_book):
-    # first, see if any user is logged in
-    # if not, return access denied
     try: 
         current_user_session = session["user"]
     except:
         return False
-
-    # then, check if the user has access to their book
     current_user_email = current_user_session.get("userinfo").get("name")
     with get_db_cursor() as cursor:
         cursor.execute("SELECT user_id FROM users WHERE email = %s", (current_user_email,))
@@ -101,13 +84,7 @@ def authenticate_book(requested_book):
         cursor.execute("SELECT * FROM books WHERE book_id = %s AND user_id = %s", (requested_book, current_user_id))
         selected_book = cursor.fetchall()
 
-    print(current_user_id)
-    print(requested_book)
-    print(selected_book)
-    if (len(selected_book) == 1):
-        return True
-    
-    return False
+    return (len(selected_book) == 1)
 
 def get_current_user():
     try:
@@ -115,7 +92,7 @@ def get_current_user():
         with get_db_cursor() as cursor:
             cursor.execute("SELECT username FROM users WHERE email = %s", (user_email,))
             current_username = cursor.fetchone()[0]
-            return current_username
+        return current_username
     except:
         return "guest"
 
@@ -147,7 +124,6 @@ def callback():
         return render_template("first-login.html", email=user_email)
 
 
-
 # clears the user session in your app and redirects to the Auth0 logout endpoint 
 @app.route("/logout")
 def logout():
@@ -175,10 +151,7 @@ def firstLogin():
 
 @app.route("/home/<string:current_user>")
 def home(current_user):
-    
     logged_in =  authenticate_user(current_user)
-
-    print(logged_in)
 
     top_5_books = top5()
     rand_genre = random.randint(0, 6)
@@ -200,43 +173,68 @@ def home(current_user):
             genre = "Sci-Fi"
     top_5_genre = top5genre(genre)
     if logged_in:
-        print(current_user)
         user_library = userlibrary(current_user)
     else:
         user_library = []
     return render_template("home.html", top_5_books=top_5_books, top_5_genre=top_5_genre, user_library=user_library, genre=genre, current_user=current_user, logged_in=logged_in)
 
-@app.route("/story/<int:storyId>/<int:chapterNum>/")
-def getStory(storyId, chapterNum):
-    print("getting chapter")
+## Home Page Helper Functions
+def top5():
     with get_db_cursor() as cursor:
-        cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (storyId, chapterNum))
-        chapter_content = cursor.fetchone()
-        print(chapter_content)
+        cursor.execute( "SELECT * FROM books ORDER BY num_saved DESC LIMIT 5")
+        top_5 = cursor.fetchall()
+    return top_5
 
-        cursor.execute("SELECT title FROM books WHERE book_id = %s", (storyId,))
+def top5genre(genre):
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT * FROM books WHERE LOWER(genre) = LOWER(%s) ORDER BY num_saved DESC LIMIT 5", (genre,))
+        top_5 = cursor.fetchall()
+    return top_5
+
+def userlibrary(current_user):
+    if not authenticate_user(current_user):
+        return render_template("accessdenied.html")
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT library_books FROM users WHERE username = %s", (current_user,))
+        library_books = cursor.fetchone()[0]
+
+    library_books = library_books.split(", ")
+
+    library_books_info = []
+
+    if library_books[0] != '':
+        for book_id in library_books:
+            book_info = get_book_details(book_id)
+            library_books_info.append(book_info)
+
+    return library_books_info
+
+@app.route("/story/<int:book_id>/<int:chapter_num>/")
+def getstory(book_id, chapter_num):
+    current_user = get_current_user()
+    logged_in = authenticate_user(current_user)
+    with get_db_cursor() as cursor:
+        cursor.execute("SELECT content FROM chapters WHERE book_id = %s AND chapter_id = %s", (book_id, chapter_num))
+        chapter_content = cursor.fetchone()
+
+        cursor.execute("SELECT title FROM books WHERE book_id = %s", (book_id,))
         book_title = cursor.fetchone()
 
-        cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (storyId,))
+        cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (book_id,))
         num_chapters = cursor.fetchone()
 
-        cursor.execute("SELECT user_id FROM books WHERE book_id = %s", (storyId,))
+        cursor.execute("SELECT user_id FROM books WHERE book_id = %s", (book_id,))
         author_id = cursor.fetchone()
 
         cursor.execute("SELECT username FROM users WHERE user_id = %s", (author_id))
         author_name = cursor.fetchone()
 
-    current_user = get_current_user()
-    return render_template("story.html", author_id = author_id, author_name = author_name, storyId = storyId, chapterNum = chapterNum, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters, current_user=current_user)
+    return render_template("story.html", author_id = author_id, author_name = author_name, book_id = book_id, chapter_num = chapter_num, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters, current_user=current_user, logged_in=logged_in)
 
-
-@app.route("/story/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE - USER (NOT AUTHOR) ACESSS )
-# this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
+@app.route("/story/<int:book_id>", methods=["GET"])
 def storydetail(book_id): 
     current_user = get_current_user()
-    print(current_user)
     logged_in = authenticate_user(current_user)
-    print(logged_in)
     book_details = get_book_details(book_id) 
     if logged_in: 
         with get_db_cursor() as cursor:
@@ -244,14 +242,9 @@ def storydetail(book_id):
             library_books = cursor.fetchone()[0]
             library_books = library_books.split(", ")
             is_in_library = str(book_id) in library_books
-            
             author_id = book_details[1]
-            print("author_id", author_id)
             cursor.execute("SELECT username FROM users WHERE user_id = %s", (author_id,))
             author_name = cursor.fetchone()
-            print("book details", book_details)
-
-            print("author", author_name)
     else:
         library_books = []
         is_in_library = False
@@ -259,6 +252,7 @@ def storydetail(book_id):
     current_user=get_current_user()
     return render_template("storydetail.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library, current_user=current_user, author_name=author_name)
 
+# story helper functions
 def get_book_details(book_id):
     with get_db_cursor() as cursor:
         cursor.execute("SELECT * FROM books WHERE book_id = %s", (book_id,))
@@ -273,13 +267,10 @@ def get_chapter_details(book_id, chapter_id):
 
 
 @app.route("/user/<string:username>")
-def getUser(username):
-    ## AUTHENTICATE USER
+def get_user_profile(username):
     logged_in = authenticate_user(username)
-
-    nav_logged_in = (get_current_user() != "guest")
-
-    print("getting user")
+    current_user = get_current_user()
+    nav_logged_in = (current_user != "guest")
     with get_db_cursor() as cursor:
         cursor.execute("SELECT * FROM users WHERE username = %s", (username,))
         user_info = cursor.fetchone()
@@ -301,22 +292,15 @@ def getUser(username):
             book_info = get_book_details(book_id)
             library_books_info.append(book_info)
 
-    current_user = get_current_user()
     return render_template("user.html", user_id = user_id, logged_in=logged_in, username = username, bio = bio, published_books = published_books_info, library_books = library_books_info, current_user=current_user, nav_logged_in=nav_logged_in)
 
-
-
-## STORY EDITING PAGES - OVERVIEW AND WRITING PAGE
-
-
-@app.route("/myworks/<int:book_id>", methods=["GET"])    #(STORY OVERVIEW PAGE - AUTHOR ACCESS)
-# this is a page where the user can customize their book details. I.E., title, image, summary, genre, tags, etc. They can also create a new chapter, edit a chapter, etc. If the book already exists, the info will be prefilled from database. If not, the form is just empty.  
+@app.route("/myworks/<int:book_id>", methods=["GET"]) # Author Editing
 def storyoverview(book_id): 
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
     book_details = get_book_details(book_id)    
     current_user = get_current_user()
-    return render_template("storylaunch.html", book_details = book_details, current_user=current_user)
+    return render_template("storylaunch.html", book_details = book_details, current_user=current_user, logged_in=True)
 
 @app.route("/myworks/api/updatebook/<int:book_id>", methods=["POST"])
 def updateOverview(book_id):
@@ -329,15 +313,13 @@ def updateOverview(book_id):
     image = request.form.get('book_image')
     current_user = get_current_user()
     logged_in = authenticate_user(current_user)
-    print(logged_in)
     if logged_in:
         with get_db_cursor() as cursor:
             cursor.execute("UPDATE books SET title = %s, genre = %s, tags = %s, summary = %s, picture_url = %s WHERE book_id = %s", (book_title, genre, tags, summary, image, book_id))
-    return redirect(url_for('getUser', username=current_user))
+    return redirect(url_for('get_user_profile', username=current_user))
 
-@app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])   #(EDITING CHAPTER PAGE)
+@app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])
 def editChapter(book_id, chapter_id):
-    # this is similar to the story page Shriya made, but it can edit the text and save to publish the chapter. If the chapter is new, it'll already be in the database but with empty content. SO either way, just display the content. 
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
     with get_db_cursor() as cursor:
@@ -351,12 +333,11 @@ def editChapter(book_id, chapter_id):
         num_chapters = cursor.fetchone()
     
     current_user = get_current_user()
-    return render_template("saveChapter.html", book_id = book_id, chapterNum = chapter_id, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters, current_user=current_user)
-    
+    return render_template("saveChapter.html", book_id = book_id, chapterNum = chapter_id, chapter_content =  chapter_content, book_title = book_title, num_chapters = num_chapters, current_user=current_user, logged_in=True)
 
-
+# APIs for story overview and writing page
 @app.route("/myworks/api/<int:book_id>/delete", methods=["GET", "DELETE"])
-def deleteStory(book_id):
+def deletestory(book_id):
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
     current_user = get_current_user()
@@ -368,7 +349,6 @@ def deleteStory(book_id):
         published_library_books = published_library.split(", ") if published_library else []
         if str(book_id) in published_library_books:
             published_library_books.remove(str(book_id))
-            print("Deleting published book from library")
         
         updated_list = ", ".join(published_library_books)
         cursor.execute("UPDATE users SET published_books = %s WHERE username = %s", (updated_list, current_user))
@@ -385,20 +365,17 @@ def deleteStory(book_id):
                 updated_library = ", ".join(map(str, library_books))
                 cursor.execute("UPDATE users SET library_books = %s WHERE username = %s", (updated_library, username))
 
-    return redirect(url_for('getUser', username=current_user))
+    return redirect(url_for('get_user_profile', username=current_user))
 
-
-# APIs for story overview and writing page
 @app.route("/myworks/api/newbook/<int:user_id>", methods=["POST"])
 def create_new_book(user_id): 
     with get_db_cursor() as cursor:
         cursor.execute("SELECT username FROM users WHERE user_id = %s", (user_id,))
         current_username = cursor.fetchone()[0]
-    print(current_username)
     if not authenticate_user(current_username):
         return render_template("accessdenied.html")
     default_title = 'Untitled Story'
-    default_image_url = 'https://thumbs.dreamstime.com/b/paper-texture-smooth-pastel-pink-color-perfect-background-uniform-pure-minimal-photo-trendy-149575202.jpg'
+    default_image_url = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-_sWn0slVMyhl_bQJ3vGYbFK0c3o5_8zoWA&usqp=CAU'
     with get_db_cursor() as cursor:
         cursor.execute("INSERT INTO books (user_id, title, picture_url, num_chapters, genre, tags, summary) VALUES (%s, %s, %s, %s, %s, %s, %s)", (user_id, default_title, default_image_url,1, '', '', ''))
         cursor.execute("SELECT LASTVAL()")
@@ -429,19 +406,16 @@ def save_book(book_id):
         if book_id in library_books_list:
             library_books_list.remove(book_id)
             num_saved -= 1
-            print("Removing book from library")
         else:
-            print("adding book to library")
             library_books_list.append(book_id)
             num_saved += 1
         updated_library_books = ", ".join(library_books_list)
         cursor.execute("UPDATE users SET library_books = %s WHERE username = %s", (updated_library_books, current_user))
         cursor.execute("UPDATE books SET num_saved = %s WHERE book_id = %s", (num_saved, book_id))
-    return storydetail(book_id = book_id)
+    return redirect(f"/story/{book_id}")
 
-        
 @app.route("/myworks/api/<book_id>/<chapter_id>/updatechapter", methods=["POST"])
-def updatechapter(book_id, chapter_id):
+def update_chapter(book_id, chapter_id):
     if not (authenticate_book(book_id)):
         return render_template("accessdenied.html")
     updated_content = request.form.get('chapter_content')
@@ -453,45 +427,19 @@ def updatechapter(book_id, chapter_id):
         else:
             cursor.execute("INSERT INTO chapters (chapter_id, book_id, content) VALUES (%s, %s, %s)", (chapter_id, book_id, updated_content))
             cursor.execute("UPDATE books SET num_chapters = num_chapters + 1 WHERE book_id = %s", (book_id,))
-    return storyoverview(book_id)
-    
+    return redirect(f"/myworks/{book_id}")
 
-# @app.route("/myworks/api/<int:book_id>/delete", methods=["DELETE"])
-# book is deleted from database. 
-# called when "delete" is clicked on the story detail page. 
 
 @app.route("/myworks/api/<book_id>/<chapter_id>/delete", methods=["GET"])
-# this can be done last, we don't need it. 
-# book chapter is deleted from database. 
-# called when "delete" chpater is clicked from the story detail page. 
-def deleteChapter(book_id, chapter_id):
-    print("deleting chapter")
+def deletechapter(book_id, chapter_id):
     with get_db_cursor() as cursor: 
         cursor.execute("SELECT num_chapters FROM books WHERE book_id = %s", (book_id,))
         num_chapters = cursor.fetchone()[0]
         cursor.execute("DELETE FROM chapters WHERE chapter_id = %s AND book_id = %s", (chapter_id, book_id))
         num_chapters -= 1
         cursor.execute("UPDATE books SET num_chapters = %s WHERE book_id = %s", (num_chapters, book_id))
-    return storyoverview(book_id = book_id)
+    return redirect(f"/myworks/{book_id}")
 
-
-## HOME PAGE APIs
-@app.route("/api/top5", methods=["GET"])
-def top5():
-    with get_db_cursor() as cursor:
-        cursor.execute( "SELECT * FROM books ORDER BY num_saved DESC LIMIT 5")
-        top_5 = cursor.fetchall()
-    return top_5
-
-@app.route("/api/top5/<string:genre>", methods=["GET"])
-def top5genre(genre):
-    with get_db_cursor() as cursor:
-        cursor.execute("SELECT * FROM books WHERE LOWER(genre) = LOWER(%s) ORDER BY num_saved DESC LIMIT 5", (genre,))
-        top_5 = cursor.fetchall()
-    return top_5
-
-
-# Need to add more later !!!
 @app.route("/search/", methods=["GET"])
 @app.route("/search", methods=["GET"])
 def search():
@@ -522,44 +470,31 @@ def search():
     current_user = get_current_user()
     return render_template("search.html", search=search_query, current_user=current_user, logged_in=logged_in, book_results=book_results, user_results=user_results)
 
+# SEARCH HELPER FUNCTIONS
 def get_book_id_results(search_query):
-    
     results = []
 
-    # Search in chapters database and return book_ids
+    # Search in chapters, book descriptions, book titles, and user books in a single query
     with get_db_cursor() as cursor:
-        chapters_query = """
-            SELECT DISTINCT book_id FROM chapters
-            WHERE to_tsvector('english', content) @@ plainto_tsquery('english', %s)
+        combined_query = """
+            SELECT DISTINCT book_id FROM (
+                SELECT book_id FROM chapters
+                WHERE to_tsvector('english', content) @@ plainto_tsquery('english', %s)
+                UNION
+                SELECT book_id FROM books
+                WHERE to_tsvector('english', summary) @@ plainto_tsquery('english', %s)
+                UNION
+                SELECT book_id FROM books
+                WHERE to_tsvector('english', title) @@ plainto_tsquery('english', %s)
+                UNION
+                SELECT book_id FROM books
+                WHERE user_id IN (SELECT user_id FROM users WHERE to_tsvector('english', username) @@ plainto_tsquery('english', %s))
+            ) AS combined_results
         """
-        cursor.execute(chapters_query, (search_query,))
+        cursor.execute(combined_query, (search_query, search_query, search_query, search_query))
         results.extend([row[0] for row in cursor.fetchall()])
 
-        # Search in book descriptions and return book_ids
-        book_descriptions_query = """
-            SELECT book_id FROM books
-            WHERE to_tsvector('english', summary) @@ plainto_tsquery('english', %s)
-        """
-        cursor.execute(book_descriptions_query, (search_query,))
-        results.extend([row[0] for row in cursor.fetchall()])
-
-        # Search in book titles and return book_ids
-        book_titles_query = """
-            SELECT book_id FROM books
-            WHERE to_tsvector('english', title) @@ plainto_tsquery('english', %s)
-        """
-        cursor.execute(book_titles_query, (search_query,))
-        results.extend([row[0] for row in cursor.fetchall()])
-
-        # Search for books written by the specified user
-        user_books_query = """
-            SELECT book_id FROM books
-            WHERE user_id IN (SELECT user_id FROM users WHERE to_tsvector('english', username) @@ plainto_tsquery('english', %s))
-        """
-        cursor.execute(user_books_query, (search_query,))
-        results.extend([row[0] for row in cursor.fetchall()])
-    
-    # gets rid of duplicate results, but sorts by most common result
+    # Remove duplicates and sort by frequency
     counts = {x: results.count(x) for x in results}
     unique_sorted_results = sorted(counts.keys(), key=lambda x: counts[x], reverse=True)
 
@@ -600,7 +535,6 @@ def filter_search():
     chapterRange = request.args.get("chapterRange")
     savedRange = request.args.get("range")
     tags = request.args.get("tags").split(", ")
-    print(tags)
 
     default_genres = ["Action", "Horror", "Fantasy", "Romance", "Comedy", "Sci-Fi", "Contemporary"]
     chosen_genres = ["none"]
@@ -641,7 +575,6 @@ def filter_search():
         cursor.execute(query, (tags, tuple(chosen_genres)))
         filtered_book_results = [row[0] for row in cursor.fetchall()]
 
-    print(filtered_book_results)
     book_results = []
 
     with get_db_cursor() as cursor:
@@ -663,17 +596,12 @@ def filter_search():
     current_user = get_current_user()
     return render_template("search.html", search=search_query, current_user=current_user, logged_in=logged_in, book_results=book_results, user_results=user_results)
 
-
-
 # USER RELATED APIs
 @app.route("/api/adduser", methods=["POST"])
 def adduser():
     username = request.form.get('stacked-name')
     bio = request.form.get('stacked-bio')
     email = request.form.get('email')
-
-    # Print or do something with the data
-    print(f"Username: {username}, Bio: {bio}, Emai: {email}")
 
     with get_db_cursor() as cursor:
         cursor.execute("""
@@ -683,25 +611,5 @@ def adduser():
         """, (username, bio, email, '', ''))
 
     return redirect(f"/home/{username}")
-    
 
-@app.route("/api/userlibrary/<string:current_user>")
-def userlibrary(current_user):
-    # current_user_email = currentuser()['email'] #assuming current users returns a JSON
-    if not authenticate_user(current_user):
-        return render_template("accessdenied.html")
-    with get_db_cursor() as cursor:
-        cursor.execute("SELECT library_books FROM users WHERE username = %s", (current_user,))
-        library_books = cursor.fetchone()[0]
-
-    library_books = library_books.split(", ")
-
-    library_books_info = []
-
-    if library_books[0] != '':
-        for book_id in library_books:
-            book_info = get_book_details(book_id)
-            library_books_info.append(book_info)
-
-    return library_books_info
 
