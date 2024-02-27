@@ -509,8 +509,6 @@ def search():
                 book_info.append(username)
                 book_results.append(book_info)
     
-    print(book_results)
-
     user_query_results = get_user_id_results(search_query)
     user_results = []
 
@@ -600,7 +598,7 @@ def filter_search():
     search_query = request.args.get("search_query")
     chapterRange = request.args.get("chapterRange")
     savedRange = request.args.get("range")
-    tags = request.args.get("tags")
+    tags = request.args.get("tags").split(", ")
     print(tags)
 
     default_genres = ["Action", "Horror", "Fantasy", "Romance", "Comedy", "Sci-Fi", "Contemporary"]
@@ -609,15 +607,14 @@ def filter_search():
         if request.args.get(genre) == "On":
             chosen_genres.append(genre)
 
-    print(request)
-
     current_books = get_book_id_results(search_query)
 
     # get a list of books where the book_id is in the book_results list
     # AND the genre of the book is in the chosen_genres list
     with get_db_cursor() as cursor:
+        # query for everything but tags 
         query = """
-            SELECT DISTINCT b.book_id
+            SELECT b.book_id
             FROM books b
             JOIN chapters c ON b.book_id = c.book_id
             WHERE (b.num_chapters <= %s)
@@ -628,6 +625,22 @@ def filter_search():
         cursor.execute(query, (chapterRange, tuple(chosen_genres), savedRange, tuple(current_books)))
         filtered_book_results = [row[0] for row in cursor.fetchall()]
 
+        # query for tags
+        query = """
+            SELECT book_id
+            FROM books
+            WHERE (
+                SELECT COUNT(*)
+                FROM unnest(string_to_array(tags, ', ')) AS book_tag
+                WHERE book_tag = ANY(%s)
+            ) > 0
+            AND genre IN %s
+        """
+
+        cursor.execute(query, (tags, tuple(chosen_genres)))
+        filtered_book_results = [row[0] for row in cursor.fetchall()]
+
+    print(filtered_book_results)
     book_results = []
 
     with get_db_cursor() as cursor:
