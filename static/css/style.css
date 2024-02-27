@@ -1075,9 +1075,8 @@ a {
 .home .books .book-tag-container {
   position: relative;
   z-index: 1000;
-  margin-bottom: -35.8px;
+  margin-bottom: -37.8px;
   overflow: hidden;
-  min-height: 20px;
   background-color: rgba(0,0,0,.3);
   border-top-left-radius: 15px;
   border-top-right-radius: 15px;
@@ -1098,7 +1097,7 @@ a {
   text-align: center;
   padding: 1% 1%;
   border-radius: 5px;
-  font: 10px;
+  font: 11px;
 }
 
 .home .book1details a {
