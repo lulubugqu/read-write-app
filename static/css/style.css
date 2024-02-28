@@ -297,20 +297,16 @@ p {
 
 .search-container {
     display: flex;
-    /* max-width: 90%; */
-    flex-direction: row; /* Arrange items horizontally */
+    flex-direction: row;
     
 }
 
 .search-left-side {
-    /* Styles for column 1 */
     flex: 30%;
-    /* background-color: lightblue; */
 }
 
 
 .search-right-side {
-    /* Styles for column 2 */
     flex: 70%;
     
 }
@@ -328,10 +324,7 @@ p {
   margin-bottom: 1em;
   border-bottom: 1px #f7f7f7;
   display: block;
-    /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; */
-
-    /* border-bottom: 1px black; */
-
+    
 }
 .filter-title {
   margin: 6px;
@@ -380,26 +373,6 @@ p {
     margin-bottom: 8px;
 
 }
-/* .search-right-side .search-bookdetails {
-    background-color: #cce3bb;
-    border: 0px;
-    border-radius: 15px;
-    display: flex;
-    color: #ffffff;
-  flex: 70%;
-    margin-bottom: 2%;
-        padding: 8px;
-
-} */
-/* .search-right-side .search-bookdetails .search-book {
-    background-color: #7a9d60;
-    font-family: 'DM Sans', sans-serif;
-    width: 20%;
-    height: 90%;
-            padding: 8px;
-
-    border-radius: 10px;
-} */
 
 
 .search-results{
@@ -409,7 +382,6 @@ p {
  
   border-radius: 1em;
   flex-wrap: wrap;
-  /* box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px; */
 }
 
 .search_page .bookdetails {
@@ -422,9 +394,12 @@ p {
 .search_page a {
   cursor: pointer;
 }
+.search_page a:hover{
+  color:rgb(104, 103, 103);
+}
 .search_page .book-details-container a {
   position: relative;
-
+  
 }
 .search_page .bookdetails .book img {
     margin: 5% 0 10% 10%;
@@ -442,6 +417,7 @@ p {
 }
 .search_page .book-details-container .authors-name{
   margin-left: 10em;
+  
 }
 
 .search_page .book-details-bottom {
@@ -469,7 +445,6 @@ p {
   border-radius: 15px;
   width: 90%;
   margin-left: 10px;
-
   box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
 
 
@@ -477,13 +452,22 @@ p {
 .search_page .authors-search .authors-name{
   min-height: 50%;
   margin: 0 auto;
-  font-family: "Overpass", sans-serif;
-  font-weight: 800;
-  margin-bottom: 1em;
+  /* font-family: "Overpass", sans-serif; */
+  font-weight: 700;
+  /* margin-bottom: 0.5em; */
+  font-size: 24px;
 }
+.search_page .authors-search .authors-name a {
+  font-weight: 700;
+  /* margin-bottom: 0.5em; */
+  font-size: 22px;
+}
+
 .search_page .authors-search .stories-written {
   display: flex;
   justify-content: space-around;
+    font-weight: 600;
+  font-size: 17px;
 }
 
 
@@ -500,8 +484,6 @@ p {
 
 .detail-container {
     display: flex;
-    /* flex-direction: row; Arrange items horizontally */
-    /* width: 80%; */
     width: 960px;
   
     margin-right: auto;
@@ -527,12 +509,10 @@ p {
 .create-book img{
   font-family: 'DM Sans', sans-serif;
   width: 250px;
-  /* height: 250px; */
   margin: 10px;
   margin-left: 20px;
 
   height: 320px;
-    /* width: 195px; */
     background-color: #eee;
     border: 1px solid #eee;
     margin: 0 auto;
@@ -577,8 +557,9 @@ p {
 .story-title h3 {
   margin: 0;
 }
-.authors-name h4 {
-  margin: 2% 0 0 2%;
+.authors-name {
+  margin: 2% 0 0 0%;
+  font-weight: 800;
 }
 .story-description p {
   font-size: 23px;
@@ -608,7 +589,6 @@ p {
     justify-content: center;
     margin-bottom: 2em;
     border-radius: 15px;
-    /* margin-left: em; */
 
 
 }
@@ -621,7 +601,6 @@ margin-bottom: 1em;
 .new-story-title label, .new-story-describtion label {
   display: block;
   font-family: "Overpass", sans-serif;
-  /* font-weight: 400; */
 }
 .new-story-describtion textarea {
     width: 100%;
@@ -642,27 +621,7 @@ margin-bottom: 1em;
 .tag-content input[type="checkbox"] {
   display: none;
 }
-.tag-content input[type="checkbox"] + label {
-   display:inline-block; /* or block */
-   line-height:normal;
-   cursor:pointer;
-   padding: 3px 14px;
-   background-color: #EFEFEF;
-   border-radius: 80px;
-   border: 1px solid #D0D0D0;
-   margin-right: 2em;
-}
 
-.tag-content input[type="checkbox"] + label:hover {
-   border-color: #000;
-   background-color: rgb(104, 103, 103);
-   color: #fff;
-}
-.tag-content input[type="checkbox"]:checked + label {
-   border-color: #000;
-   background-color: #888;
-   color: #fff;
-}
 
 .table-of-content {
   box-shadow: 0 1px 10px 0 rgba(34,34,34,.08), 0 4px 5px 0 rgba(34,34,34,.1);
@@ -671,19 +630,14 @@ margin-bottom: 1em;
 
 }
 .chapter-lst{
-  /* border-bottom: 5px solid #c4dfb1; */
-    /* font-weight: 600;
-    padding-bottom: 15px; */
+  
     margin-top: 1em;
 
 }
 /*story launch */
 
 /*story detail */
-/* .story-details{
-  font-family: "Overpass", sans-serif;
-  font-weight: 900;
-} */
+
 
 .chapters{
     padding: 15px 10px 15px 10px;
@@ -693,35 +647,29 @@ margin-bottom: 1em;
     background-color: #E8E8E8;
     border-radius: 10px;
     cursor: pointer;
+    color: black;
+    font-weight: 700;
 }
-.chapters {
-  color: black;
+.chapters:hover {
+  background-color: #9DC183;
+
 }
 .chapters span{
   width: 40%;
   margin-left: 60%;
 }
 .table-of-content .pure-button{
-  /* width: 30%; */
-  /* background-color: #9DC183; */
+  
   color: white;
   font-family: "Overpass", sans-serif;
   font-weight: 500;
 
   background-color: #88ad6d;
-    border-radius: 10px;
-        cursor: pointer;
-
-    /* border: 0; */
-    /* font-size: 100%; */
+  border-radius: 10px;
+  cursor: pointer;
 
 }
-/* .table-of-content{
-      border-bottom: 5px solid #c4dfb1;
-    font-weight: 600;
-    padding-bottom: 15px;
-    margin-bottom: 1em;
-} */
+
 
 
 /*story detail */
@@ -740,18 +688,16 @@ margin-bottom: 1em;
 .storyContent .pure-button {
   margin-top: 1em;
   width: 30%;
-  /* margin-left: 24em; */
-  /* background-color: #9DC183; */
+  
   color: white;
   font-family: "Overpass", sans-serif;
   font-weight: 500;
 
   background-color: #88ad6d;
-    border-radius: 10px;
-    border: 0;
-    /* font-size: 100%; */
-    color: white;
-        cursor: pointer;
+  border-radius: 10px;
+  border: 0;
+  color: white;
+  cursor: pointer;
 
 
 }
@@ -761,8 +707,6 @@ margin-bottom: 1em;
 /* story detail*/
 .overview-container{
   display: flex;
-    /* flex-direction: row; Arrange items horizontally */
-    /* width: 80%; */
     width: 960px;
   flex-direction: column;
     margin-right: auto;
@@ -784,8 +728,6 @@ margin-bottom: 1em;
 .overview-bottom-half{
       flex: 65%;
 
-
-  
 }
 .overview-top-half .overview-left-side{
   flex: 35%;
@@ -794,7 +736,6 @@ margin-bottom: 1em;
 .overview-top-half .overview-right-side{
       flex: 65%;
 
-  
 }
 
 
@@ -809,16 +750,11 @@ margin-bottom: 1em;
   font-weight: 600;
 }
 
-.storydetail .bookmark {
+
+.storydetail #save_to_library{
   cursor: pointer;
-  margin-left: 40em;
+
 }
-/* .storydetail .bookmark .bookmark-bttn {
-  display: block;
-    height: 50%;
-
-
-} */
 
 /* story detail */
 

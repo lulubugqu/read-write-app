@@ -21,24 +21,8 @@
             <div class="story-overview">
                     
                 <div class="story-details">
-                    <span> 
                     <h4>Story Details</h4>
 
-                    {% if logged_in %}
-                    <div class="bookmark">
-
-                        <form id="save_to_library" action="{{ url_for('save_book', book_id=book_details[0]) }}" method="POST">
-                            <a id="save_to_library" onclick="document.getElementById('save_to_library').submit();" alt="save to library">
-                                {% if is_in_library %}
-                                <i class="fa-solid fa-bookmark fa-xl"></i>
-                                {% else %}
-                                <i class="far fa-bookmark fa-xl"></i>
-                                {% endif %}
-                            </a>
-                        </form>
-                    </div>
-                    {% endif %}
-                    </span>
                 </div>
 
                     <div class="story-title">
@@ -47,9 +31,7 @@
                     </div>
 
                     <div class="authors-name">
-                        <h4> 
                             <a href="/user/{{ author_name[0] }}" class="author-link">by {{ author_name[0] }}</a>
-                        </h4> 
                     </div>
 
                     <div class="story-description">
@@ -63,31 +45,29 @@
                     
 
             </div>
+           
         </div>
         
-        <!-- {% if logged_in %}
-        <div class="bookmark">
-
-            <form id="save_to_library" action="{{ url_for('save_book', book_id=book_details[0]) }}" method="POST">
-                <a id="save_to_library" onclick="document.getElementById('save_to_library').submit();" alt="save to library">
-                    {% if is_in_library %}
-                    <i class="fa-solid fa-bookmark fa-xl"></i>
-                    {% else %}
-                    <i class="far fa-bookmark fa-xl"></i>
-                    {% endif %}
-                </a>
-            </form>
-        </div>
-        {% endif %} -->
-
-
+            {% if logged_in %}
+                    <!-- <div class="bookmark"> -->
+                <form id="save_to_library" action="{{ url_for('save_book', book_id=book_details[0]) }}" method="POST">
+                    <a id="save_to_library" onclick="document.getElementById('save_to_library').submit();" alt="save to library">
+                         {% if is_in_library %}
+                        <i class="fa-solid fa-bookmark fa-2xl"></i>
+                        {% else %}
+                        <i class="far fa-bookmark fa-2xl"></i>
+                        {% endif %}
+                    </a>
+                </form>
+                    <!-- </div> -->
+            {% endif %}
     </div>
 
 
     <div class="overview-bottom-half">
         <div class="table-of-content">
             <div class="story-details">
-                Table of Contents
+                <h4> Table of Contents </h4>
             </div>
 
             <div class="chapter-lst">
