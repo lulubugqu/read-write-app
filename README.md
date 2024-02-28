@@ -17,11 +17,18 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 * Megan Price, price853@umn.edu
 
 ## Key Features
+* Users can write, edit, and delete stories
+* Users can read stories written by other users
+* Users can save stories to their library, and it will be visible on their profile
+* Users can view the profiles of other users, and see the stories that they wrote and saved
+* Users can search for stories by keyword, genre, tags, numnber of chapters, and number of saves
+* The home page features the top 5 books in the U.S by number of saves, as well as a genre spotlight 
 
 **Describe the most challenging features you implemented
 (one sentence per bullet, maximum 4 bullets):**
 
-* ...
+* Search - The search feature includes filters with checkboxes for genre, a textbox component for users to search by tag, as well as sliding modules to search by the number of chapters and number of saves
+* Home Page - The genre spotlight included a random selection component based on a book's genre
 
 ## Testing Notes
 
