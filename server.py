@@ -316,7 +316,7 @@ def updateOverview(book_id):
     if logged_in:
         with get_db_cursor() as cursor:
             cursor.execute("UPDATE books SET title = %s, genre = %s, tags = %s, summary = %s, picture_url = %s WHERE book_id = %s", (book_title, genre, tags, summary, image, book_id))
-    return redirect(url_for('get_user_profile', username=current_user))
+    return redirect(f"/myworks/{book_id}")
 
 @app.route("/myworks/<int:book_id>/<int:chapter_id>", methods=["GET"])
 def editChapter(book_id, chapter_id):
