@@ -31,7 +31,9 @@
                     </div>
 
                     <div class="authors-name">
+                        <h4>
                             <a href="/user/{{ author_name[0] }}" class="author-link">by {{ author_name[0] }}</a>
+                        </h4>
                     </div>
 
                     <div class="story-description">
@@ -49,7 +51,6 @@
         </div>
         
             {% if logged_in %}
-                    <!-- <div class="bookmark"> -->
                 <form id="save_to_library" action="{{ url_for('save_book', book_id=book_details[0]) }}" method="POST">
                     <a id="save_to_library" onclick="document.getElementById('save_to_library').submit();" alt="save to library">
                          {% if is_in_library %}
@@ -59,7 +60,6 @@
                         {% endif %}
                     </a>
                 </form>
-                    <!-- </div> -->
             {% endif %}
     </div>
 
