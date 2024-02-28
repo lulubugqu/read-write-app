@@ -6,7 +6,7 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 
 * Team Name: The Turtles
 * App Name: Turtle Tales
-* App Link: <https://TODO.com/>
+* App Link: [Link to our app!] (https://project-1-the-turtles-wu7g.onrender.com/)
 
 ### Students
 
