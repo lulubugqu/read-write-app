@@ -235,20 +235,22 @@ def getstory(book_id, chapter_num):
 def storydetail(book_id): 
     current_user = get_current_user()
     logged_in = authenticate_user(current_user)
-    book_details = get_book_details(book_id) 
+    book_details = get_book_details(book_id)
+    author_id = book_details[1] 
     if logged_in: 
         with get_db_cursor() as cursor:
             cursor.execute("SELECT library_books FROM users WHERE username = %s", (current_user,))
             library_books = cursor.fetchone()[0]
             library_books = library_books.split(", ")
             is_in_library = str(book_id) in library_books
-            author_id = book_details[1]
             cursor.execute("SELECT username FROM users WHERE user_id = %s", (author_id,))
             author_name = cursor.fetchone()
     else:
         library_books = []
         is_in_library = False
-        author_name = ""
+        with get_db_cursor() as cursor:
+            cursor.execute("SELECT username FROM users WHERE user_id = %s", (author_id,))
+            author_name = cursor.fetchone()
     current_user=get_current_user()
     return render_template("storydetail.html", book_details = book_details, book_id = book_id, logged_in = logged_in, is_in_library = is_in_library, current_user=current_user, author_name=author_name)
 
