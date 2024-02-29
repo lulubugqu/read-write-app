@@ -42,13 +42,27 @@ CSCI 5117, Spring 2024, [assignment description](https://canvas.umn.edu/courses/
 along with a very brief caption:**
 
 <div style="display:flex; flex-wrap:wrap;">
-<img src="/screenshots/Launch.png" alt="Home Page" width="300">
+<img src="/screenshots/Launch.png" alt="Launch Page" width="300">
 </div>
 This is the page the user first sees when they open the application. It provides the user the option to login with their TurtleTales account or continue as a guest.
+
 <div style="display:flex; flex-wrap:wrap;">
 <img src="/screenshots/Home.png" alt="Home Page" width="300">
-This is the home page that the user sees after they login or continue as guest.
 </div>
+This is the home page that the user sees after they login or continue as guest.
+
+
+<div style="display:flex; flex-wrap:wrap;">
+<img src="/screenshots/StoryDetails.png" alt="Story Details Page" width="300">
+</div>
+This is what user sees when they click on a story.
+
+
+<div style="display:flex; flex-wrap:wrap;">
+<img src="/screenshots/Profile.png" alt="Profile Page" width="300">
+</div>
+This is what a user sees when they click on another user profile. 
+
 
 ## Mock-up 
 
